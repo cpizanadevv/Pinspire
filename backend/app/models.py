@@ -50,7 +50,17 @@ class Pin(db.Model):
     boards = db.relationship("Board", secondary=board_pins, back_populates="pins")
     tags = db.relationship("Tag", secondary=pin_tags, back_populates="pins")
 
-  
+    # to_dict methods are for turning 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "img_url": self.img_url,
+            "title": self.title,
+            "description": self.description,
+            "link": self.link
+        }
+
 class Board(db.Model):
     __tablename__= 'boards'
 
@@ -62,6 +72,14 @@ class Board(db.Model):
     user = db.relationship('User', back_populates='boards')
     pins = db.relationship("Pin", secondary=board_pins, back_populates="boards")
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
+            "private": self.private
+        }
+
 class Tag(db.Model):
     __tablename__ = 'tags'
 
@@ -69,3 +87,14 @@ class Tag(db.Model):
     tag = db.Column(db.String(255), nullable=False)
 
     pins = db.relationship("Pin", secondary=pin_tags, back_populates="tags")
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    pin_id = db.Column(db.Integer, ForeignKey('pins.id'), nullable=False)
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    comment = db.Column(db.String(1000), nullable=False)
+
+    user = db.relationship("User", back_populates='comments')
+    pin = db.relationship("Pin", back_populates='comments')
