@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA
 from .user import User
 from .pin import Pin
+from sqlalchemy.schema import ForeignKey
 
 class Comment(db.Model):
     __tablename__ = 'comments'

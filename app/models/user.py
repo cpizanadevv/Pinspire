@@ -1,8 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .board import Board
-from .pins import Pin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -20,14 +18,6 @@ class User(db.Model, UserMixin):
     pins = db.relationship('Pin', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
     boards = db.relationship('Board', back_populates='user')
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "username": self.username,
-            "email": self.email,
-            "hashed_password": self.hashed_password
-        }
 
     @property
     def password(self):

@@ -1,7 +1,7 @@
-from .db import db, environment, SCHEMA
-from .user import User
-from .board import Board
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .relationship import board_pins, pin_tags
+from sqlalchemy.schema import ForeignKey
+from sqlalchemy.schema import ForeignKey
 
 class Pin(db.Model):
     __tablename__ = 'pins'
