@@ -50,7 +50,7 @@ class Pin(db.Model):
     boards = db.relationship("Board", secondary=board_pins, back_populates="pins")
     tags = db.relationship("Tag", secondary=pin_tags, back_populates="pins")
 
-    # to_dict methods are for turning 
+    # to_dict methods are for turning
     def to_dict(self):
         return {
             "id": self.id,
@@ -87,6 +87,12 @@ class Tag(db.Model):
     tag = db.Column(db.String(255), nullable=False)
 
     pins = db.relationship("Pin", secondary=pin_tags, back_populates="tags")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "tag": self.tag
+        }
 
 class Comment(db.Model):
     __tablename__ = 'comments'
