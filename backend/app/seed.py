@@ -1,7 +1,8 @@
-from app import app, db
-from app.models import User, Pin, Board, Tag, Comment  # Import your models
+from app import create_app
+from app.models import db, User, Pin, Board, Tag, Comment
 
-# Ensure the app is initialized before accessing db
+app = create_app()
+
 with app.app_context():
     # Clear existing data (optional)
     db.drop_all()
@@ -35,21 +36,18 @@ with app.app_context():
     db.session.add(board2)
     db.session.commit()  # Commit to ensure boards are added
 
+    # Create and add sample comments
     comment1 = Comment(pin_id=pin1.id, user_id=user1.id, comment='Great tech news!')
     comment2 = Comment(pin_id=pin2.id, user_id=user2.id, comment='Very helpful education tips!')
     db.session.add(comment1)
     db.session.add(comment2)
-
-    # Commit comments
-    db.session.commit()
+    db.session.commit()  # Commit comments
 
     # Add relationships
     pin1.tags.append(tag1)
     pin2.tags.append(tag2)
     board1.pins.append(pin1)
     board2.pins.append(pin2)
-
-    # Commit relationships
-    db.session.commit()
+    db.session.commit()  # Commit relationships
 
 print("Database seeded successfully.")
