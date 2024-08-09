@@ -23,7 +23,6 @@ def seed_pins():
     db.session.add(pin3)
     db.session.commit()
     
-    
 def undo_pins():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.pins RESTART IDENTITY CASCADE;")

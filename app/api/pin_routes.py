@@ -7,9 +7,9 @@ pin_routes = Blueprint('pins', __name__)
 #Get Comments done
 @pin_routes.route('/<int:pin_id>', methods=['GET'])
 def get_pin_comments(pin_id):
-    comments = Comment.query.get.filter(Comment.pin_id.like(pin_id)).all
+    comments = Comment.query.filter(Comment.pin_id == pin_id).all()
     
-    return {'comments': [comment.to_dict() for comment in comments]}
+    return jsonify({'comments': [comment.to_dict() for comment in comments]})
 
 #Create comment
 @pin_routes.route('/<int:pin_id>/new_comment', methods=['POST'])
