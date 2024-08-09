@@ -14,7 +14,7 @@ class Pin(db.Model):
     img_url = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
-    link = db.Column(db.String(255), nullable=False)
+    link = db.Column(db.String(255), nullable=True)
 
     user = db.relationship('User', back_populates='pins')
     comments = db.relationship('Comment', back_populates='pin')
