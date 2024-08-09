@@ -26,6 +26,9 @@ login.login_view = 'auth.unauthorized'
 def load_user(id):
     return User.query.get(int(id))
 
+def load_pins():
+    return Pin.query.get(int(pin_id))
+
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)

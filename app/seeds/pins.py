@@ -33,10 +33,10 @@ def seed_pins():
     imgs = fetch_images_from_pexels()
     
     for img in imgs:
-        user_id = random.randint(1, 10)
+        user_id = random.randint(1, 3)
         img_url = img['src']['medium']
         title = img['alt']
-        description = f'Photo by {img['photographer']}'
+        description = f"Photo by {img['photographer']}"
         link= img['url']
         
         new_pin = Pin(
