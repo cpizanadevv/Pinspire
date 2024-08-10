@@ -1,6 +1,7 @@
 from app.models import db, Pin, Comment
 from flask import jsonify, request, Blueprint
 from flask_login import login_required, current_user
+from app.forms import CommentForm
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -12,38 +13,33 @@ def get_pin_comments(pin_id):
     return jsonify({'comments': [comment.to_dict() for comment in comments]})
 
 #Create comment
-@pin_routes.route('/<int:pin_id>/new_comment', methods=['POST'])
+@pin_routes.route('/<int:pin_id>/new-comment', methods=['POST'])
 @login_required
 def create_pin_comment(pin_id):
-    form=''
+    form=CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_comment = Comment(
-            user_id = current_user,
+            user_id = current_user.id,
             pin_id=pin_id,
             comment =  form.data['comment']
         )
         db.session.add(new_comment)
         db.session.commit()
     
-    
-    
-    return {'comments': [comment.to_dict() for comment in comments]}
+    return new_comment.to_dict()
 
 #Update comment
 @pin_routes.route('/<int:pin_id>/<int:comment_id>', methods=['POST'])
 @login_required
 def update_pin_comment(comment_id):
-    form=''
+    form=CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     curr_comment = Comment.query.filter(Comment.id.like(comment_id))
     if form.validate_on_submit():
         
         curr_comment.comment= form.data['comment']
         db.session.commit()
-    
-    
-    
     
     return {'comments': [comment.to_dict() for comment in comments]}
 
