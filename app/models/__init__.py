@@ -6,3 +6,4 @@ from .pin import Pin
 from .comment import Comment
 from .tag import Tag
 from .relationship import board_pins, pin_tags
+from .favorite import Favorite

@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     pins = db.relationship('Pin', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
     boards = db.relationship('Board', back_populates='user')
+    favorites = db.relationship('Favorite', back_populates='user')
 
     @property
     def password(self):
