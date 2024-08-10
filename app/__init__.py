@@ -4,13 +4,14 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User, Board, Pin, Comment, Tag
+from .models import db, User, Board, Pin, Comment, Tag, Favorite
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.board_routes import board_routes
 from .api.pin_routes import pin_routes
 from .api.tag_routes import tag_routes
 from .api.comment_routes import comment_routes
+from .api.favorite_routes import favorite_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -37,6 +38,7 @@ app.register_blueprint(board_routes, url_prefix='/api/boards')
 app.register_blueprint(pin_routes, url_prefix='/api/pins')
 app.register_blueprint(tag_routes, url_prefix='/api/tags')
 app.register_blueprint(comment_routes, url_prefix='api/comments')
+app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
 db.init_app(app)
 Migrate(app, db)
 
