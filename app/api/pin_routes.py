@@ -35,10 +35,8 @@ def create_pin_comment(pin_id):
 def update_pin_comment(pin_id,comment_id):
     form=CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("THIS IS COMMENT ID", comment_id)
     curr_comment = Comment.query.filter(Comment.id == comment_id).one()
     if form.validate_on_submit():
-        print("THIS IS CURR COMMENT",curr_comment.user_id)
         if curr_comment and current_user.id == curr_comment.user_id:
             curr_comment.comment= form.data['comment']
             db.session.commit()
@@ -51,8 +49,7 @@ def update_pin_comment(pin_id,comment_id):
 @pin_routes.route('/<int:pin_id>/<int:comment_id>', methods=['DELETE'])
 @login_required
 def delete_pin_comment(pin_id,comment_id):
-    
-    curr_comment = Comment.query.filter(Comment.id.like(comment_id)).one()
+    curr_comment = Comment.query.filter(Comment.id == comment_id).one()
     if curr_comment and current_user.id == curr_comment.user_id:
         db.session.delete(curr_comment)
         db.session.commit()
