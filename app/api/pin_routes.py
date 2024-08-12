@@ -5,14 +5,14 @@ from app.forms import CommentForm
 
 pin_routes = Blueprint('pins', __name__)
 
-#Get Comments for pin done
+#Get Comments for pin
 @pin_routes.route('/<int:pin_id>', methods=['GET'])
 def get_pin_comments(pin_id):
     comments = Comment.query.filter(Comment.pin_id == pin_id).all()
     
     return jsonify({'comments': [comment.to_dict() for comment in comments]})
 
-#Create comment on a pin done
+#Create comment on a pin
 @pin_routes.route('/<int:pin_id>/new-comment', methods=['POST'])
 @login_required
 def create_pin_comment(pin_id):
@@ -29,7 +29,7 @@ def create_pin_comment(pin_id):
     
     return new_comment.to_dict()
 
-#Update comment on a pin done
+#Update comment on a pin
 @pin_routes.route('/<int:pin_id>/<int:comment_id>', methods=['PUT'])
 @login_required
 def update_pin_comment(pin_id,comment_id):
@@ -45,7 +45,7 @@ def update_pin_comment(pin_id,comment_id):
             return {'error': 'Comment not found!'},404
 
 
-#Delete Comment on a pin done
+#Delete Comment on a pin
 @pin_routes.route('/<int:pin_id>/<int:comment_id>', methods=['DELETE'])
 @login_required
 def delete_pin_comment(pin_id,comment_id):
