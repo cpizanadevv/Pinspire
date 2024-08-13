@@ -6,6 +6,8 @@ from app.models import db, Pin, environment, SCHEMA
 # Gets key from .env
 PEXELS_API_KEY = os.environ.get('PEXELS_API_KEY')
 
+print('PEXELS_API_KEY:', os.getenv('PEXELS_API_KEY'))
+
 for key, value in os.environ.items():
     print(f'{key}: {value}')
 
@@ -37,6 +39,7 @@ def fetch_images_from_pexels(query,per_page):
     # else:
     #     print(f"Error fetching images: {res.status_code}")
     #     return []
+
     if res.status_code == 401:
         print(f"Unauthorized access. Please check your Pexels API key.")
     elif res.status_code == 200:
@@ -88,5 +91,3 @@ def undo_pins():
         db.session.execute("DELETE FROM pins")
 
     db.session.commit()
-
-print('PEXELS_API_KEY:', os.getenv('PEXELS_API_KEY'))
