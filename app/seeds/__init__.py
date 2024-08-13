@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .pins import seed_pins, undo_pins
 from .comments import seed_comments, undo_comments
 from .boards import seed_boards, undo_boards
+# from .favorites import seed_favorites, undo_favorites
 
 from app.models.db import db, environment, SCHEMA
 
@@ -27,6 +28,7 @@ def seed():
     seed_pins()
     seed_comments()
     seed_boards()
+    # seed_favorites()
     # Add other seed functions here
 
 
