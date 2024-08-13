@@ -6,6 +6,9 @@ from app.models import db, Pin, environment, SCHEMA
 # Gets key from .env
 PEXELS_API_KEY = os.environ.get('PEXELS_API_KEY')
 
+if not PEXELS_API_KEY:
+    raise ValueError("PEXELS_API_KEY environment variable not set")
+
 PEXELS_API_URL = 'https://api.pexels.com/v1/search'
 
 def fetch_images_from_pexels(query,per_page):
@@ -24,14 +27,21 @@ def fetch_images_from_pexels(query,per_page):
     # remaining_requests = res.headers.get('X-Ratelimit-Remaining')
     # print(f"Remaining Pexels API requests: {remaining_requests}")
 
-    if res.status_code == 200:
-        #This parses the response, and keys into the photos
-        # photos is an array of photo obj
-        return res.json()['photos']
+    # if res.status_code == 200:
+    #     #This parses the response, and keys into the photos
+    #     # photos is an array of photo obj
+    #     return res.json()['photos']
+    # else:
+    #     print(f"Error fetching images: {res.status_code}")
+    #     return []
+    if res.status_code == 401:
+        print(f"Unauthorized access. Please check your Pexels API key.")
+    elif res.status_code == 200:
+        return res.json().get('photos', [])
     else:
         print(f"Error fetching images: {res.status_code}")
-        return []
 
+    return []
 
 def seed_pins():
     #*Each fetch is considered 1 request on the api side
