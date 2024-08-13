@@ -58,7 +58,15 @@ def sign_up():
             email=form.data['email'],
             password=form.data['password']
         )
+
+        board = Board(
+            name='All Pins',
+            user_id=user.id,
+            private=True
+        )
+
         db.session.add(user)
+        db.session.add(board)
         db.session.commit()
         login_user(user)
         return user.to_dict()
