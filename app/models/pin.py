@@ -17,8 +17,8 @@ class Pin(db.Model):
 
     user = db.relationship('User', back_populates='pins')
     comments = db.relationship('Comment', back_populates='pins')
-    boards = db.relationship('Pin', secondary=board_pins, back_populates='pins')
-    tags = db.relationship('Pin', secondary=pin_tags, back_populates='pins')
+    boards = db.relationship('Board', secondary=board_pins, back_populates='pins')
+    tags = db.relationship('Tag', secondary=pin_tags, back_populates='pins')
     favorites = db.relationship('Favorite', back_populates='pins')
 
     def to_dict(self):
