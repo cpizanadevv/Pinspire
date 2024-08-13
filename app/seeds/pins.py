@@ -6,6 +6,9 @@ from app.models import db, Pin, environment, SCHEMA
 # Gets key from .env
 PEXELS_API_KEY = os.environ.get('PEXELS_API_KEY')
 
+for key, value in os.environ.items():
+    print(f'{key}: {value}')
+
 if not PEXELS_API_KEY:
     raise ValueError("PEXELS_API_KEY environment variable not set")
 
