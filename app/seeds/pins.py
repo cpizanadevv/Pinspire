@@ -88,3 +88,5 @@ def undo_pins():
         db.session.execute("DELETE FROM pins")
 
     db.session.commit()
+
+print('PEXELS_API_KEY:', os.getenv('PEXELS_API_KEY'))
