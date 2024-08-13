@@ -14,6 +14,7 @@ from .api.comment_routes import comment_routes
 from .api.favorite_routes import favorite_routes
 from .seeds import seed_commands
 from .config import Config
+from flask_cors import CORS
 
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
@@ -45,7 +46,7 @@ db.init_app(app)
 Migrate(app, db)
 
 # Application Security
-CORS(app)
+CORS(app, supports_credentials=True)
 
 
 # Since we are deploying with Docker and Flask,
@@ -102,3 +103,16 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+#route to hand file upload for AWS
+@app.route('/api/pins/upload', methods=['POST'])
+def upload_file():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['image']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    # Process the file (save to disk, upload to S3, etc.)
+    # Return the URL or path of the uploaded file
+    return jsonify({'url': 'http://example.com/uploaded_image_url'}), 200
+

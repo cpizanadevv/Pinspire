@@ -1,7 +1,11 @@
 from app.models import db, Pin, board_pins, Comment
 from flask import jsonify, request, Blueprint
 from flask_login import login_required, current_user
-from app.forms import CommentForm
+from app.forms import CommentForm, PinForm
+from app.api.aws_utils import upload_file_to_s3, get_unique_filename, ALLOWED_EXTENSIONS
+
+from werkzeug.utils import secure_filename
+import os
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -17,39 +21,79 @@ def get_single_pin(pin_id):
 
     if pin:
         return jsonify(pin.to_dict())
-    else: 
+    else:
         return ({"message": "Pin not found"})
-    
+
+# @pin_routes.route("/new", methods=["POST"])
+# @login_required
+# def create_pin():
+#     data = request.get_json()
+
+#     user_id = current_user.id
+#     # user_id = data.get("user_id")
+#     img_url = data.get("img_url")
+#     title = data.get("title")
+#     description = data.get('description')
+#     link = data.get('link')
+#     # board_id = data.get('board_id')  # If board is chosen
+
+#     new_pin = Pin(
+#         user_id = user_id,
+#         img_url = img_url,
+#         title = title,
+#         description = description,
+#         link = link
+#     )
+
+#     db.session.add(new_pin)
+#     db.session.commit()
+
+#     # if board_id:
+#     #     board_pin = board_pins(pin_id=new_pin.id, board_id=board_id)
+#     #     db.session.add(board_pin)
+#     #     db.session.commit()
+
+#     return jsonify(new_pin.to_dict())
+
 @pin_routes.route("/new", methods=["POST"])
 @login_required
 def create_pin():
-    data = request.get_json()
+    form = PinForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if 'image' not in request.files:
+        return jsonify({"errors": "No file part"}), 400
 
-    user_id = current_user.id
-    # user_id = data.get("user_id")
-    img_url = data.get("img_url")
-    title = data.get("title")
-    description = data.get('description')
-    link = data.get('link')
-    # board_id = data.get('board_id')  # If board is chosen
+    file = request.files['image']
+    if file.filename == '':
+        return jsonify({"errors": "No selected file"}), 400
+
+    if file and '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+        file.filename = get_unique_filename(file.filename)
+        upload = upload_file_to_s3(file)
+
+        if "url" not in upload:
+            return jsonify(upload), 400
+
+        img_url = upload["url"]
+    else:
+        return jsonify({"errors": "File type not allowed"}), 400
+
+    title = request.form.get("title")
+    description = request.form.get('description')
+    link = request.form.get('link')
 
     new_pin = Pin(
-        user_id = user_id,
-        img_url = img_url,
-        title = title,
-        description = description,
-        link = link
+        user_id=current_user.id,
+        img_url=img_url,
+        title=title,
+        description=description,
+        link=link
     )
 
     db.session.add(new_pin)
     db.session.commit()
 
-    # if board_id:
-    #     board_pin = board_pins(pin_id=new_pin.id, board_id=board_id)
-    #     db.session.add(board_pin)
-    #     db.session.commit()
-
-    return jsonify(new_pin.to_dict())
+    return jsonify(new_pin.to_dict()), 201
 
 
 @pin_routes.route("/<int:pin_id>", methods=["PUT"])
@@ -86,7 +130,7 @@ def delete_pin(pin_id):
 @pin_routes.route('/<int:pin_id>', methods=['GET'])
 def get_pin_comments(pin_id):
     comments = Comment.query.filter(Comment.pin_id == pin_id).all()
-    
+
     return jsonify({'comments': [comment.to_dict() for comment in comments]})
 
 #Create comment on a pin
@@ -103,7 +147,7 @@ def create_pin_comment(pin_id):
         )
         db.session.add(new_comment)
         db.session.commit()
-    
+
     return new_comment.to_dict()
 
 #Update comment on a pin
@@ -133,3 +177,33 @@ def delete_pin_comment(pin_id,comment_id):
         return "Comment has been deleted"
     else:
         return {'error': 'Comment not found'}, 404
+
+
+# New route for image upload
+@pin_routes.route("/upload", methods=["POST"])
+@login_required
+def upload_image():
+    form = PinForm()
+    if 'image' not in request.files:
+        return jsonify({"errors": "No file part"}), 400
+
+    file = request.files['image']
+
+    if file.filename == '':
+        return jsonify({"errors": "No selected file"}), 400
+
+    if file and '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+        file.filename = get_unique_filename(file.filename)
+        upload = upload_file_to_s3(file)
+
+        if "url" not in upload:
+            return jsonify(upload), 400
+
+        url = upload["url"]
+        new_pin = Pin(user_id=current_user.id, img_url=url)
+        db.session.add(new_pin)
+        db.session.commit()
+
+        return jsonify({"url": url}), 201
+
+    return jsonify({"errors": "File type not allowed"}), 400
