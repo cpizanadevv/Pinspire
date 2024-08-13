@@ -5,7 +5,7 @@ import uuid
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import SubmitField
-from app.routes.aws_helpers import ALLOWED_EXTENSIONS
+# from app.routes.aws_helpers import ALLOWED_EXTENSIONS
 
 #instance of s3 passing env variables
 s3 = boto3.client(
