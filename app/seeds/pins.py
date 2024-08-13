@@ -36,36 +36,20 @@ def fetch_images_from_pexels(query,per_page):
 def seed_pins():
     #*Each fetch is considered 1 request on the api side
     # All fetch requests, 50 imgs per query
-    nature_imgs = fetch_images_from_pexels('nature',50)
-    animals_imgs = fetch_images_from_pexels('animals',50)
-    technology_imgs = fetch_images_from_pexels('technology',50)
-    programming_imgs = fetch_images_from_pexels('programming',50)
-    food_imgs = fetch_images_from_pexels('food',50)
-    travel_imgs = fetch_images_from_pexels('travel',50)
-    fashion_imgs = fetch_images_from_pexels('fashion',50)
-    architecture_imgs = fetch_images_from_pexels('architecture',50)
-    people_imgs = fetch_images_from_pexels('people',50)
-    sports_imgs = fetch_images_from_pexels('sports',50)
-    music_imgs = fetch_images_from_pexels('music',50)
-    art_imgs = fetch_images_from_pexels('art',50)
-    cities_imgs = fetch_images_from_pexels('cities',50)
-    landscape_imgs = fetch_images_from_pexels('landscape',50)
-    interior_imgs = fetch_images_from_pexels('interior design',50)
-    crochet_imgs = fetch_images_from_pexels('crochet design',50)
-    plants_imgs = fetch_images_from_pexels('plants',50)
-    fantasy_imgs = fetch_images_from_pexels('fantasy',50)
-    game_imgs = fetch_images_from_pexels('gaming',50)
-    medieval_imgs = fetch_images_from_pexels('medieval',50)
-    castles_imgs = fetch_images_from_pexels('castles',50)
-    movies_imgs = fetch_images_from_pexels('movies',50)
-    disney_imgs = fetch_images_from_pexels('disney',50)
+    categories = [
+        'nature', 'animals', 'technology', 'programming', 'food', 'travel',
+        'fashion', 'architecture', 'people', 'sports', 'music', 'art', 'cities',
+        'landscape', 'interior design', 'crochet design', 'plants', 'fantasy',
+        'gaming', 'medieval', 'castles', 'movies', 'disney'
+    ]
 
-    # combining all imgs into one array
-    imgs = nature_imgs,animals_imgs+technology_imgs+programming_imgs+food_imgs+travel_imgs+fashion_imgs+architecture_imgs+people_imgs+sports_imgs+music_imgs+art_imgs+cities_imgs+landscape_imgs+interior_imgs+crochet_imgs+plants_imgs+fantasy_imgs+game_imgs+medieval_imgs+castles_imgs+movies_imgs+disney_imgs
+    all_imgs = []
 
+    for category in categories:
+        all_imgs.extend(fetch_images_from_pexels(category, 50))
 
     # Looping through the array to create pins
-    for img in imgs:
+    for img in all_imgs:
         user_id = random.randint(1, 3)
         img_url = img['src']['large']
         title = img['alt']
