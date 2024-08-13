@@ -1,7 +1,7 @@
-from app.models import db, Pin, board_pins, Comment
+from app.models import db, Pin, board_pins, Comment, Tag, pin_tags
 from flask import jsonify, request, Blueprint
 from flask_login import login_required, current_user
-from app.forms import CommentForm
+from app.forms import CommentForm, TagForm
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -133,3 +133,43 @@ def delete_pin_comment(pin_id,comment_id):
         return "Comment has been deleted"
     else:
         return {'error': 'Comment not found'}, 404
+    
+#Add tag to pin
+@pin_routes.route('/<int:pin_id>/add-tag')
+@login_required
+def add_tag(pin_id):
+    form = TagForm
+    form['csrf_token'].data = request.cookies['csrf_token']
+    curr_pin = Pin.query.filter(Pin.id == pin_id).one()
+    
+    
+    if form.validate_on_submit():
+        if curr_pin and current_user.id == curr_pin.user_id:
+            
+            new_tag = Tag(
+                pin_id = pin_id,
+                tag = form.data['tag']
+            )
+            db.session.add(new_tag)
+            db.commit()
+    else:
+        return {'error': 'Comment not found'}, 404
+#Add pin + tag to joint table 
+@pin_routes.route('/<int:pin_id>/add-tag')
+@login_required
+def add_tag(pin_id):
+    curr_pin = Pin.query.filter(Pin.id == pin_id).one()
+    all_tags = Tag.query.filter(Pin.id == pin_id).all()
+    
+    if form.validate_on_submit():
+        if curr_pin and current_user.id == curr_pin.user_id:
+            
+            new_tag = Tag(
+                pin_id = pin_id,
+                tag = form.data['tag']
+            )
+            db.session.add(new_tag)
+            db.commit()
+    else:
+        return {'error': 'Comment not found'}, 404
+    
