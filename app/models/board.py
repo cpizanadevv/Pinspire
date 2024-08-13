@@ -15,7 +15,7 @@ class Board(db.Model):
     private = db.Column(db.Boolean, nullable=False)
 
     user = db.relationship('User', back_populates='boards')
-    pins = db.relationship('Board', secondary=board_pins, back_populates='boards')
+    pins = db.relationship('Pin', secondary=board_pins, back_populates='boards')
 
     def to_dict(self):
         return {
