@@ -1,6 +1,7 @@
 from app.models import db, Board
 from flask import jsonify, request, Blueprint, abort
 from flask_login import login_required, current_user
+from app.forms import BoardForm
 
 board_routes = Blueprint('boards', __name__)
 
@@ -28,52 +29,47 @@ def get_boards_by_id(board_id):
 @login_required
 def post_board():
     data = request.get_json()
-    name = data.get('name')
-    private = data.get('private')
-    user_id = current_user.id
+    form = BoardForm(data=data)
 
-    errors = {}
+    if form.validate():
+        name = form.name.data
+        private = form.private.data
+        user_id = current_user.id
 
-    if not name:
-        errors['name'] = "Name cannot be empty"
-    if not isinstance(private, bool):
-        errors['private'] = "Private needs to be a boolean"
+        new_board = Board(name=name, user_id=user_id, private=private)
 
-    if errors:
+        db.session.add(new_board)
+        db.session.commit()
+
+        return jsonify(new_board.to_dict()), 201
+    else:
+        errors = form.errors
         return jsonify({"errors": errors}), 400
-
-
-    new_board = Board(name=name, user_id=user_id, private=private)
-
-    db.session.add(new_board)
-    db.session.commit()
-
-    return jsonify(new_board.to_dict()), 201
 
 @board_routes.route('/<int:board_id>', methods=['PUT'])
 @login_required
 def edit_board_by_id(board_id):
     data = request.get_json()
-    name = data.get('name')
-    description = data.get('description')
-    private = data.get('private')
+    form = BoardForm(data=data)
 
-    board_to_edit = Board.query.get(board_id)
-    board_to_edit.name = name
-    board_to_edit.description = description
-    board_to_edit.private = private
+    if form.validate():
+        board_to_edit = Board.query.get(board_id)
 
-    user = current_user
+        if not board_to_edit:
+            return jsonify({"error": "no board found"}), 404
+        if board_to_edit.user_id != current_user.id:
+            return jsonify({"error": "unauthorized"}), 403
 
+        board_to_edit.name = form.name.data
+        board_to_edit.private = form.private.data
 
-    db.session.commit()
+        if 'description' in data:
+            board_to_edit.description = data['description']
 
-    return jsonify({
-        "message": "successfully",
-        "board": board_to_edit.to_dict()
-        })
-
-
+        db.session.commit()
+        return jsonify({
+            "message": "board changes successful",
+            "board": board_to_edit.to_dict()}), 200
 
 @board_routes.route('/<int:board_id>', methods=['DELETE'])
 @login_required
