@@ -12,7 +12,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String(255), nullable=False)
 
-    pins = db.relationship("Pin", secondary=pin_tags, back_populates="tags")
+    pins = db.relationship("Tag", secondary=pin_tags, back_populates="tags")
 
     def to_dict(self):
         return {
