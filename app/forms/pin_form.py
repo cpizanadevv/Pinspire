@@ -28,10 +28,10 @@ class PinForm(FlaskForm):
         "Link",
         validators=[Optional(), URL()]
     )
-    board_id = IntegerField(
-        'Board ID',
-        validators=[Optional()]
-    )
+    # board_id = IntegerField(
+    #     'Board ID',
+    #     validators=[Optional()]
+    # )
     submit = SubmitField("Create Pin")
 
 
