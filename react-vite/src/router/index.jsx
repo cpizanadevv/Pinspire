@@ -3,6 +3,7 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import FileUpload from '../components/FileUpload/FileUpload';
 import Layout from './Layout';
+import EditPin from '../components/EditPin/EditPin';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ export const router = createBrowserRouter([
         path: "upload",
         element: <FileUpload />,
       },
+      {
+        path: "pins/:pinId/edit",
+        element: <EditPin />,
+      },
+      
     ],
   },
 ]);

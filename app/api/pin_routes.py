@@ -96,36 +96,48 @@ def create_pin():
     return jsonify(new_pin.to_dict()), 201
 
 
-@pin_routes.route("/<int:pin_id>", methods=["PUT"])
+@pin_routes.route("/<int:pin_id>/edit", methods=["PUT"])
 @login_required
 def edit_pin(pin_id):
-    pin_to_edit = Pin.query.get(pin_id)
 
-    data = request.get_json()
-    title = data.get("title")
-    description = data.get("description")
-    link = data.get("link")
+    form = PinForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    pin_to_edit.title = title
-    pin_to_edit.description = description
-    pin_to_edit.link = link
+    if form.validate_on_submit():
+        pin_to_edit = Pin.query.get(pin_id)
 
-    db.session.commit()
+        if not pin_to_edit:
+            return jsonify({"error": "Pin not found"}), 404
+        
+        if pin_to_edit.user_id != current_user.id:
+            return jsonify({"error": "Unauthorized"}), 403
 
-    return jsonify({
-        "message": f"Successfully changed pin {pin_id}",
-        "pin": pin_to_edit.to_dict()
-    })
+        pin_to_edit.img_url = form.data['image']
+        pin_to_edit.title = form.data['title']
+        pin_to_edit.description = form.data["description"]
+        pin_to_edit.link = form.data["link"]
+
+        db.session.commit()
+
+        return jsonify(pin_to_edit.to_dict())
+    return form.errors, 400
 
 @pin_routes.route("/<int:pin_id>", methods=["DELETE"])
 @login_required
 def delete_pin(pin_id):
     pin_to_delete = Pin.query.get(pin_id)
 
+    if not pin_to_delete:
+        return jsonify({"error": "Pin not found"}), 404
+    
+    if pin_to_delete.user_id != current_user.id:
+        return jsonify({"error": "Unauthorized"}), 403
+
     db.session.delete(pin_to_delete)
     db.session.commit()
 
-    return jsonify({"message": f"pin with id {pin_id} successfully deleted"})
+    return jsonify({"message": f"Pin with id {pin_id} successfully deleted"})
+
 #Get Comments for pin
 @pin_routes.route('/<int:pin_id>', methods=['GET'])
 def get_pin_comments(pin_id):
