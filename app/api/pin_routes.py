@@ -60,6 +60,7 @@ def get_single_pin(pin_id):
 def create_pin():
     form = PinForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if 'image' not in request.files:
         return jsonify({"errors": "No file part"}), 400
 
@@ -93,6 +94,15 @@ def create_pin():
     db.session.add(new_pin)
     db.session.commit()
 
+    board_id = request.form.get('board_id')
+    if board_id:
+        board = Board.query.get(board_id)
+        if board:
+            board.pins.append(new_pin)
+            db.session.commit()
+        else:
+            return jsonify({"errors": "Board not found"}), 404
+
     return jsonify(new_pin.to_dict()), 201
 
 
@@ -110,7 +120,14 @@ def edit_pin(pin_id):
     pin_to_edit.description = description
     pin_to_edit.link = link
 
-    db.session.commit()
+    board_id = data.get('board_id')
+    if board_id:
+        board = Board.query.get(board_id)
+        if board:
+            board.pins.append(new_pin)
+            db.session.commit()
+        else:
+            return jsonify({"errors": "Board not found"})
 
     return jsonify({
         "message": f"Successfully changed pin {pin_id}",

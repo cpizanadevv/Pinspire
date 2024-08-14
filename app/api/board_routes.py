@@ -1,7 +1,8 @@
-from app.models import db, Board
+from app.models import db, Board, Pin, board_pins
 from flask import jsonify, request, Blueprint, abort
 from flask_login import login_required, current_user
 from app.forms import BoardForm
+from app.forms import PinForm
 
 board_routes = Blueprint('boards', __name__)
 
@@ -97,3 +98,64 @@ def get_pins_by_board_id(board_id):
         return jsonify({"error": "no pins found for that board"})
 
     return jsonify({"Pins": pins})
+
+@board_routes.route('/<int:board_id>/pins/<int:pin_id>', methods=['GET'])
+def get_pin_that_belong_to_board(board_id, pin_id):
+    board = Board.query.get(board_id)
+    pin = Pin.query.get(pin_id)
+
+    if not board:
+        return jsonify({"error": "no board found"}), 404
+
+    if not pin:
+        return jsonify({"error": "pin not found"}), 404
+
+    existing_association = db.session.query(board_pins).filter_by(board_id=board_id, pin_id=pin_id).first()
+
+    if not existing_association:
+        return jsonify({"message": "Pin not associated with this board"}), 400
+
+    return jsonify(pin.to_dict())
+
+@board_routes.route('/board/<int:board_id>/pins/<int:pin_id>', methods=['POST'])
+def add_pin_to_board(board_id, pin_id):
+    board = Board.query.get(board_id)
+    pin = Pin.query.get(pin_id)
+
+    if not board:
+        return jsonify({"message": "Board not found"}), 404
+
+    if not pin:
+        return jsonify({"message": "Pin not found"}), 404
+
+
+    existing_association = db.session.query(board_pins).filter_by(board_id=board_id, pin_id=pin_id).first()
+
+    if existing_association:
+        return jsonify({"message": "Pin already associated with this board"}), 400
+
+
+    board.pins.append(pin)
+    db.session.commit()
+
+    return jsonify({"message": "Pin added to board successfully"}), 200
+
+@board_routes.route('/<int:board_id>/pins/<int:pin_id>', methods=['DELETE'])
+def delete_pins_from_board(board_id):
+    board = Board.query.get(board_id)
+    pin = Pin.query.get(pin_id)
+
+    if not board:
+        return jsonify({"error": "no board found"})
+    if not pin:
+        return jsonify({"error": "pin not found"})
+
+    existing_association = db.session.query(board_pins).filter_by(board_id=board_id, pin_id=pin_id).first()
+
+    if not existing_association:
+        return jsonify({"message": "Pin not associated with this board"}), 400
+
+    board.pins.remove(pin)
+    db.session.commit()
+
+    return jsonify({"message": "Pin removed from board successfully"}), 200
