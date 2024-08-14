@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle,FaAngleDown } from 'react-icons/fa';
+import { NavLink } from "react-router-dom";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -41,34 +42,36 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
-      </button>
-      {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
+      {user ? (
+        <div className="profile-menu">
+          <NavLink ><FaUserCircle /></NavLink>
+            
+          <button onClick={toggleMenu}>
+            <FaAngleDown/>
+          </button>
+          {showMenu && (
+            <ul className="profile-dropdown" ref={ulRef}>
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
+            </ul>
           )}
-        </ul>
+        </div>
+      ) : (
+        <div className="auth-buttons">
+          <OpenModalMenuItem
+            itemText="Log In"
+            onItemClick={() => {}}
+            modalComponent={<LoginFormModal />}
+          />
+          <OpenModalMenuItem
+            itemText="Sign Up"
+            onItemClick={() => {}}
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
       )}
     </>
   );
