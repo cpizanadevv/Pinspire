@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
+from wtforms import StringField, TextAreaField, SubmitField, IntegerField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import DataRequired, URL, Optional
 from app.api.aws_utils import ALLOWED_EXTENSIONS
@@ -24,10 +24,14 @@ class PinForm(FlaskForm):
         "Link",
         validators=[Optional(), URL()]
     )
+    board_id = IntegerField(
+        'Board ID',
+        validators=[Optional()]
+    )
     submit = SubmitField("Create Pin")
-    
-   
-  
+
+
+
     # from wtforms import StringField, TextAreaField
 # from wtforms.validators import DataRequired, URL
 
