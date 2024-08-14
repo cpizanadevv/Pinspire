@@ -3,7 +3,7 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import FileUpload from '../components/FileUpload/FileUpload';
 import Layout from './Layout';
-
+import Profile from '../components/Profile/ProfilePage'
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -24,6 +24,10 @@ export const router = createBrowserRouter([
         path: "upload",
         element: <FileUpload />,
       },
+      {
+        path:"/profile",
+        element: <Profile />
+      }
     ],
   },
 ]);
