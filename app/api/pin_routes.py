@@ -162,7 +162,7 @@ def add_tag(pin_id):
             
             
 #Add pin + tag to joint table 
-@pin_routes.route('/<int:pin_id>/add-tag/<int:tag_id>')
+@pin_routes.route('/<int:pin_id>/<int:tag_id>/add-pin-tag')
 @login_required
 def add_pin_tag(pin_id,tag_id):
     curr_pin = Pin.query.filter(Pin.id == pin_id).one_or_none()
@@ -218,4 +218,4 @@ def delete_pin_tag(pin_id,tag_id):
 
     db.session.delete(pin_tag_to_delete)
     db.session.commit()
-    return "Tag/PinTag has been deleted"
+    return "Tag/Pin-Tag has been deleted"
