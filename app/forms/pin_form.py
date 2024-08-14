@@ -28,10 +28,14 @@ class PinForm(FlaskForm):
         "Link",
         validators=[Optional(), URL()]
     )
+    board_id = IntegerField(
+        'Board ID',
+        validators=[Optional()]
+    )
     submit = SubmitField("Create Pin")
-    
-   
-  
+
+
+
     # from wtforms import StringField, TextAreaField
 # from wtforms.validators import DataRequired, URL
 
