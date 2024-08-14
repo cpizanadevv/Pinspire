@@ -5,6 +5,7 @@ import FileUpload from '../components/FileUpload/FileUpload';
 import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
+import LandingPage from '../components/LandingPage'
 
 export const router = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage/>,
       },
       {
         path: "login",
