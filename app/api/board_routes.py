@@ -117,7 +117,7 @@ def get_pin_that_belong_to_board(board_id, pin_id):
 
     return jsonify(pin.to_dict())
 
-@board_routes.route('/board/<int:board_id>/pin/<int:pin_id>', methods=['POST'])
+@board_routes.route('/board/<int:board_id>/pins/<int:pin_id>', methods=['POST'])
 def add_pin_to_board(board_id, pin_id):
     board = Board.query.get(board_id)
     pin = Pin.query.get(pin_id)

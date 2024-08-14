@@ -120,15 +120,14 @@ def edit_pin(pin_id):
     pin_to_edit.description = description
     pin_to_edit.link = link
 
+    board_id = data.get('board_id')
     if board_id:
         board = Board.query.get(board_id)
-        if not board:
-            return jsonify({"error": "Board not found"}), 404
-
-        if pin_to_edit not in board.pins:
-            board.pins.append(pin_to_edit)
-            
-    db.session.commit()
+        if board:
+            board.pins.append(new_pin)
+            db.session.commit()
+        else:
+            return jsonify({"errors": "Board not found"})
 
     return jsonify({
         "message": f"Successfully changed pin {pin_id}",
