@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA
 from .pin import Pin
 from .relationship import pin_tags
 
-class Tag(db.Model):
+class TagForm(db.Model):
     __tablename__ = 'tags'
 
     id = db.Column(db.Integer, primary_key=True)
