@@ -94,14 +94,14 @@ def create_pin():
     db.session.add(new_pin)
     db.session.commit()
 
-    board_id = request.form.get('board_id')
-    if board_id:
-        board = Board.query.get(board_id)
-        if board:
-            board.pins.append(new_pin)
-            db.session.commit()
-        else:
-            return jsonify({"errors": "Board not found"}), 404
+    # board_id = request.form.get('board_id')
+    # if board_id:
+    #     board = Board.query.get(board_id)
+    #     if board:
+    #         board.pins.append(new_pin)
+    #         db.session.commit()
+    #     else:
+    #         return jsonify({"errors": "Board not found"}), 404
 
     return jsonify(new_pin.to_dict()), 201
 
