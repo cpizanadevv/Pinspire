@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
         element: <PutBoard />
       },
       {
-        path:"/pins/:keyword",
+        path: "/pins/:keyword",
         element: <SearchPins />
       },
     ],
