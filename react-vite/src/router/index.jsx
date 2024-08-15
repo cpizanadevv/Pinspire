@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         element: <EditPin />,
       },
       {
-        path: "/profile",
+        path: "/:userId",
         element: <Profile />
       },
       {
