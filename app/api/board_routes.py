@@ -25,7 +25,10 @@ def get_boards_by_id(board_id):
     if not board:
         return jsonify({"error": "no board found"})
 
-    return jsonify(board.to_dict())
+    board_data = board.to_dict()
+    board_data['pins'] = [pin.to_dict() for pin in board.pins]
+
+    return jsonify(board_data)
 
 @board_routes.route('/create', methods=['POST'])
 @login_required
@@ -127,7 +130,7 @@ def get_pin_that_belong_to_board(board_id, pin_id):
 
     return jsonify(pin.to_dict())
 
-@board_routes.route('/board/<int:board_id>/pins/<int:pin_id>', methods=['POST'])
+@board_routes.route('/<int:board_id>/pins/<int:pin_id>/create', methods=['POST'])
 def add_pin_to_board(board_id, pin_id):
     board = Board.query.get(board_id)
     pin = Pin.query.get(pin_id)
@@ -148,24 +151,26 @@ def add_pin_to_board(board_id, pin_id):
     board.pins.append(pin)
     db.session.commit()
 
-    return jsonify({"message": "Pin added to board successfully"}), 200
+    return jsonify(pin.to_dict()), 200
 
-@board_routes.route('/<int:board_id>/pins/<int:pin_id>', methods=['DELETE'])
-def delete_pins_from_board(board_id):
+@board_routes.route('/<int:board_id>/pins/<int:pin_id>/delete', methods=['DELETE'])
+def delete_pins_from_board(board_id, pin_id):
     board = Board.query.get(board_id)
     pin = Pin.query.get(pin_id)
 
     if not board:
-        return jsonify({"error": "no board found"})
+        return jsonify({"error": "Board not found"}), 404
     if not pin:
-        return jsonify({"error": "pin not found"})
+        return jsonify({"error": "Pin not found"}), 404
 
+    # Check if the association exists
     existing_association = db.session.query(board_pins).filter_by(board_id=board_id, pin_id=pin_id).first()
 
     if not existing_association:
         return jsonify({"message": "Pin not associated with this board"}), 400
 
+    # Remove the pin from the board
     board.pins.remove(pin)
     db.session.commit()
 
-    return jsonify({"message": "Pin removed from board successfully"}), 200
+    return jsonify(pin.to_dict()), 200

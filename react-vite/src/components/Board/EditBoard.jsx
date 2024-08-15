@@ -30,8 +30,6 @@ const PutBoard = () => {
         dispatch(fetchOneBoard(boardId))
     }, [dispatch, boardId])
 
-    console.log('SUPBIHH', boardToUpdate)
-
     useEffect(() => {
         if (boardToUpdate) {
             setName(boardToUpdate.name || ""); // Ensure non-undefined
@@ -54,8 +52,6 @@ const PutBoard = () => {
         }
 
         const updatedBoard = await dispatch(putBoard(boardBody, boardToUpdate.id));
-
-        console.log('asaaaaaaaaaaaaa', updatedBoard.board)
 
         navigate(`/boards/${updatedBoard.board.id}`, { replace: true })
     }
@@ -92,9 +88,6 @@ const PutBoard = () => {
                 checked={privacy}
                 onChange={e => setPrivacy(e.target.checked)}
                 />
-                {/* {hasSubmitted && errors.privacy && (
-                    <span>{errors.privacy}</span>
-                )} */}
             </div>
             <button type="submit" className="submit-button">
                 Create Board

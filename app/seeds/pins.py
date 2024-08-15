@@ -73,7 +73,7 @@ def seed_pins():
         )
 
         db.session.add(new_pin)
-
+    
     db.session.commit()
 
 def undo_pins():
