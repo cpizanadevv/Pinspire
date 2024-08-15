@@ -1,51 +1,77 @@
-// import { useState } from "react";
-// import { NavLink } from 'react-router-dom';
-// // import * as boardActions from 
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import * as boardActions from "../../redux/board";
 
+function PinComponent({ pin }) {
+  const [hovered, setHovered] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+  const boardObj = useSelector((state) => state.boardState);
+  const boards = Object.values(boardObj);
 
-// function PinComponent(){
-//     const [hovered, setHovered] = useState(false);
-//     // const dispatch = useDispatch();
-//     // const boards = useState((state)=> state.boards)
-//     // const user = useSelector((state) => state.session.user);
-    
-//     //! GET CURR USER BOARDS 
-//     // useEffect((user.id) => {
-//     //     dispatch()
-//     // },[dispatch])
+  const allBoards = Object.values(boards);
+  const usersBoards = allBoards.filter((board) => board.user_id === user.id);
+  // const isLiked = '';
+  // const fave = useSelector((state) => state.)
 
-//     const handleHover = () => {
-//         setHovered(true)
-//     }
+  //! GET CURR USER BOARDS
+  useEffect(() => {
+    dispatch(boardActions.fetchAllBoards());
+  }, [dispatch]);
 
-//     const handleNotHovered = () => {
-//         setHovered(false)
-//     }
+  const handleHover = () => {
+    setHovered(true);
+  };
 
+  const handleNotHovered = () => {
+    setHovered(false);
+  };
 
-//     // ! Waiting on thunks
-//     // const handleAddToBoard = () => {
+  // ! Waiting on thunks
 
-//     // }
+  //   const handleAddToBoard = () => {
+  //     useEffect(() => {
+  //       dispatch(boardActions.addPinToBoard(pin.id, boardId));
+  //     }, [dispatch, pinId, boardId]);
+  //   };
+  // const handleFave = () => {
 
-//     // const handleFave = () => {
+  // }
 
-//     // }
+  return (
+    <>
+      {hovered && (
+        <div
+          className="pin-hover"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleNotHovered}
+        >
+          <h4>{pin.title}</h4>
+          {/* DROP DOWN FOR BOARDS */}
+          <select
+            name="board"
+            value={selectedBoard}
+            onChange={(e) => setSelectedBoard(e.target.value)}
+          >
+            <option value="" disabled>
+              Choose board
+            </option>
+            {usersBoards.map((board) => (
+              <option key={board.id} value={board.id}>
+                {board.name === "All Pins" ? "Profile" : `${board.name}`}
+              </option>
+            ))}
+          </select>
+          {/* <button onClick={handleAddToBoard}>Save</button> */}
+          <FaHeart />
+          <FaRegHeart />
+        </div>
+      )}
+    </>
+  );
+}
 
-//     return(
-//         <div className="pin" onMouseEnter={handleHover} onMouseLeave={handleNotHovered}>
-//             <NavLink to={`/pin/${pin.id}`}>
-//                 <img src={pin.img_url} alt={pin.title} className="img" />
-//                 {hovered && (
-//                     <div className="overlay">
-//                         <h4>{title}</h4>
-//                         {/* DROP DOWN FOR BOARDS */}
-//                         {/* <button onClick={handleFave}></button> */}
-//                     </div>
-//                 )}
-//             </NavLink>
-//         </div>
-//     )
-// }
-
-// export default PinComponent;
+export default PinComponent;

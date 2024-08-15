@@ -8,7 +8,7 @@ function Navigation() {
   const user = useSelector((store) => store.session.user);
   return (
     <>
-      <ul>
+      <ul className="nav">
         <li>
           <div className="left-nav">
             <NavLink to="/">Home</NavLink>

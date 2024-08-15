@@ -13,8 +13,8 @@
 }
 
 .search {
-  width: 50em;
-  height: 1.25em;
+  width: 40em;
+  height: 1.55em;
   border-radius: 5em;
 }
 
@@ -30,4 +30,23 @@ a {
   text-decoration: none;
   color: black;
 
+}
+
+.left-nav {
+  display: flex;
+  gap:2em;
+  margin-left: 1em;
+
+}
+
+.profile-menu,
+.auth-buttons {
+  display: flex;
+  gap:2em;
+  margin-right: 1em;
+
+}
+
+.nav {
+  margin: .5em 0em;
 }

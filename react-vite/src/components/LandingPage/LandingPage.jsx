@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as pinActions from '../../redux/pins'
 import { NavLink } from "react-router-dom";
 import './LandingPage.css'
-// import PinComponent from './PinComponent'
+import PinComponent from './PinComponent'
 
 // Function to shuffle pins on load to show variety
 function shuffleArray(array) {
@@ -31,16 +31,11 @@ function LandingPage(){
 
     return (
         <div className="pins">
-            {allPins && allPins.map(({
-                id,
-                img_url,
-                // user_id,
-                // title,
-                // description,
-                // link
-            }) =>(
-                <div key={id} className="pin">
-                    <NavLink key={id} to={`/pin/${id}`}><img src={img_url} alt="" className="img"/></NavLink>
+            {allPins && allPins.map((pin) => (
+                <div key={pin.id} className="pin" onMouseEnter={<PinComponent pin={pin} />}>
+                    <NavLink to={`/pin/${pin.id}`}>
+                        <img src={pin.img_url} alt={pin.title} className="img" />
+                    </NavLink>
                 </div>
                 
             ))}
