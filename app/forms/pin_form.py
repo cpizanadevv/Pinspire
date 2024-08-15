@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
 # from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms.validators import DataRequired, URL, Optional
+from wtforms.validators import DataRequired, URL, Optional,Length
 # from app.api.aws_utils import ALLOWED_EXTENSIONS
 
 class PinForm(FlaskForm):
@@ -18,7 +18,7 @@ class PinForm(FlaskForm):
     )
     title = StringField(
         "Title",
-        validators=[DataRequired()]
+        validators=[DataRequired(),Length(500)]
     )
     description = TextAreaField(
         "Description",
