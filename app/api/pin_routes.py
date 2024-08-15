@@ -24,37 +24,6 @@ def get_single_pin(pin_id):
     else:
         return ({"message": "Pin not found"})
 
-# @pin_routes.route("/new", methods=["POST"])
-# @login_required
-# def create_pin():
-#     data = request.get_json()
-
-#     user_id = current_user.id
-#     # user_id = data.get("user_id")
-#     img_url = data.get("img_url")
-#     title = data.get("title")
-#     description = data.get('description')
-#     link = data.get('link')
-#     # board_id = data.get('board_id')  # If board is chosen
-
-#     new_pin = Pin(
-#         user_id = user_id,
-#         img_url = img_url,
-#         title = title,
-#         description = description,
-#         link = link
-#     )
-
-#     db.session.add(new_pin)
-#     db.session.commit()
-
-#     # if board_id:
-#     #     board_pin = board_pins(pin_id=new_pin.id, board_id=board_id)
-#     #     db.session.add(board_pin)
-#     #     db.session.commit()
-
-#     return jsonify(new_pin.to_dict())
-
 @pin_routes.route("/new", methods=["POST"])
 @login_required
 def create_pin():

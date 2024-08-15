@@ -5,6 +5,10 @@ import CreatePin from '../components/CreatePin/CreatePin';
 import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
+import Boards from '../components/Board/BoardPage'
+import OneBoard from '../components/Board/OneBoard'
+import CreateBoard from '../components/Board/CreateBoard'
+import PutBoard from '../components/Board/EditBoard'
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +35,24 @@ export const router = createBrowserRouter([
         element: <EditPin />,
       },
       {
-        path:":userId",
+        path: "/:userId",
         element: <Profile />
+      },
+      {
+        path: "/boards",
+        element: <Boards />
+      },
+      {
+        path: "/boards/:boardId",
+        element: <OneBoard />
+      },
+      {
+        path: "/boards/create",
+        element: <CreateBoard />
+      },
+      {
+        path: "/boards/:boardId/edit",
+        element: <PutBoard />
       }
     ],
   },

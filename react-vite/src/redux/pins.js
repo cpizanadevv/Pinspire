@@ -35,7 +35,7 @@ export const getPin = (pinId) => async (dispatch) => {
         const pin = await response.json();
         dispatch(loadPin(pin))
     } else {
-        const error = response.json()
+        const error = await response.json()
         return error
     }
 };
@@ -46,7 +46,7 @@ export const getAllPins = () => async (dispatch) => {
         const { Pins } = await response.json();
         dispatch(getPins(Pins))
     } else {
-        const error = response.json()
+        const error = await response.json()
         return error
     }
 };

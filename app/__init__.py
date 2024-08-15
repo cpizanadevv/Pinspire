@@ -19,6 +19,7 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
