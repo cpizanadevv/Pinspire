@@ -8,6 +8,7 @@ import Profile from '../components/Profile/ProfilePage'
 import Boards from '../components/Board/BoardPage'
 import OneBoard from '../components/Board/OneBoard'
 import CreateBoard from '../components/Board/CreateBoard'
+import PutBoard from '../components/Board/EditBoard'
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/boards/create",
         element: <CreateBoard />
+      },
+      {
+        path: "/boards/:boardId/edit",
+        element: <PutBoard />
       }
     ],
   },

@@ -3,6 +3,7 @@ from flask import jsonify, request, Blueprint, abort
 from flask_login import login_required, current_user
 from app.forms import BoardForm
 from app.forms import PinForm
+from app.models import Pin
 
 board_routes = Blueprint('boards', __name__)
 
@@ -26,54 +27,60 @@ def get_boards_by_id(board_id):
 
     return jsonify(board.to_dict())
 
-@board_routes.route('/', methods=['POST'])
+@board_routes.route('/create', methods=['POST'])
 @login_required
 def post_board():
-    print(f"Current user: {current_user}")
     form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        name = form.data['name']
-        private = form.data['private']
-        # name = request.form.get('name')
-        # private = request.form.get('private')
-        user_id = current_user.id
+    # if form.validate_on_submit():
+    name = form.data['name']
+    private = form.data['private']
+    # name = request.form.get('name')
+    # private = request.form.get('private')
+    user_id = current_user.id
 
-        new_board = Board(name=name, user_id=user_id, private=private)
+    new_board = Board(name=name, user_id=user_id, private=private)
 
-        db.session.add(new_board)
-        db.session.commit()
+    db.session.add(new_board)
+    db.session.commit()
 
-        return jsonify(new_board.to_dict()), 201
-    else:
-        errors = form.errors
-        return jsonify({"errors": errors}), 400
+    return jsonify(new_board.to_dict()), 201
+    # else:
+    #     errors = form.errors
+    #     return jsonify({"errors": errors}), 400
 
 @board_routes.route('/<int:board_id>', methods=['PUT'])
 @login_required
 def edit_board_by_id(board_id):
-    data = request.get_json()
-    form = BoardForm(data=data)
+    form = BoardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate():
-        board_to_edit = Board.query.get(board_id)
+    data = request.json
 
-        if not board_to_edit:
-            return jsonify({"error": "no board found"}), 404
-        if board_to_edit.user_id != current_user.id:
-            return jsonify({"error": "unauthorized"}), 403
+    board_to_edit = Board.query.get(board_id)
 
-        board_to_edit.name = form.name.data
-        board_to_edit.private = form.private.data
+    if not board_to_edit:
+        return jsonify({"error": "no board found"}), 404
+    if board_to_edit.user_id != current_user.id:
+        return jsonify({"error": "unauthorized"}), 403
 
-        if 'description' in data:
-            board_to_edit.description = data['description']
+    form.name.data = data.get('name')
+    form.private.data = data.get('private')
 
-        db.session.commit()
-        return jsonify({
-            "message": "board changes successful",
-            "board": board_to_edit.to_dict()}), 200
+    if 'description' in data:
+        form.description.data = data['description']
+
+    board_to_edit.name = form.data['name']
+    board_to_edit.private = form.data['private']
+
+    if 'description' in data:
+        board_to_edit.description = form.data['description']
+
+    db.session.commit()
+    return jsonify({
+        "message": "board changes successful",
+        "board": board_to_edit.to_dict()}), 200
 
 @board_routes.route('/<int:board_id>', methods=['DELETE'])
 @login_required

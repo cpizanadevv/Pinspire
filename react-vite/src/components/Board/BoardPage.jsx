@@ -10,14 +10,19 @@ const Boards = () => {
     const boardsObject = Object.values(boards);
     const user = useSelector((state) => state.session.user);
 
+    console.log('AAAAAAAAAAAAA', boardsObject)
     useEffect(() => {
         dispatch(fetchAllBoards());
     }, [dispatch]);
 
     const userBoards = boardsObject.filter(
-        (board) => board.user_id === user.id
+        (board) =>
+        {
+            board.user_id === user.id
+        }
     );
 
+    console.log('BBBBBBBBB', userBoards)
     return (
         <div id="boards-container">
             <div className="user-board">

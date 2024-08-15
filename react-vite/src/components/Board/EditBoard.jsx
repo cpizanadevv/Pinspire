@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { postBoard } from "../../redux/board";
-import "./CreateBoard.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { putBoard, fetchOneBoard } from "../../redux/board";
+import "./EditBoard.css";
 import { useSelector, useDispatch } from "react-redux";
 
-const CreateBoard = () => {
+const PutBoard = () => {
+    const { boardId } = useParams()
     const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -13,7 +14,9 @@ const CreateBoard = () => {
 
     const [name, setName] = useState("");
     const [privacy, setPrivacy] = useState(false);
+    const [description, setDescription] = useState("");
 
+    const boardToUpdate = useSelector((state) => state.boardState[1])
     useEffect(() => {
         let formErrors = {};
 
@@ -22,6 +25,20 @@ const CreateBoard = () => {
 
         setErrors(formErrors);
     }, [name]);
+
+    useEffect(() => {
+        dispatch(fetchOneBoard(boardId))
+    }, [dispatch, boardId])
+
+    console.log('SUPBIHH', boardToUpdate)
+
+    useEffect(() => {
+        if (boardToUpdate) {
+            setName(boardToUpdate.name || ""); // Ensure non-undefined
+            setPrivacy(boardToUpdate.privacy || false); // Ensure non-undefined
+            setDescription(boardToUpdate.description || ""); // Ensure non-undefined
+        }
+    }, [boardToUpdate])
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -33,16 +50,18 @@ const CreateBoard = () => {
             name,
             private: privacy,
             user_id: currUser.id,
+            ...(description && { description })
         }
 
-        let createdBoard = await dispatch(postBoard(boardBody));
+        const updatedBoard = await dispatch(putBoard(boardBody, boardToUpdate.id));
 
-        navigate(`/boards/${createdBoard.id}`, { replace: true})
+        console.log('asaaaaaaaaaaaaa', updatedBoard.board)
+
+        navigate(`/boards/${updatedBoard.board.id}`, { replace: true })
     }
-
-    return (
-        <form id="form" onSubmit={handleSubmit}>
-            <h1>Create a Board</h1>
+        return (
+            <form id="form" onSubmit={handleSubmit} >
+            <h1>Edit Board</h1>
             <div className="name-container">
                 <label htmlFor="name">Name</label>
                 <input
@@ -55,6 +74,14 @@ const CreateBoard = () => {
                 {hasSubmitted && errors.name && (
                     <span>{errors.name}</span>
                 )}
+            </div>
+            <div className='description-container'>
+                <label htmlFor='description'>Description</label>
+                <textarea
+                id='description'
+                name='description'
+                onChange={e => setDescription(e.target.value)}
+                ></textarea>
             </div>
             <div className="privacy-container">
                 <label htmlFor="privacy">Set Privacy</label>
@@ -76,4 +103,4 @@ const CreateBoard = () => {
     );
 }
 
-export default CreateBoard;
+export default PutBoard

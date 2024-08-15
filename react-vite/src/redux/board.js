@@ -63,12 +63,13 @@ export const fetchOneBoard = (spotId) => async (dispatch) => {
 }
 
 export const postBoard = (board) => async (dispatch) => {
-    const response = await fetch('/api/boards', {
+    const response = await fetch('/api/boards/create', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(board)
+        body: JSON.stringify(board),
+        credentials: 'include'
     });
 
     console.log("RESPONSE RESPONSE", response)
@@ -90,7 +91,8 @@ export const putBoard = (board, boardId) => async (dispatch) => {
     const response = await fetch(`/api/boards/${boardId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(board)
+        body: JSON.stringify(board),
+        credentials: 'include'
     })
 
     if (response.ok) {
