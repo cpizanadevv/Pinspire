@@ -6,6 +6,7 @@ import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
 import LandingPage from '../components/LandingPage'
+import SearchPins from '../components/LandingPage/SearchPins';
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ export const router = createBrowserRouter([
       {
         path:"/profile",
         element: <Profile />
-      }
+      },
+      {
+        path:"/pins/:keyword",
+        element: <SearchPins />
+      },
     ],
   },
 ]);
