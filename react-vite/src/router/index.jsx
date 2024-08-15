@@ -5,6 +5,9 @@ import FileUpload from '../components/FileUpload/FileUpload';
 import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
+import Boards from '../components/Board/BoardPage'
+import OneBoard from '../components/Board/OneBoard'
+import CreateBoard from '../components/Board/CreateBoard'
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +34,20 @@ export const router = createBrowserRouter([
         element: <EditPin />,
       },
       {
-        path:"/profile",
+        path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "/boards",
+        element: <Boards />
+      },
+      {
+        path: "/boards/:boardId",
+        element: <OneBoard />
+      },
+      {
+        path: "/boards/create",
+        element: <CreateBoard />
       }
     ],
   },

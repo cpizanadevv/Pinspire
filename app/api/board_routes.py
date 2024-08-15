@@ -29,12 +29,15 @@ def get_boards_by_id(board_id):
 @board_routes.route('/', methods=['POST'])
 @login_required
 def post_board():
-    data = request.get_json()
-    form = BoardForm(data=data)
+    print(f"Current user: {current_user}")
+    form = BoardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate():
-        name = form.name.data
-        private = form.private.data
+    if form.validate_on_submit():
+        name = form.data['name']
+        private = form.data['private']
+        # name = request.form.get('name')
+        # private = request.form.get('private')
         user_id = current_user.id
 
         new_board = Board(name=name, user_id=user_id, private=private)
