@@ -1,22 +1,34 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
 import "./ProfilePage.css";
+import { getAllPins } from "../../redux/pins";
 
 
 const Profile = () => {
     const user = useSelector((state) => state.session.user);
+    const pinsObj = useSelector((state) => state.pinState.pins)
+    const pins = Object.values(pinsObj)
+    const userPins = pins.filter((pin) => pin.user_id == user.id)
+    // console.log(userPins)
 
+    
     const [activeTab, setActiveTab] = useState('saved');
-
+    
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { userId } = useParams()
 
+    
     useEffect(() => {
         if (!user || user.id !== +userId) {
             navigate('/');
         }
     }, [user, userId, navigate]);
+
+    useEffect(() => {
+        dispatch(getAllPins())
+    }, [dispatch])
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -50,7 +62,18 @@ const Profile = () => {
                 </div>
             </div>
             <div id="profile-bottom-container">
-                {activeTab === 'created' && <div>Created place holder.</div>}
+                {activeTab === 'created' && 
+                    <div className="created-grid">
+                        {userPins.map((pin) => (
+                            <div key={pin.id} className="profile-pin-container">
+                                <img src={pin.img_url} />
+                                <div className="profile-image-overlay">
+                                    <button className="save-button">Save</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                }
                 {activeTab === 'saved' && <div>Saved place holder.</div>}
                 {activeTab === 'favorites' && <div>Favorites place holder</div>}
             </div>
