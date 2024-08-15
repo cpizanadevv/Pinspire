@@ -19,6 +19,7 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -115,4 +116,3 @@ def upload_file():
     # Process the file (save to disk, upload to S3, etc.)
     # Return the URL or path of the uploaded file
     return jsonify({'url': 'http://example.com/uploaded_image_url'}), 200
-

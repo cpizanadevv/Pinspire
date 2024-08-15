@@ -21,6 +21,7 @@ class Board(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "description": self.description,
             "name": self.name,
             "private": self.private
         }
