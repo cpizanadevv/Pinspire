@@ -10,10 +10,10 @@ class Pin(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    img_url = db.Column(db.String(255), nullable=False)
-    title = db.Column(db.String(255), nullable=False)
+    img_url = db.Column(db.String(512), nullable=False)
+    title = db.Column(db.String(512), nullable=False)
     description = db.Column(db.String(1000))
-    link = db.Column(db.String(255))
+    link = db.Column(db.String(512))
 
     user = db.relationship('User', back_populates='pins')
     comments = db.relationship('Comment', back_populates='pin')
