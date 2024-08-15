@@ -1,12 +1,14 @@
+import { useDispatch } from 'react-redux';
 import { useState } from "react";
+import { addPin } from '../../redux/pins';
 
-//for testing uploading on the browser to the bucket! 
-const FileUpload = () => {
+const CreatePin = () => {
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
+    const dispatch = useDispatch();
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -19,23 +21,20 @@ const FileUpload = () => {
             return;
         }
 
-        const formData = new FormData();
-        formData.append("image", file);
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("link", link);
+        const newPin = {
+            file,
+            title,
+            description,
+            link
+        };
 
-        const response = await fetch("http://localhost:8000/api/pins/new", {
-            method: "POST",
-            body: formData,
-            credentials: 'include',  // Important for session-based auth
-        });
-
-        if (response.ok) {
-            const data = await response.json();
+        const data = await dispatch(addPin(newPin));
+        if (data.img_url) {
             setImageUrl(data.img_url);
+            console.log("Pin added to the database:", data);
         } else {
             alert("Error uploading file");
+            console.log("Error uploading file:", data);
         }
     };
 
@@ -72,4 +71,4 @@ const FileUpload = () => {
     );
 };
 
-export default FileUpload;
+export default CreatePin;

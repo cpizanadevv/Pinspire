@@ -87,7 +87,7 @@ def edit_pin(pin_id):
 
         if not pin_to_edit:
             return jsonify({"error": "Pin not found"}), 404
-        
+
         if pin_to_edit.user_id != current_user.id:
             return jsonify({"error": "Unauthorized"}), 403
 
@@ -108,7 +108,7 @@ def delete_pin(pin_id):
 
     if not pin_to_delete:
         return jsonify({"error": "Pin not found"}), 404
-    
+
     if pin_to_delete.user_id != current_user.id:
         return jsonify({"error": "Unauthorized"}), 403
 
@@ -171,7 +171,7 @@ def delete_pin_comment(pin_id,comment_id):
 
 
 # New route for image upload
-@pin_routes.route("/upload", methods=["POST"])
+@pin_routes.route("/create", methods=["POST"])
 @login_required
 def upload_image():
     form = PinForm()
