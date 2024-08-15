@@ -1,47 +1,34 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import SearchComponent from "./SearchComponent";
 
 function Navigation() {
   const user = useSelector((store) => store.session.user);
   return (
-    <>{user ? (
+    <>
       <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to=''>Create</NavLink>
-      </li>
+        <li>
+          <div className="left-nav">
+            <NavLink to="/">Home</NavLink>
+            {user && (
+              <li>
+                <NavLink to="">Create</NavLink>
+              </li>
+            )}
+          </div>
+        </li>
 
-      <li>
-        <input className="search" type="text" placeholder="Search" />
-      </li>
+        <li>
+          <SearchComponent/>
+        </li>
 
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
-    ):
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
-        <input className="search" type="text" placeholder="Search" />
-      </li>
-
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
-    
-    }
-
+        <li>
+          <ProfileButton />
+        </li>
+      </ul>
     </>
-    
   );
 }
 
