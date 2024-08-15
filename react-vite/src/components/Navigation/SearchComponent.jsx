@@ -1,5 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import ProfileButton from "./ProfileButton";
+import { useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import { useState } from "react";
 
