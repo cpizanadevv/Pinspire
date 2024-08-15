@@ -1,1 +1,8 @@
 /* TODO: Add sitewide styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* ^for setting default margin and paddings to zero since there is some weird pixels messing with them atm */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
