@@ -9,11 +9,22 @@ import os
 
 pin_routes = Blueprint('pins', __name__)
 
+# Get all pins
 @pin_routes.route("/", methods=["GET"])
 def get_pins():
-    pins = Pin.query.all()
+    page = request.args.get('page', 1, type=int)
+    limit = request.args.get('limit', 20, type=int)
+    
+    pins = Pin.query.paginate(page=page,per_page=limit)
+    
     pin_list = [pin.to_dict() for pin in pins]
-    return jsonify({ "Pins": pin_list})
+    return jsonify({
+        "Pins": pin_list,
+        "total": pins.total,
+        "pages": pins.pages,
+        "current_page": pins.page,
+        "has_next": pins.has_next,
+    })
 
 @pin_routes.route("/<int:pin_id>", methods=["GET"])
 def get_single_pin(pin_id):

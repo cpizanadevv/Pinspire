@@ -40,11 +40,14 @@ export const getPin = (pinId) => async (dispatch) => {
     }
 };
 
-export const getAllPins = () => async (dispatch) => {
-    const response = await fetch("/api/pins/")
+export const getAllPins = (page = 1) => async (dispatch) => {
+    const response = await fetch(`/api/pins?page=${page}&limit=20`);
     if (response.ok) {
         const { Pins } = await response.json();
         dispatch(getPins(Pins))
+        if (!Pins.has_next) {
+            setHasMore(false);  // Stop infinite scroll if no more pages are available
+        }
     } else {
         const error = await response.json()
         return error
