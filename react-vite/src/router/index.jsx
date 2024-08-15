@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
-import FileUpload from '../components/FileUpload/FileUpload';
+import CreatePin from '../components/CreatePin/CreatePin';
 import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
@@ -23,8 +23,8 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "upload",
-        element: <FileUpload />,
+        path: "create",
+        element: <CreatePin />,
       },
       {
         path: "pins/:pinId/edit",

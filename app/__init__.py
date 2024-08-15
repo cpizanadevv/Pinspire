@@ -105,7 +105,7 @@ def not_found(e):
     return app.send_static_file('index.html')
 
 #route to hand file upload for AWS
-@app.route('/api/pins/upload', methods=['POST'])
+@app.route('/api/pins/create', methods=['POST'])
 def upload_file():
     if 'image' not in request.files:
         return jsonify({'error': 'No file part'}), 400
@@ -115,4 +115,3 @@ def upload_file():
     # Process the file (save to disk, upload to S3, etc.)
     # Return the URL or path of the uploaded file
     return jsonify({'url': 'http://example.com/uploaded_image_url'}), 200
-

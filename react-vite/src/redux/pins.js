@@ -1,8 +1,13 @@
 const LOAD_PIN = "pins/loadPin"
 const GET_PINS = "pins/getPins"
-// const CREATE_PIN = "pins/createPin"
+const CREATE_PIN = "pins/createPin"
 const UPDATE_PIN = "pins/updatePin"
 const REMOVE_PIN = "pins/removePin"
+
+const createPin = (pin) => ({
+    type: CREATE_PIN,
+    pin
+});
 
 const loadPin = (pin) => ({
     type: LOAD_PIN,
@@ -84,6 +89,31 @@ export const editPin = ({editedPin, pinId}) => async (dispatch) => {
     }
 };
 
+export const addPin = (newPin) => async (dispatch) => {
+    const { file, title, description, link } = newPin;
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("link", link);
+
+    const response = await fetch("http://localhost:8000/api/pins/new", {
+        method: "POST",
+        body: formData,
+        credentials: 'include',  // Important for session-based auth
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(createPin(data));
+        return data;
+    } else {
+        const error = await response.json();
+        return error;
+    }
+};
+
 const initialState = { pin: {}, pins: {} };
 
 function pinsReducer(state = initialState, action) {
@@ -105,6 +135,11 @@ function pinsReducer(state = initialState, action) {
             newState = {...state}
             delete newState.pins[action.pinId]
             return newState
+        }
+        case CREATE_PIN: {
+            const newPin = action.pin;
+            newState = { ...state, pins: { ...state.pins, [newPin.id]: newPin } };
+            return newState;
         }
         default:
             return state;
