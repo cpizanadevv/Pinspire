@@ -1,0 +1,19 @@
+.edit-pin-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 530px;
+    position: fixed;
+    background-color: white;
+    color: #000000;
+    top: 0px; 
+    right: 0px;
+    padding: 20px;
+}
+
+.edit-pin-field-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px
+}
+

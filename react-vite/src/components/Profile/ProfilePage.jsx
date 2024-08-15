@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "./ProfilePage.css";
 import { getAllPins } from "../../redux/pins";
+import EditPin from "../EditPin/EditPin";
 
 
 const Profile = () => {
@@ -68,7 +70,13 @@ const Profile = () => {
                             <div key={pin.id} className="profile-pin-container">
                                 <img src={pin.img_url} />
                                 <div className="profile-image-overlay">
+                                    <p className="profile-overlay-text">Profile</p>
                                     <button className="save-button">Save</button>
+                                    <OpenModalButton
+                                        buttonText="Edit"
+                                        modalComponent={<EditPin />}
+                                        className="profile-edit-button"
+                                    />
                                 </div>
                             </div>
                         ))}
