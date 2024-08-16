@@ -4,7 +4,6 @@ import SignupFormPage from '../components/SignupFormPage';
 import CreatePin from '../components/CreatePin/CreatePin';
 import ViewPin from '../components/ViewPin/ViewPin';
 import Layout from './Layout';
-import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
 import Boards from '../components/Board/BoardPage'
 import OneBoard from '../components/Board/OneBoard'
