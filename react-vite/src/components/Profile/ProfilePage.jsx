@@ -78,7 +78,7 @@ const Profile = () => {
                     </button>
                 </div>
             }           
-            <div id="profile-bottom-container">
+            <div className="profile-bottom-container">
 
                 {activeTab === 'created' && 
                     <div className="created-grid">
@@ -109,7 +109,7 @@ const Profile = () => {
                                 <div className="profile-board-container">
                                     <div className="profile-board-image-container">
                                         {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjWxpmv4OBwxwBby4Xyv4FO7m1t1mTSAzrsQ&s"/> */}
-                                        <button className="profile-board-edit-button">Edit</button>
+                                        {board.name == "All Pins" ? null : <button className="profile-board-edit-button">Edit</button>}
                                     </div>
                                     <div className="profile-board-title-container">
                                         <p className="profile-board-title">{board.name}</p>
