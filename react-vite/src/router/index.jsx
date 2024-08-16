@@ -37,10 +37,6 @@ export const router = createBrowserRouter([
         element: <ViewPin />,
       },
       {
-        path: "pins/:pinId/edit",
-        element: <EditPin />,
-      },
-      {
         path: "/:userId",
         element: <Profile />
       },

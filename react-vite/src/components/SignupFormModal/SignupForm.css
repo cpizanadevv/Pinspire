@@ -1,0 +1,27 @@
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30em;
+    padding: 2em;
+}
+
+/* div #modal-content {
+    padding: 1em;
+    border-radius: 2em;
+} */
+
+.sign-up-form label {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.sign-up-form input {
+    width: 20em;
+    height: 2em;
+    border-radius: 2em;
+    margin-bottom: .5em;
+    padding: .2em .5em;
+}
