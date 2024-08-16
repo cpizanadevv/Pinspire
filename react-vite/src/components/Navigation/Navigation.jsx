@@ -11,16 +11,17 @@ function Navigation() {
       <ul>
         <li>
           <div className="left-nav">
-            <NavLink to="/">Home</NavLink>
+            <img className="logo" src='../../../pinspire_logo.png'/>
+            <NavLink className='home-button'to="/">Home</NavLink>
             {user && (
               <li>
-                <NavLink to="">Create</NavLink>
+                <NavLink className='create-button' to="/create">Create</NavLink>
               </li>
             )}
           </div>
         </li>
 
-        <li>
+        <li className="search-bar">
           <SearchComponent/>
         </li>
 
