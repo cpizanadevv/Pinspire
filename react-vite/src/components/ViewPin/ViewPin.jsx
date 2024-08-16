@@ -19,11 +19,17 @@ const ViewPin = () => {
     }
 
     return (
-        <div className='view-pin-container'>
-            <h2>{pin.title}</h2>
-            <img src={pin.img_url} alt={pin.title} />
-            <p>{pin.description}</p>
-            {pin.link && <a href={pin.link} target="_blank" rel="noopener noreferrer">Visit Link</a>}
+        <div className='view-pin-page'>
+            <div className='pin-container'>
+                <div className='left'>
+                    <img src={pin.img_url} alt={pin.title} />
+                </div>
+                <div className='right'>
+                    <h2>{pin.title}</h2>
+                    <p>{pin.description}</p>
+                    {pin.link && <a href={pin.link} target="_blank" rel="noopener noreferrer">Visit Link</a>}
+                </div>
+            </div>
         </div>
     )
 };

@@ -7,7 +7,8 @@ function OpenModalButton({
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
   onModalClose, // optional: callback function that will be called once the modal is closed
   className,
-  pinId // optional: for passing in pinId to EditPin modal
+  pinId, // optional: for passing in pinId to EditPin modal
+  boardId
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -15,7 +16,7 @@ function OpenModalButton({
     e.preventDefault();
     e.stopPropagation()
     if (onModalClose) setOnModalClose(onModalClose);
-    setModalContent(React.cloneElement(modalComponent, { pinId }));
+    setModalContent(React.cloneElement(modalComponent, { pinId, boardId }));
     if (typeof onButtonClick === "function") onButtonClick();
   };
 
