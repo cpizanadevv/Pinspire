@@ -41,19 +41,9 @@ img {
     }
 }
 
-.save-button {
-    margin-bottom: 300px;
-    margin-top: -20px
-}
 .save-button.saved {
     color: white;
     background-color: black;
-}
-
-.profile-overlay-text {
-    cursor: pointer;
-    position: relative;
-    margin-right:115px
 }
 
 .dropdown-menu {
@@ -90,7 +80,101 @@ img {
 }
 
 .board-container {
-    display:flex;
+    display: flex;
+}
+
+.save-to-board-text {
+    margin-right: 110px
+}
+.created-grid-container {
+    column-count: 2;
+    column-gap: 15px;
+    width: 490px;
+    margin: 15px auto;
+}
+
+.pin-container {
+    min-height: 150px;
+    margin-bottom: 15px;    /* space between items */
+    break-inside: avoid;    /* prevents items from breaking across columns */
+    position: relative;      /* positioning context for overlay and button */
+    overflow: hidden;        /* hide overflow so overlay doesn't exceed the image */
+}
+
+.pin-container img {
+    width: 100%;
+    height: auto;
+    min-height: 150px;
+    display: block;         /* removes space below the image */
+    border-radius: 20px;
+}
+
+.image-overlay {
+    position: absolute;      /* overlay positioned over image */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;              /* hidden */
+    display: flex;
     flex-direction: column;
-    gap: 5px;
+    align-items: end;
+    justify-content: space-between;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.pin-container:hover .image-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* grey overlay with 50% opacity */
+    opacity: 1;              /* show overlay */
+}
+
+.overlay-text {
+    position: absolute;
+    top: 25px;
+    left: 13px;
+    color: white;
+    font-size: medium;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 13px
+}
+
+.landing-save-button {
+    background-color: red;
+    color: white;
+    margin: 10px;
+    padding: 15px 16px;
+    font-size: medium;
+    border-radius: 25px;
+    border: 0px;
+    cursor: pointer;
+    margin-bottom: 500px;
+}
+
+@media (min-width: 750px) and (max-width: 1009px) {
+    .created-grid-container {
+        column-count: 3;
+        width: 730px;
+    }
+}
+
+@media (min-width: 1010px) and (max-width: 1264px) {
+    .created-grid-container {
+        column-count: 4;
+        width: 990px;
+    }
+}
+
+@media (min-width: 1265px) and (max-width: 1509px) {
+    .created-grid-container {
+        column-count: 5;
+        width: 1245px;
+    }
+}
+
+@media (min-width: 1510px) {
+    .created-grid-container {
+        column-count: 6;
+        width: 1480px;
+    }
 }
