@@ -1,20 +1,42 @@
 .pins {
-    /* display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: auto;
-    grid-gap: .5em; */
     column-count: 5;
     margin: 0em 1em;
     margin-top: 2em;
+    column-gap: .5em;
 
 }
 
 .pin {
     margin-bottom: .5em;
+    width: 100%;
+    break-inside: avoid;
+
 
 }
 
 img {
     width: 100%;
-    border-radius: .5em;
+}
+@media screen and (max-width: 1200px) {
+    .pins {
+        column-count: 4;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .pins {
+        column-count: 3;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .pins {
+        column-count: 2;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .pins {
+        column-count: 1;
+    }
 }
