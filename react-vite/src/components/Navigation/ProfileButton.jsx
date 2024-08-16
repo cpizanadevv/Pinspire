@@ -44,8 +44,8 @@ function ProfileButton() {
     <>
       {user ? (
         <div className="profile-menu">
-          <NavLink to={'/profile'}><FaUserCircle /></NavLink>
-            
+          <NavLink to={`/${user.id}`}><FaUserCircle /></NavLink>
+
           <button onClick={toggleMenu}>
             <FaAngleDown/>
           </button>
