@@ -11,12 +11,12 @@ class Comment(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    pin_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('pins.id')), nullable=False)
+    pin_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('pins.id'),ondelete='CASCADE'), nullable=False)
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     comment = db.Column(db.String(1000), nullable=False)
 
     user = db.relationship("User", back_populates='comments')
-    pin = db.relationship("Pin", back_populates='comments')
+    pin = db.relationship("Pin", back_populates='comments', cascade='all, delete')
 
     def to_dict(self):
         return {

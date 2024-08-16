@@ -16,10 +16,10 @@ class Pin(db.Model):
     link = db.Column(db.String(1000))
 
     user = db.relationship('User', back_populates='pins')
-    comments = db.relationship('Comment', back_populates='pin')
+    comments = db.relationship('Comment', back_populates='pin', cascade='all, delete')
     boards = db.relationship('Board', secondary=board_pins, back_populates='pins')
     tags = db.relationship('Tag', secondary=pin_tags, back_populates='pins')
-    favorites = db.relationship('Favorite', back_populates='pins')
+    favorites = db.relationship('Favorite', back_populates='pins', cascade='all, delete')
 
     def to_dict(self):
         return {
