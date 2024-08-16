@@ -1,0 +1,166 @@
+.create-pin-container .choose-file input {
+    display: none;
+}
+
+.create-pin-container .choose-file .choose-file-button {
+    all: unset;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #E9E9E9;
+    border-radius: 40px;
+}
+
+.create-pin-container .choose-file-button i {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-pin-container .choose-file img {
+    max-width: 500px;
+}
+
+.uploaded-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.uploaded-image-container img {
+    border-radius: 40px;
+}
+
+.uploaded-image-container .replace-file-button {
+    all: unset;
+    width: 75%;
+    padding: 10px 0;
+    background-color: #E9E9E9;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.uploaded-image-container .replace-file-button:hover {
+    background-color: #d7d6d6;
+}
+
+.uploaded-image-container span {
+    background-color: #CDCDCD;
+    height: 1px;
+    width: 100%;
+}
+
+.create-pin-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-pin-container .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    border-bottom: 1px solid #CDCDCD;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.create-pin-container .header .publish-button-header {
+    all: unset;
+    padding: 15px 18px;
+    color: white;
+    background-color: #E60123;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.create-pin-container .header .publish-button-header:hover {
+    background-color: #c30421;
+}
+
+.create-pin-container .left-column .choose-file {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-pin-container form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    padding: 0 80px;
+}
+
+.create-pin-container .left-column,
+.create-pin-container .right-column {
+    width: 50%;
+}
+
+.create-pin-container .left-column {
+    display: flex;
+    justify-content: end;
+}
+
+.create-pin-container .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.create-pin-container .right-column.disabled {
+    color: #CDCDCD;
+}
+
+
+.create-pin-container .right-column .title input,
+.create-pin-container .right-column .link input {
+    all: unset;
+    border: 1px solid #CDCDCD;
+    width: 500px;
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+    background-color: white;
+}
+
+.create-pin-container .right-column .title input::placeholder,
+.create-pin-container .right-column .link input::placeholder,
+.create-pin-container .right-column .description textarea::placeholder {
+    color: #CDCDCD;
+}
+
+.create-pin-container .right-column .description textarea {
+    all: unset;
+    border: 1px solid #CDCDCD;
+    width: 500px;
+    height: 70px;
+    resize: none;
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+    background-color: white;
+}
+
+.create-pin-container .right-column .title input:disabled,
+.create-pin-container .right-column .link input:disabled,
+.create-pin-container .right-column .description textarea:disabled {
+    background-color: white;
+    color: #CDCDCD;
+}

@@ -48,7 +48,7 @@ def seed_pins():
         'nature', 'animals', 'technology', 'programming', 'food', 'travel',
         'fashion', 'architecture', 'people', 'sports', 'music', 'art', 'cities',
         'landscape', 'interior design', 'crochet design', 'plants', 'fantasy',
-        'gaming', 'medieval', 'castles', 'movies', 'disney'
+        'gaming', 'medieval', 'castles', 'movies', 'disney','space','stars'
     ]
 
     all_imgs = []
@@ -73,7 +73,7 @@ def seed_pins():
         )
 
         db.session.add(new_pin)
-
+    
     db.session.commit()
 
 def undo_pins():

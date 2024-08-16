@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
-import FileUpload from '../components/FileUpload/FileUpload';
+import CreatePin from '../components/CreatePin/CreatePin';
 import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
@@ -9,6 +9,8 @@ import Boards from '../components/Board/BoardPage'
 import OneBoard from '../components/Board/OneBoard'
 import CreateBoard from '../components/Board/CreateBoard'
 import PutBoard from '../components/Board/EditBoard'
+import LandingPage from '../components/LandingPage'
+import SearchPins from '../components/LandingPage/SearchPins';
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +18,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage/>,
       },
       {
         path: "login",
@@ -27,8 +29,8 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "upload",
-        element: <FileUpload />,
+        path: "create",
+        element: <CreatePin />,
       },
       {
         path: "pins/:pinId/edit",
@@ -53,7 +55,11 @@ export const router = createBrowserRouter([
       {
         path: "/boards/:boardId/edit",
         element: <PutBoard />
-      }
+      },
+      {
+        path: "/pins/:keyword",
+        element: <SearchPins />
+      },
     ],
   },
 ]);

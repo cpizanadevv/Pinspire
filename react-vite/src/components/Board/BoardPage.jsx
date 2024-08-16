@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllBoards } from "../../redux/board";
 import "./BoardPage.css";
-// import { NavLink } from "react-router-dom";
 
 const Boards = () => {
     const dispatch = useDispatch();

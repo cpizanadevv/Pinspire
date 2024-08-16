@@ -1,19 +1,21 @@
-"""Initial migration
+"""empty message
 
-Revision ID: 03c41985710c
-Revises:
-Create Date: 2024-08-12 16:24:38.937611
+Revision ID: 4ad00462db9e
+Revises: 
+Create Date: 2024-08-15 15:57:05.144314
 
 """
 from alembic import op
 import sqlalchemy as sa
 
 import os
+
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '03c41985710c'
+revision = '4ad00462db9e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -58,10 +60,10 @@ def upgrade():
     op.create_table('pins',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('img_url', sa.String(length=255), nullable=False),
-    sa.Column('title', sa.String(length=255), nullable=False),
-    sa.Column('description', sa.String(length=1000), nullable=True),
-    sa.Column('link', sa.String(length=255), nullable=True),
+    sa.Column('img_url', sa.String(length=1000), nullable=False),
+    sa.Column('title', sa.String(length=1000), nullable=False),
+    sa.Column('description', sa.String(length=2000), nullable=True),
+    sa.Column('link', sa.String(length=1000), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -110,7 +112,7 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE pin_tags SET SCHEMA {SCHEMA};")
-    # ### end Alembic commands ###qqqqqqqqq
+    # ### end Alembic commands ###
 
 
 def downgrade():
