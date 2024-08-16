@@ -70,25 +70,21 @@ function LandingPage() {
     };
 
     return (
-        <div className="created-grid">
-            {allPins && allPins.map(({
-                id,
-                img_url,
-                // user_id,
-                // title,
-                // description,
-                // link
-            }) =>(
-                <NavLink key={id} to={`/pin/${id}`}>
-                    <div className="profile-pin-container">
-                        <img src={img_url} />
-                        <div className="profile-image-overlay">
+        <div className="created-grid-container">
+            {shuffledPins.map(({ id, img_url }) => (
+                <NavLink key={id}>
+                    <div
+                        className="pin-container"
+                        onMouseEnter={() => handlePinHover(id)}
+                    >
+                        <img src={img_url} alt={`Pin ${id}`} />
+                        <div className="image-overlay">
                             <div className="board-container">
                                 <h4 className="save-to-board-text">
                                     Save to Board
                                 </h4>
                                 <select
-                                    className="profile-overlay-text"
+                                    className="overlay-text"
                                     value={selectedBoardId || ""}
                                     onChange={(e) =>
                                         setSelectedBoardId(e.target.value)
@@ -105,7 +101,7 @@ function LandingPage() {
                                 </select>
                             </div>
                             <button
-                                className={`save-button ${
+                                className={`landing-save-button ${
                                     isPinSaved(id, selectedBoardId)
                                         ? "saved"
                                         : ""
