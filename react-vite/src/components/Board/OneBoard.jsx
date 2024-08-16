@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchOneBoard, deleteBoardPin } from "../../redux/board";
+import { fetchOneBoard } from "../../redux/board";
 import "./OneBoard.css";
 import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
