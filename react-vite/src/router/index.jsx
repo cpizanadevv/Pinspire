@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import CreatePin from '../components/CreatePin/CreatePin';
+import ViewPin from '../components/ViewPin/ViewPin';
 import Layout from './Layout';
 import EditPin from '../components/EditPin/EditPin';
 import Profile from '../components/Profile/ProfilePage'
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "create",
         element: <CreatePin />,
+      },
+      {
+        path: "/pin/:pinId",
+        element: <ViewPin />,
       },
       {
         path: "pins/:pinId/edit",
