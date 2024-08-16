@@ -4,6 +4,7 @@ from .pins import seed_pins, undo_pins
 from .comments import seed_comments, undo_comments
 from .boards import seed_boards, undo_boards
 from .qpin_boards import seed_board_pins, undo_board_pins
+from .favorites import seed_favorites, undo_favorites
 # from .favorites import seed_favorites, undo_favorites
 
 from app.models.db import db, environment, SCHEMA
@@ -26,12 +27,13 @@ def seed():
         undo_comments()
         undo_boards()
         undo_board_pins()
+        undo_favorites()
     seed_users()
     seed_pins()
     seed_comments()
     seed_boards()
     seed_board_pins()
-    # seed_favorites()
+    seed_favorites()
     # Add other seed functions here
 
 
@@ -43,4 +45,5 @@ def undo():
     undo_comments()
     undo_boards()
     undo_board_pins()
+    undo_favorites()
     # Add other undo functions here
