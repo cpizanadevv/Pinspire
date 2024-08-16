@@ -142,7 +142,7 @@ export const putBoard = (board, boardId) => async (dispatch) => {
 
     if (response.ok) {
         const editedBoard = await response.json();
-        dispatch(editBoard(editedBoard));
+        dispatch(editBoard(editedBoard.board));
 
         return editedBoard;
     }
@@ -187,6 +187,7 @@ const boardReducer = (state = initialState, action) => {
                 [action.board.id]: action.board,
             };
         }
+        // Other cases
         case DELETE_BOARD: {
             const newState = { ...state };
             delete newState[action.payload.boardId];

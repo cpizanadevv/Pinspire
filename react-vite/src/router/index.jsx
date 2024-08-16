@@ -53,10 +53,6 @@ export const router = createBrowserRouter([
         element: <CreateBoard />
       },
       {
-        path: "/boards/:boardId/edit",
-        element: <PutBoard />
-      },
-      {
         path: "/pins/:keyword",
         element: <SearchPins />
       },

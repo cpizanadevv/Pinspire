@@ -85,11 +85,12 @@ function LandingPage() {
                                 </h4>
                                 <select
                                     className="profile-overlay-text"
+                                    value={selectedBoardId || ""}
                                     onChange={(e) =>
                                         setSelectedBoardId(e.target.value)
                                     }
                                 >
-                                    <option value="" disabled selected>
+                                    <option value="" disabled>
                                         Select a Board
                                     </option>
                                     {userBoards.map((board) => (
