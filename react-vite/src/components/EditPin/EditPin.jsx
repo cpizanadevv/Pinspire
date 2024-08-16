@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from 'react-redux';
 import { deletePin, editPin, getPin } from "../../redux/pins";
 import { useNavigate } from 'react-router-dom';
-import { fetchAllBoards } from "../../redux/board";
+import { fetchAllBoards} from "../../redux/board";
 import { useModal } from "../../context/Modal";
 import "./EditPin.css"
 
@@ -50,15 +50,26 @@ const EditPin = ({ pinId }) => {
             image: pin.img_url,
             title,
             description,
-            link
+            link,
+            board
         }
 
-        const response = await dispatch(editPin({editedPin, pinId}))
+        // let boardResponse
+        // if (board) {
+        //     boardResponse = await dispatch(postBoardPin(+board, pinId))
+        // } else {
+        //     boardResponse = true
+        // }
 
-        if (response) {
+        const pinResponse = await dispatch(editPin({editedPin, pinId}))
+
+        // if (pinResponse & boardResponse) {
+        //     closeModal()
+        // }
+
+        if (pinResponse) {
             closeModal()
         }
-    
     };
 
     return (

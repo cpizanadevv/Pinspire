@@ -71,11 +71,11 @@ p {
     border-bottom: 3px black solid;
 }
 
-.profile-bottom-container {
+/* .profile-bottom-container {
     display: flex;
     justify-content: center;
     width: 100%; 
-}
+} */
 
 .created-grid {
     column-count: 2;         
@@ -85,6 +85,7 @@ p {
 }
 
 .profile-pin-container {
+    min-height: 150px;
     margin-bottom: 15px;    /* space between items */
     break-inside: avoid;    /* prevents items from breaking across columns */
     position: relative;      /* positioning context for overlay and button */
@@ -93,7 +94,8 @@ p {
 
 .profile-pin-container img {
     width: 100%;            
-    height: auto;        
+    height: auto;
+    min-height: 150px;        
     display: block;         /* removes space below the image */
     border-radius: 20px;
 }
@@ -135,6 +137,7 @@ p {
     font-size: medium;
     border-radius: 25px;
     border: 0px;
+    cursor: pointer;
 }
 
 .profile-image-overlay .profile-edit-button {

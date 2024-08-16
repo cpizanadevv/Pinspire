@@ -30,7 +30,7 @@ function LandingPage(){
     },[dispatch])
 
     return (
-        <div className="pins">
+        <div className="created-grid">
             {allPins && allPins.map(({
                 id,
                 img_url,
@@ -39,18 +39,19 @@ function LandingPage(){
                 // description,
                 // link
             }) =>(
-                <div key={id} className="pin">
-                    <NavLink key={id} to={`/pin/${id}`}><img src={img_url} alt="" className="img"/></NavLink>
-                </div>
-                
+                <NavLink key={id}>
+                    <div className="profile-pin-container">
+                        <img src={img_url} />
+                        <div className="profile-image-overlay">
+                            <p className="profile-overlay-text">Profile</p>
+                            <button className="save-button">Save</button>
+                            {/* <button>Options</button> */}
+                        </div>
+                    </div>
+                </NavLink>
             ))}
-        
-            
         </div>
-        
-
-    )
-    
+    )  
 }
 
 export default LandingPage;
