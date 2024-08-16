@@ -25,6 +25,6 @@ def undo_board_pins():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.boards RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM boards_pins"))
+        db.session.execute(text("DELETE FROM board_pins"))
 
     db.session.commit()
