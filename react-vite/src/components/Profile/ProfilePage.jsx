@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "./ProfilePage.css";
 import { getAllPins } from "../../redux/pins";
+import { fetchAllBoards } from "../../redux/board"
 import EditPin from "../EditPin/EditPin";
 
 
 const Profile = () => {
     const user = useSelector((state) => state.session.user);
     const pinsObj = useSelector((state) => state.pinState.pins)
+    const boardsObj = useSelector((state => state.boardState))
     const pins = Object.values(pinsObj)
+    const boards = Object.values(boardsObj)
     const userPins = pins.filter((pin) => pin.user_id == user.id)
+    const userBoards = boards.filter((board) => board.user_id == user.id)
+    // console.log(userBoards)
     
     const [activeTab, setActiveTab] = useState('saved');
     
@@ -28,6 +34,7 @@ const Profile = () => {
 
     useEffect(() => {
         dispatch(getAllPins())
+        dispatch(fetchAllBoards())
     }, [dispatch])
 
     const handleTabChange = (tab) => {
@@ -61,7 +68,16 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            <div className="profile-middle-container">
+                <button>
+                    <i className="fa-solid fa-sort"></i>
+                </button>
+                <button>
+                    <i className="fa-solid fa-plus"></i>
+                </button>
+            </div>
             <div id="profile-bottom-container">
+
                 {activeTab === 'created' && 
                     <div className="created-grid">
                         {userPins.map((pin) => (
@@ -81,7 +97,25 @@ const Profile = () => {
                         ))}
                     </div>
                 }
-                {activeTab === 'saved' && <div>Saved place holder.</div>}
+
+                {activeTab === 'saved' && 
+                    <div className="profile-board-grid">
+                        {userBoards.map((board) => (
+                            <NavLink key={board.id} to={`/boards/${board.id}`}>
+                                <div className="profile-board-container">
+                                    <div className="profile-board-image-container">
+                                        {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjWxpmv4OBwxwBby4Xyv4FO7m1t1mTSAzrsQ&s"/> */}
+                                        <button className="profile-board-edit-button">Edit</button>
+                                    </div>
+                                    <div className="profile-board-title-container">
+                                        <p className="profile-board-title">{board.name}</p>
+                                    </div>
+                                </div>
+                            </NavLink>
+                        ))}
+                    </div>
+                }
+
                 {activeTab === 'favorites' && <div>Favorites place holder</div>}
             </div>
         </div>

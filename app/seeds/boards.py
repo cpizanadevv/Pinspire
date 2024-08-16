@@ -3,24 +3,42 @@ from sqlalchemy.sql import text
 
 def seed_boards():
     board1 = Board(
-        name='Food',
+        name='All Pins',
         user_id=1,
         private=True
     )
 
     board2 = Board(
-        name='Art',
+        name='All Pins',
         user_id=2,
         private=True
     )
 
     board3 = Board(
+        name='All Pins',
+        user_id=3,
+        private=True
+    )
+
+    board4 = Board(
+        name='Food',
+        user_id=1,
+        private=True
+    )
+
+    board5 = Board(
+        name='Art',
+        user_id=2,
+        private=True
+    )
+
+    board6 = Board(
         name='Scenery',
         user_id=3,
         private=True
     )
 
-    db.session.add_all([board1, board2, board3])
+    db.session.add_all([board1, board2, board3, board4, board5, board6])
     db.session.commit()
 
 

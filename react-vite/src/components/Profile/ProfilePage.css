@@ -105,10 +105,10 @@ p {
     width: 100%;
     height: 100%;
     opacity: 0;              /* hidden */
-    display: flex;           /* center the button */
+    display: flex;           
     flex-direction: column;
-    align-items: end;     /* button to the top*/
-    justify-content: space-between;   /* button to the right*/
+    align-items: end;    
+    justify-content: space-between;  
     border-radius: 20px;    
     overflow: hidden; 
 }
@@ -147,29 +147,101 @@ p {
     border: 0px;
 }
 
+.profile-board-grid {
+    column-count: 2;         
+    column-gap: 15px;      
+    width: 490px;
+    margin: 15px auto;
+}
+
+.profile-board-container {
+    width: 220px;
+    overflow: hidden;
+}
+
+.profile-board-image-container {
+    position: relative;
+    border-radius: 15px;
+    width: 100%;
+    height: 150px;
+    background-color: lightgrey;
+    overflow: hidden; /* hides anything outside the container */
+}
+
+.profile-board-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* image covers the entire container */
+}
+
+.profile-board-edit-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.profile-board-image-container:hover .profile-board-edit-button {
+    opacity: 1;
+}
+
+.profile-board-title-container {
+    margin-top: 10px;
+    /* text-align: center; */
+}
+
+.profile-board-title {
+    font-size: larger;
+    font-weight: 500;
+    margin: 10px 8px
+}
+
+.profile-middle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+.profile-middle-container > button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.fa-solid {
+    font-size: 26px;
+}
+
 @media (min-width: 750px) and (max-width: 1009px) {
-    .created-grid {
+    .created-grid, .profile-board-grid {
         column-count: 3;    
         width: 730px;
     }
 }
 
 @media (min-width: 1010px) and (max-width: 1264px) {
-    .created-grid {
+    .created-grid, .profile-board-grid {
         column-count: 4;    
         width: 990px;    
     }
 }
 
 @media (min-width: 1265px) and (max-width: 1509px) {
-    .created-grid {
+    .created-grid, .profile-board-grid {
         column-count: 5;    
         width: 1245px;
     }
 }
 
 @media (min-width: 1510px) {
-    .created-grid {
+    .created-grid, .profile-board-grid {
         column-count: 6;   
         width: 1480px;
     }
