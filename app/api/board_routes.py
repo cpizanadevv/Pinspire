@@ -60,11 +60,7 @@ def post_board():
 @board_routes.route('/<int:board_id>', methods=['PUT'])
 @login_required
 def edit_board_by_id(board_id):
-    form = BoardForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
     data = request.json
-
     board_to_edit = Board.query.get(board_id)
 
     if not board_to_edit:
@@ -72,22 +68,19 @@ def edit_board_by_id(board_id):
     if board_to_edit.user_id != current_user.id:
         return jsonify({"error": "unauthorized"}), 403
 
-    form.name.data = data.get('name')
-    form.private.data = data.get('private')
-
+    if 'name' in data:
+        board_to_edit.name = data['name']
+    if 'private' in data:
+        board_to_edit.private = data['private']
     if 'description' in data:
-        form.description.data = data['description']
-
-    board_to_edit.name = form.data['name']
-    board_to_edit.private = form.data['private']
-
-    if 'description' in data:
-        board_to_edit.description = form.data['description']
+        board_to_edit.description = data['description']
 
     db.session.commit()
+
     return jsonify({
         "message": "board changes successful",
-        "board": board_to_edit.to_dict()}), 200
+        "board": board_to_edit.to_dict()
+    }), 200
 
 @board_routes.route('/<int:board_id>', methods=['DELETE'])
 @login_required
@@ -100,7 +93,8 @@ def delete_board_by_id(board_id):
     db.session.delete(board_to_delete)
     db.session.commit()
 
-    return jsonify({"message": f'Successfully deleted board {board_id}'})
+    return jsonify({"message": f'Successfully deleted board {board_id}',
+                    "boardId": board_id}), 200
 
 @board_routes.route('/<int:board_id>/pins', methods=['GET'])
 def get_pins_by_board_id(board_id):

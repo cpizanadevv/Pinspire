@@ -3,42 +3,42 @@ import { useNavigate, useParams } from "react-router-dom";
 import { putBoard, fetchOneBoard } from "../../redux/board";
 import "./EditBoard.css";
 import { useSelector, useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
 
-const PutBoard = () => {
-    const { boardId } = useParams()
+const PutBoard = ({ boardId, onClose }) => {
     const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const board = useSelector((state) => state.boardState[boardId]); // Correctly accessing the board by ID
+    const { closeModal } = useModal();
 
     const [name, setName] = useState("");
     const [privacy, setPrivacy] = useState(false);
     const [description, setDescription] = useState("");
 
-    const boardToUpdate = useSelector((state) => state.boardState[1])
     useEffect(() => {
         let formErrors = {};
 
         if (!name) formErrors.name = "Name is required";
-        // if (!privacy) formErrors.privacy = "Need to set privacy"; // shouldn't appear
 
         setErrors(formErrors);
     }, [name]);
 
     useEffect(() => {
-        dispatch(fetchOneBoard(boardId))
-    }, [dispatch, boardId])
+        dispatch(fetchOneBoard(boardId));
+    }, [dispatch, boardId]);
 
     useEffect(() => {
-        if (boardToUpdate) {
-            setName(boardToUpdate.name || ""); // Ensure non-undefined
-            setPrivacy(boardToUpdate.privacy || false); // Ensure non-undefined
-            setDescription(boardToUpdate.description || ""); // Ensure non-undefined
+        if (board) {
+            setName(board.name || "");
+            setPrivacy(board.privacy || false);
+            setDescription(board.description || " "); // Ensure description is set properly
         }
-    }, [boardToUpdate])
+    }, [board]);
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setHasSubmitted(true);
 
@@ -47,53 +47,56 @@ const PutBoard = () => {
         const boardBody = {
             name,
             private: privacy,
-            user_id: currUser.id,
-            ...(description && { description })
+            ...(description && { description }), // Include description only if it has a value
+        };
+
+        try {
+            const updatedBoard = await dispatch(putBoard(boardBody, boardId));
+            closeModal(); // Close the modal
+            window.location.reload(); // Refresh the page
+        } catch (error) {
+            console.error("Error updating board:", error);
         }
+    };
 
-        const updatedBoard = await dispatch(putBoard(boardBody, boardToUpdate.id));
-
-        navigate(`/boards/${updatedBoard.board.id}`, { replace: true })
-    }
-        return (
-            <form id="form" onSubmit={handleSubmit} >
+    return (
+        <form id="form" onSubmit={handleSubmit}>
             <h1>Edit Board</h1>
             <div className="name-container">
                 <label htmlFor="name">Name</label>
                 <input
-                type="text"
-                value={name}
-                id="name"
-                name="name"
-                onChange={e => setName(e.target.value)}
+                    type="text"
+                    value={name}
+                    id="name"
+                    name="name"
+                    onChange={(e) => setName(e.target.value)}
                 />
-                {hasSubmitted && errors.name && (
-                    <span>{errors.name}</span>
-                )}
+                {hasSubmitted && errors.name && <span>{errors.name}</span>}
             </div>
-            <div className='description-container'>
-                <label htmlFor='description'>Description</label>
+            <div className="description-container">
+                <label htmlFor="description">Description</label>
                 <textarea
-                id='description'
-                name='description'
-                onChange={e => setDescription(e.target.value)}
+                    id="description"
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
             </div>
             <div className="privacy-container">
                 <label htmlFor="privacy">Set Privacy</label>
                 <input
-                type="checkbox"
-                id="privacy"
-                name="private"
-                checked={privacy}
-                onChange={e => setPrivacy(e.target.checked)}
+                    type="checkbox"
+                    id="privacy"
+                    name="private"
+                    checked={privacy}
+                    onChange={(e) => setPrivacy(e.target.checked)}
                 />
             </div>
             <button type="submit" className="submit-button">
-                Create Board
+                Save Changes
             </button>
         </form>
     );
-}
+};
 
-export default PutBoard
+export default PutBoard;
