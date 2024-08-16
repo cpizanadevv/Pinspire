@@ -22,7 +22,7 @@ def get_single_pin(pin_id):
     if pin:
         return jsonify(pin.to_dict())
     else:
-        return ({"message": "Pin not found"})
+        return jsonify({"message": "Pin not found"}), 404
 
 @pin_routes.route("/new", methods=["POST"])
 @login_required

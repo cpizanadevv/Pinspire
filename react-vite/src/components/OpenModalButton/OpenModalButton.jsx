@@ -11,7 +11,9 @@ function OpenModalButton({
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
-  const onClick = () => {
+  const onClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation()
     if (onModalClose) setOnModalClose(onModalClose);
     setModalContent(React.cloneElement(modalComponent, { pinId }));
     if (typeof onButtonClick === "function") onButtonClick();

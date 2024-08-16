@@ -3,7 +3,7 @@ const GET_ONE_BOARD = "board/getOneBoard";
 const POST_BOARD = "board/postBoard";
 const EDIT_BOARD = "board/editBoard";
 const DELETE_BOARD = "board/deleteBoard";
-const POST_BOARD_PIN = "board/postBoardPin";
+// const POST_BOARD_PIN = "board/postBoardPin";
 const DELETE_BOARD_PIN = "board/deleteBoardPin";
 
 const getBoards = (boards) => {
@@ -41,17 +41,17 @@ const deleteBoard = (boardId) => {
     };
 };
 
-export const addPinToBoard = (boardId, pin) => ({
-    type: POST_BOARD_PIN,
-    payload: { boardId, pin }
-});
+// export const addPinToBoard = (boardId, pin) => ({
+//     type: POST_BOARD_PIN,
+//     payload: { boardId, pin }
+// });
 
 export const removePinFromBoard = (boardId, pin) => ({
     type: DELETE_BOARD_PIN,
     payload: { boardId, pin }
 });
 
-export const postBoardPin = (boardId, pinId) => async (dispatch) => {
+export const postBoardPin = (boardId, pinId) => async () => {
     const response = await fetch(`/api/boards/${boardId}/pins/${pinId}/create`, {
         method: "POST",
         headers: {
@@ -61,7 +61,8 @@ export const postBoardPin = (boardId, pinId) => async (dispatch) => {
 
     if (response.ok) {
         const pin = await response.json();
-        dispatch(addPinToBoard(boardId, pin));
+        return pin
+        // dispatch(addPinToBoard(boardId, pin));
     } else {
         const error = await response.json();
         console.error("Failed to add pin:", error);
@@ -192,20 +193,20 @@ const boardReducer = (state = initialState, action) => {
             delete newState[action.payload.boardId];
             return newState;
         }
-        case POST_BOARD_PIN: {
-            const { boardId, pin } = action.payload;
-            if (state[boardId]) {
-                const updatedBoard = {
-                    ...state[boardId],
-                    pins: [...state[boardId].pins, pin],
-                };
-                return {
-                    ...state,
-                    [boardId]: updatedBoard,
-                };
-            }
-            return state;
-        }
+        // case POST_BOARD_PIN: {
+        //     const { boardId, pin } = action.payload;
+        //     if (state[boardId]) {
+        //         const updatedBoard = {
+        //             ...state[boardId],
+        //             pins: [...state[boardId].pins, pin],
+        //         };
+        //         return {
+        //             ...state,
+        //             [boardId]: updatedBoard,
+        //         };
+        //     }
+        //     return state;
+        // }
         case DELETE_BOARD_PIN: {
             const { boardId, pin } = action.payload;
             if (state[boardId]) {

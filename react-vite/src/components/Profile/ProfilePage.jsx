@@ -83,7 +83,7 @@ const Profile = () => {
                 {activeTab === 'created' && 
                     <div className="created-grid">
                         {userPins.map((pin) => (
-                            <NavLink key={pin.id}>
+                            <NavLink key={pin.id} to={`/pin/${pin.id}`}>
                                 <div className="profile-pin-container">
                                     <img src={pin.img_url} />
                                     <div className="profile-image-overlay">

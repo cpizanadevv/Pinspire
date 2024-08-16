@@ -39,7 +39,7 @@ function LandingPage(){
                 // description,
                 // link
             }) =>(
-                <NavLink key={id}>
+                <NavLink key={id} to={`/pin/${id}`}>
                     <div className="profile-pin-container">
                         <img src={img_url} />
                         <div className="profile-image-overlay">

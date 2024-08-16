@@ -30,16 +30,12 @@ const updatePin = (pin) => ({
 });
 
 export const getPin = (pinId) => async (dispatch) => {
-    console.log('Fetching pin with ID from thunk:', pinId);
     const response = await fetch(`/api/pins/${pinId}`)
     if (response.ok) {
         const pin = await response.json();
-        console.log('Fetched pin:', pin);
         dispatch(loadPin(pin))
     } else {
         const error = await response.json()
-        // const errorText = await response.text(); // Get text if not JSON
-        console.log('Error fetching pin:', error);
         return error
     }
 };
@@ -124,13 +120,13 @@ function pinsReducer(state = initialState, action) {
     let newState = {};
     switch (action.type) {
         case LOAD_PIN: {
-            newState = { ...state, pins: { ...state.pins, [action.pin.id]: action.pin } };
+            // newState = { ...state, pins: { ...state.pins, [action.pin.id]: action.pin } };
+            newState = {...state, pin: action.pin}
             return newState;
         }
         case GET_PINS: {
             newState = { ...state, pins: {} };
             action.pins.forEach( pin => { newState.pins[pin.id] = pin })
-            console.log('GET_PINS action:', newState.pins);
             return newState
         }
         case UPDATE_PIN: {
