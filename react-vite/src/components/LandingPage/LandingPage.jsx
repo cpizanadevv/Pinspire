@@ -71,13 +71,17 @@ function LandingPage() {
 
     return (
         <div className="created-grid">
-            {shuffledPins.map(({ id, img_url }) => (
-                <NavLink key={id}>
-                    <div
-                        className="profile-pin-container"
-                        onMouseEnter={() => handlePinHover(id)}
-                    >
-                        <img src={img_url} alt={`Pin ${id}`} />
+            {allPins && allPins.map(({
+                id,
+                img_url,
+                // user_id,
+                // title,
+                // description,
+                // link
+            }) =>(
+                <NavLink key={id} to={`/pin/${id}`}>
+                    <div className="profile-pin-container">
+                        <img src={img_url} />
                         <div className="profile-image-overlay">
                             <div className="board-container">
                                 <h4 className="save-to-board-text">
