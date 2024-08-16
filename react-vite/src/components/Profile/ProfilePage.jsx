@@ -12,8 +12,6 @@ const Profile = () => {
     const pinsObj = useSelector((state) => state.pinState.pins)
     const pins = Object.values(pinsObj)
     const userPins = pins.filter((pin) => pin.user_id == user.id)
-    // console.log(userPins)
-
     
     const [activeTab, setActiveTab] = useState('saved');
     
@@ -76,6 +74,7 @@ const Profile = () => {
                                         buttonText="Edit"
                                         modalComponent={<EditPin />}
                                         className="profile-edit-button"
+                                        pinId={pin.id}
                                     />
                                 </div>
                             </div>

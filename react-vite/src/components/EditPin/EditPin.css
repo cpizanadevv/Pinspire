@@ -2,18 +2,80 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 530px;
+    width: 510px;
     position: fixed;
     background-color: white;
-    color: #000000;
+    /* color: #000000; */
     top: 0px; 
     right: 0px;
     padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.edit-pin-title {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: 30px;
 }
 
 .edit-pin-field-container {
     display: flex;
     flex-direction: column;
-    margin: 20px 0px
+    margin: 20px 0px;
+}
+
+.edit-pin-label {
+    margin: 5px 0px;
+    color: black;
+    font-size: small;
+}
+
+.edit-pin-input {
+    border-radius: 10px;
+    height: 45px;
+    /* border-color: darkgray; */
+    /* box-shadow: none; */
+    border: 2px solid lightgrey; /* or a color that matches your design */
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    font-size: medium;
+}
+
+.edit-pin-input.edit-pin-text {
+    height: 70px;
+    padding: 15px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.edit-pin-buttons {
+    position: fixed;
+    bottom: 0px; 
+    right: 0px;
+    display: flex;
+    justify-content: end;
+    /* margin: 20px; */
+    gap: 10px;
+    width: 510px;
+    padding: 20px;
+    background-color: white;
+}
+
+.edit-pin-buttons button {
+    padding: 13px 15px;
+    border-radius: 40px;
+    font-size: medium;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-pin-save-button {
+    color: white;
+    background-color: red;
+}
+
+@media (max-height: 650px) {
+    .edit-pin-buttons {
+        box-shadow: 0px -3px 10px lightgrey;
+    }
 }
 

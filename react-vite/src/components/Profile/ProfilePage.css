@@ -88,7 +88,7 @@ p {
     margin-bottom: 15px;    /* space between items */
     break-inside: avoid;    /* prevents items from breaking across columns */
     position: relative;      /* positioning context for overlay and button */
-    /* overflow: hidden;        hide overflow so overlay doesn't exceed the image */
+    overflow: hidden;        /* hide overflow so overlay doesn't exceed the image */
 }
 
 .profile-pin-container img {
@@ -110,6 +110,7 @@ p {
     align-items: end;     /* button to the top*/
     justify-content: space-between;   /* button to the right*/
     border-radius: 20px;    
+    overflow: hidden; 
 }
 
 .profile-pin-container:hover .profile-image-overlay {
@@ -129,7 +130,7 @@ p {
 .save-button {
     background-color: red;
     color: white;
-    margin: 13px;
+    margin: 10px;
     padding: 15px 16px;
     font-size: medium;
     border-radius: 25px;
@@ -139,7 +140,7 @@ p {
 .profile-image-overlay .profile-edit-button {
     background-color: white;
     color: black;
-    margin: 13px;
+    margin: 10px;
     padding: 15px 16px;
     font-size: medium;
     border-radius: 25px;

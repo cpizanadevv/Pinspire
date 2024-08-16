@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOneBoard } from "../../redux/board";
 import "./OneBoard.css";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const OneBoard = () => {
     const { boardId } = useParams();
