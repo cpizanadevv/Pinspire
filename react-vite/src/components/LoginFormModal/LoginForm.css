@@ -1,0 +1,50 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30em;
+    padding: 2em;
+}
+
+/* div #modal-content {
+    padding: 1em;
+    border-radius: 2em;
+} */
+
+.login-form label {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.login-form input {
+    width: 20em;
+    height: 2em;
+    border-radius: 2em;
+    margin-bottom: .5em;
+    padding: .2em .5em;
+}
+
+.login-form button {
+    background: #FF0079;
+    text-align: center;
+    width: 6em;
+    border-radius: 2em;
+    border: none;
+    padding: 1em;
+    color: white;
+}
+
+.login-buttons {
+    display: flex;
+    gap: 2em;
+
+}
+
+.errors {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+
+}
