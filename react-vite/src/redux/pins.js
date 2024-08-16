@@ -29,6 +29,34 @@ const updatePin = (pin) => ({
     pin
 });
 
+export const setPage = (page) => ({
+    type: 'SET_PAGE',
+    page,
+});
+
+export const setPageSize = (pageSize) => ({
+    type: 'SET_PAGE_SIZE',
+    pageSize,
+});
+
+export const setHasMore = (hasMore) => ({
+    type: 'SET_HAS_MORE',
+    hasMore,
+});
+
+export const setLoading = (loading) => ({
+    type: 'SET_LOADING',
+    loading,
+});
+export const pinsWithPagination = (pins) => ({
+    type: 'GET_PINS_WITH_PAGINATION',
+    pins,
+});
+export const resetPins = () => ({
+    type: 'RESET_PINS',
+});
+
+
 export const getPin = (pinId) => async (dispatch) => {
     console.log('Fetching pin with ID from thunk:', pinId);
     const response = await fetch(`/api/pins/${pinId}`)
@@ -52,6 +80,21 @@ export const getAllPins = () => async (dispatch) => {
     } else {
         const error = await response.json()
         return error
+    }
+};
+
+export const getAllPinsWPagination = (page = 1, pageSize = 15) => async (dispatch) => {
+    const response = await fetch(`/api/pins/pagination?page=${page}&page_size=${pageSize}`)
+    if (response.ok) {
+        const { Pins } = await response.json();
+        dispatch(pinsWithPagination(Pins));
+
+        // Check if there's more data to be loaded
+        const hasMore = Pins.length === pageSize;
+        dispatch(setHasMore(hasMore));
+    } else {
+        const error = await response.json();
+        console.error('Error fetching pins:', error);
     }
 };
 
@@ -118,7 +161,11 @@ export const addPin = (newPin) => async (dispatch) => {
     }
 };
 
-const initialState = { pin: {}, pins: {} };
+const initialState = { pin: {}, pins: {},
+page: 1,
+pageSize: 15,
+hasMore: true,
+loading: false,};
 
 function pinsReducer(state = initialState, action) {
     let newState = {};
@@ -130,8 +177,29 @@ function pinsReducer(state = initialState, action) {
         case GET_PINS: {
             newState = { ...state, pins: {} };
             action.pins.forEach( pin => { newState.pins[pin.id] = pin })
-            console.log('GET_PINS action:', newState.pins);
+            // console.log('GET_PINS action:', newState.pins);
             return newState
+        }
+        case 'GET_PINS_WITH_PAGINATION': {
+            // For routes with pagination
+            const newPins = action.pins.reduce((acc, pin) => {
+                acc[pin.id] = pin;
+                return acc;
+            }, {});
+            return {
+                ...state,
+                pins: { ...state.pins, ...newPins }, // Merge with existing pins
+                loading: false,
+            };
+        }
+        case 'RESET_PINS': {
+            return {
+                ...state,
+                pins: {},  // Clear the pins
+                page: 1,   // Reset the page to 1
+                hasMore: true, // Reset hasMore to true if you want to reload data
+                loading: false, // Reset loading state
+            };
         }
         case UPDATE_PIN: {
             const updatedPin = action.pin
@@ -147,6 +215,18 @@ function pinsReducer(state = initialState, action) {
             const newPin = action.pin;
             newState = { ...state, pins: { ...state.pins, [newPin.id]: newPin } };
             return newState;
+        }
+        case 'SET_PAGE': {
+            return { ...state, page: action.page };
+        }
+        case 'SET_PAGE_SIZE': {
+            return { ...state, pageSize: action.pageSize };
+        }
+        case 'SET_HAS_MORE': {
+            return { ...state, hasMore: action.hasMore };
+        }
+        case 'SET_LOADING': {
+            return { ...state, loading: action.loading };
         }
         default:
             return state;

@@ -17,6 +17,14 @@
 img {
     width: 100%;
 }
+
+.loading-message {
+    text-align: center;
+    margin: 20px;
+    font-size: 18px;
+    color: #666;
+}
+
 @media screen and (max-width: 1200px) {
     .pins {
         column-count: 4;
