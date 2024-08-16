@@ -40,7 +40,7 @@ a {
 }
 
 .logo {
-  width: 50px;
+  width: 45px;
 }
 
 .left-nav {
@@ -63,12 +63,26 @@ a {
   font-weight: bold;
 }
 
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
 .search-bar input {
   all: unset;
   background-color: #F1F1F1;
   width: 1000px;
   border-radius: 40px;
-  padding: 10px 15px;
+  padding: 10px 15px 10px 40px;
+  position: relative;
+  box-sizing: border-box;
+
+  /* for adding the magnifying glass! */
+  background-image: url(https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/magnifying-glass-18.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 30px;
+  background-position: 7px;
 }
 
 .search-bar input:hover {

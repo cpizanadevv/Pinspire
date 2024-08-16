@@ -123,10 +123,12 @@ const initialState = { pin: {}, pins: {} };
 function pinsReducer(state = initialState, action) {
     let newState = {};
     switch (action.type) {
-        case LOAD_PIN: {
-            newState = { ...state, pins: { ...state.pins, [action.pin.id]: action.pin } };
-            return newState;
-        }
+        // case LOAD_PIN: {
+        //     newState = { ...state, pins: { ...state.pins, [action.pin.id]: action.pin } };
+        //     return newState;
+        // }
+        case LOAD_PIN:
+            return { ...state, pin: action.pin }
         case GET_PINS: {
             newState = { ...state, pins: {} };
             action.pins.forEach( pin => { newState.pins[pin.id] = pin })
