@@ -6,12 +6,12 @@ import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState("Test");
-  const [lastName, setLastName] = useState("Tester");
-  const [email, setEmail] = useState("testertest@aa.io");
-  const [username, setUsername] = useState("testertest");
-  const [password, setPassword] = useState("password");
-  const [confirmPassword, setConfirmPassword] = useState("password");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
