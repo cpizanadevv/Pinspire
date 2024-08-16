@@ -118,7 +118,7 @@ def delete_pin(pin_id):
     return jsonify({"message": f"Pin with id {pin_id} successfully deleted"})
 
 #Get Comments for pin
-@pin_routes.route('/<int:pin_id>', methods=['GET'])
+@pin_routes.route('/<int:pin_id>/comments', methods=['GET'])
 def get_pin_comments(pin_id):
     comments = Comment.query.filter(Comment.pin_id == pin_id).all()
 
@@ -142,7 +142,7 @@ def create_pin_comment(pin_id):
     return new_comment.to_dict()
 
 #Update comment on a pin
-@pin_routes.route('/<int:pin_id>/<int:comment_id>', methods=['PUT'])
+@pin_routes.route('/<int:pin_id>/<int:comment_id>/edit', methods=['PUT'])
 @login_required
 def update_pin_comment(pin_id,comment_id):
     form=CommentForm()
