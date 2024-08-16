@@ -1,4 +1,4 @@
-from app.models import db, Board, Pin, environment, SCHEMA
+from app.models import db, Board, Pin, User, environment, SCHEMA
 from sqlalchemy.sql import text
 import random
 

@@ -3,19 +3,19 @@ from sqlalchemy.sql import text
 
 def seed_boards():
     board1 = Board(
-        name='Food',
+        name='All Pins',
         user_id=1,
         private=True
     )
 
     board2 = Board(
-        name='Art',
+        name='All Pins',
         user_id=2,
         private=True
     )
 
     board3 = Board(
-        name='Scenery',
+        name='All Pins',
         user_id=3,
         private=True
     )
