@@ -14,7 +14,11 @@ def get_all_boards():
     if not boards:
         return jsonify({"message": "no boards found"})
 
-    boards_list = [board.to_dict() for board in boards]
+    boards_list = []
+    for board in boards:
+        board_data = board.to_dict()
+        board_data['pins'] = [pin.to_dict() for pin in board.pins]
+        boards_list.append(board_data)
 
     return jsonify(boards_list)
 

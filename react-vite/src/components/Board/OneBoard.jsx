@@ -20,6 +20,7 @@ const OneBoard = () => {
 
   if (!board || !board.name) return <h1>Loading...</h1>;
 
+  console.log('AAAAAAAAAAAA', board)
   return (
     <div id="one-board-container">
       <ul className="one-board">
