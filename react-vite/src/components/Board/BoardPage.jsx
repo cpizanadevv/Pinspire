@@ -20,8 +20,6 @@ const Boards = () => {
             board.user_id === user.id
         }
     );
-
-    console.log('BBBBBBBBB', userBoards)
     return (
         <div id="boards-container">
             <div className="user-board">
