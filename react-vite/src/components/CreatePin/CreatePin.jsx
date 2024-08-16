@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 import { addPin } from '../../redux/pins';
 import './CreatePin.css';
 
@@ -13,6 +14,7 @@ const CreatePin = () => {
     const [imageSrc, setImageSrc] = useState("");
     const imageInputRef = useRef(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -49,6 +51,7 @@ const CreatePin = () => {
         if (data.img_url) {
             setImageUrl(data.img_url);
             console.log("Pin added to the database:", data);
+            navigate(`/pin/${data.id}`); //nav to ViewPin
         } else {
             alert("Error uploading file");
             console.log("Error uploading file:", data);
