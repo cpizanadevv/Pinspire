@@ -1,21 +1,20 @@
 """empty message
 
-Revision ID: 4ad00462db9e
+Revision ID: 11e56eff6b7b
 Revises: 
-Create Date: 2024-08-15 15:57:05.144314
+Create Date: 2024-08-16 15:03:49.816927
 
 """
 from alembic import op
 import sqlalchemy as sa
 
 import os
-
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '4ad00462db9e'
+revision = '11e56eff6b7b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,6 +27,7 @@ def upgrade():
     sa.Column('tag', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE tags SET SCHEMA {SCHEMA};")
 
@@ -42,6 +42,7 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
@@ -51,9 +52,10 @@ def upgrade():
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=6969), nullable=True),
     sa.Column('private', sa.Boolean(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
 
@@ -67,16 +69,18 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
 
     op.create_table('board_pins',
     sa.Column('board_id', sa.Integer(), nullable=False),
     sa.Column('pin_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ),
-    sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
+    sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('board_id', 'pin_id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE board_pins SET SCHEMA {SCHEMA};")
 
@@ -85,13 +89,14 @@ def upgrade():
     sa.Column('pin_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('comment', sa.String(length=1000), nullable=False),
-    sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
+    sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-
+    
     op.create_table('favorites',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -100,16 +105,18 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
 
     op.create_table('pin_tags',
     sa.Column('pin_id', sa.Integer(), nullable=False),
     sa.Column('tag_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
-    sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
+    sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('pin_id', 'tag_id')
     )
+
     if environment == "production":
         op.execute(f"ALTER TABLE pin_tags SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###

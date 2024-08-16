@@ -9,6 +9,7 @@ function SearchComponent() {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       navigate(`/pins/${keyword}`);
+      setKeyword('');
     }
   };
   return (

@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle,FaAngleDown } from 'react-icons/fa';
+import { FaUserCircle, FaAngleDown } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import "./Navigation.css";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -44,18 +45,22 @@ function ProfileButton() {
     <>
       {user ? (
         <div className="profile-menu">
-          <NavLink to={`/${user.id}`}><FaUserCircle /></NavLink>
+          <NavLink to={`/${user.id}`}>
+            <FaUserCircle />
+          </NavLink>
 
           <button onClick={toggleMenu}>
-            <FaAngleDown/>
+            <FaAngleDown />
           </button>
           {showMenu && (
             <ul className="profile-dropdown" ref={ulRef}>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
+              <div className="dropdown-content">
+                <li>{user.username}</li>
+                <li>{user.email}</li>
+                <li>
+                  <button onClick={logout}>Log Out</button>
+                </li>
+              </div>
             </ul>
           )}
         </div>
@@ -66,11 +71,13 @@ function ProfileButton() {
             onItemClick={() => {}}
             modalComponent={<LoginFormModal />}
           />
-          <OpenModalMenuItem
-            itemText="Sign Up"
-            onItemClick={() => {}}
-            modalComponent={<SignupFormModal />}
-          />
+          <div className="sign-up">
+            <OpenModalMenuItem
+              itemText="Sign Up"
+              onItemClick={() => {}}
+              modalComponent={<SignupFormModal />}
+            />
+          </div>
         </div>
       )}
     </>

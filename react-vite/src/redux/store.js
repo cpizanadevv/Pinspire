@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import pinsReducer from "./pins"
 import boardReducer from "./board";
 import commentsReducer from "./comment";
+import favoritesReducer from "./favorites";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   pinState: pinsReducer,
   boardState: boardReducer,
-  commentState: commentsReducer
+  commentState: commentsReducer,
+  favoriteState: favoritesReducer
 });
 
 let enhancer;

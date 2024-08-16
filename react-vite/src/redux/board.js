@@ -3,7 +3,7 @@ const GET_ONE_BOARD = "board/getOneBoard";
 const POST_BOARD = "board/postBoard";
 const EDIT_BOARD = "board/editBoard";
 const DELETE_BOARD = "board/deleteBoard";
-const POST_BOARD_PIN = "board/postBoardPin";
+// const POST_BOARD_PIN = "board/postBoardPin";
 const DELETE_BOARD_PIN = "board/deleteBoardPin";
 
 const getBoards = (boards) => {
@@ -51,7 +51,7 @@ export const removePinFromBoard = (boardId, pin) => ({
     payload: { boardId, pin }
 });
 
-export const postBoardPin = (boardId, pinId) => async (dispatch) => {
+export const postBoardPin = (boardId, pinId) => async () => {
     const response = await fetch(`/api/boards/${boardId}/pins/${pinId}/create`, {
         method: "POST",
         headers: {
@@ -61,6 +61,7 @@ export const postBoardPin = (boardId, pinId) => async (dispatch) => {
 
     if (response.ok) {
         const pin = await response.json();
+        return pin
         // dispatch(addPinToBoard(boardId, pin));
     } else {
         const error = await response.json();
