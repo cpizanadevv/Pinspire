@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import "./ProfilePage.css";
 import { getAllPins } from "../../redux/pins";
+import EditPin from "../EditPin/EditPin";
 
 
 const Profile = () => {
@@ -10,8 +12,6 @@ const Profile = () => {
     const pinsObj = useSelector((state) => state.pinState.pins)
     const pins = Object.values(pinsObj)
     const userPins = pins.filter((pin) => pin.user_id == user.id)
-    // console.log(userPins)
-
     
     const [activeTab, setActiveTab] = useState('saved');
     
@@ -68,7 +68,14 @@ const Profile = () => {
                             <div key={pin.id} className="profile-pin-container">
                                 <img src={pin.img_url} />
                                 <div className="profile-image-overlay">
+                                    <p className="profile-overlay-text">Profile</p>
                                     <button className="save-button">Save</button>
+                                    <OpenModalButton
+                                        buttonText="Edit"
+                                        modalComponent={<EditPin />}
+                                        className="profile-edit-button"
+                                        pinId={pin.id}
+                                    />
                                 </div>
                             </div>
                         ))}
