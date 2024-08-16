@@ -68,32 +68,36 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            <div className="profile-middle-container">
-                <button>
-                    <i className="fa-solid fa-sort"></i>
-                </button>
-                <button>
-                    <i className="fa-solid fa-plus"></i>
-                </button>
-            </div>
+            {activeTab === 'saved' && 
+                <div className="profile-middle-container">
+                    <button>
+                        <i className="fa-solid fa-sort"></i>
+                    </button>
+                    <button>
+                        <i className="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            }           
             <div id="profile-bottom-container">
 
                 {activeTab === 'created' && 
                     <div className="created-grid">
                         {userPins.map((pin) => (
-                            <div key={pin.id} className="profile-pin-container">
-                                <img src={pin.img_url} />
-                                <div className="profile-image-overlay">
-                                    <p className="profile-overlay-text">Profile</p>
-                                    <button className="save-button">Save</button>
-                                    <OpenModalButton
-                                        buttonText="Edit"
-                                        modalComponent={<EditPin />}
-                                        className="profile-edit-button"
-                                        pinId={pin.id}
-                                    />
+                            <NavLink key={pin.id}>
+                                <div className="profile-pin-container">
+                                    <img src={pin.img_url} />
+                                    <div className="profile-image-overlay">
+                                        <p className="profile-overlay-text">Profile</p>
+                                        <button className="save-button">Save</button>
+                                        <OpenModalButton
+                                            buttonText="Edit"
+                                            modalComponent={<EditPin />}
+                                            className="profile-edit-button"
+                                            pinId={pin.id}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            </NavLink>
                         ))}
                     </div>
                 }
@@ -117,6 +121,7 @@ const Profile = () => {
                 }
 
                 {activeTab === 'favorites' && <div>Favorites place holder</div>}
+
             </div>
         </div>
     );
