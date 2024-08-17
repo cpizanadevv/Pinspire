@@ -3,6 +3,7 @@ from flask import jsonify, request, Blueprint
 from flask_login import login_required, current_user
 from app.forms import CommentForm, PinForm
 from app.api.aws_utils import upload_file_to_s3, get_unique_filename, ALLOWED_EXTENSIONS
+import random
 
 from werkzeug.utils import secure_filename
 import os
@@ -15,6 +16,21 @@ def get_pins():
     pin_list = [pin.to_dict() for pin in pins]
     return jsonify({ "Pins": pin_list})
 
+@pin_routes.route("/pagination", methods=["GET"])
+def get_pins_pagination():
+    page = int(request.args.get('page',1))
+    page_size = int(request.args.get('page_size',10))
+    
+    pins = Pin.query.all()
+    random.shuffle(pins)
+    
+    start = (page - 1) * page_size
+    end = start + page_size
+    paginated = pins[start:end]
+    
+    all_pins = [pin.to_dict() for pin in paginated]
+    return jsonify({"Pins": all_pins})
+   
 @pin_routes.route("/<int:pin_id>", methods=["GET"])
 def get_single_pin(pin_id):
     pin = Pin.query.get(pin_id)
