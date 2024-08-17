@@ -98,7 +98,7 @@ export const addPin = (newPin) => async (dispatch) => {
     formData.append("description", description);
     formData.append("link", link);
 
-    const response = await fetch("https://pinspire.onrender.com", {
+    const response = await fetch("/api/pins/new", {
         method: "POST",
         body: formData,
         credentials: 'include',  // Important for session-based auth
