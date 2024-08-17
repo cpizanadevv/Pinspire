@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle, FaAngleDown } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -10,6 +10,7 @@ import "./Navigation.css";
 
 function ProfileButton() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -39,6 +40,7 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate('/')
   };
 
   return (
@@ -66,11 +68,13 @@ function ProfileButton() {
         </div>
       ) : (
         <div className="auth-buttons">
-          <OpenModalMenuItem
-            itemText="Log In"
-            onItemClick={() => {}}
-            modalComponent={<LoginFormModal />}
-          />
+          <div className="login">
+            <OpenModalMenuItem
+              itemText="Log In"
+              onItemClick={() => {}}
+              modalComponent={<LoginFormModal />}
+            />
+          </div>
           <div className="sign-up">
             <OpenModalMenuItem
               itemText="Sign Up"
