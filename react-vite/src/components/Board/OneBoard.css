@@ -40,3 +40,7 @@
     font-size: 0.9rem; /* Smaller text for title and description */
     text-align: center;
 }
+
+#one-board-container {
+    margin-top: 50px;
+}
