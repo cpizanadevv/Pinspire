@@ -48,6 +48,7 @@ ul {
   width: 100vw;
   top: 0;
   padding: 10px 20px;
+  z-index: 100;
   /* need to add margin-top: 40px? to every page to implement fixed header */
 }
 
