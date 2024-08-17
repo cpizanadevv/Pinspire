@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { putBoard, fetchOneBoard } from "../../redux/board";
+// import { useNavigate } from "react-router-dom";
+import { fetchOneBoard } from "../../redux/board";
 import "./EditBoard.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 
-const PutBoard = ({ boardId, onClose }) => {
-    const currUser = useSelector((state) => state.session.user);
+const PutBoard = ({ boardId }) => {
+    // const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const board = useSelector((state) => state.boardState[boardId]); // Correctly accessing the board by ID
@@ -44,14 +44,14 @@ const PutBoard = ({ boardId, onClose }) => {
 
         if (Object.keys(errors).length > 0) return;
 
-        const boardBody = {
-            name,
-            private: privacy,
-            ...(description && { description }), // Include description only if it has a value
-        };
+        // const boardBody = {
+        //     name,
+        //     private: privacy,
+        //     ...(description && { description }), // Include description only if it has a value
+        // };
 
         try {
-            const updatedBoard = await dispatch(putBoard(boardBody, boardId));
+            // const updatedBoard = await dispatch(putBoard(boardBody, boardId));
             closeModal(); // Close the modal
             window.location.reload(); // Refresh the page
         } catch (error) {

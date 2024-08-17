@@ -8,7 +8,7 @@ import Profile from '../components/Profile/ProfilePage'
 import Boards from '../components/Board/BoardPage'
 import OneBoard from '../components/Board/OneBoard'
 import CreateBoard from '../components/Board/CreateBoard'
-import PutBoard from '../components/Board/EditBoard'
+// import PutBoard from '../components/Board/EditBoard'
 import LandingPage from '../components/LandingPage'
 import SearchPins from '../components/LandingPage/SearchPins';
 

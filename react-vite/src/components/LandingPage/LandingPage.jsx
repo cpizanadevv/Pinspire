@@ -18,7 +18,7 @@ function LandingPage() {
     const dispatch = useDispatch();
     const [shuffledPins, setShuffledPins] = useState([]);
     const [savedPins, setSavedPins] = useState({}); // State to track saved pins by board
-    const [pinId, setPinId] = useState(null);
+    // const [pinId, setPinId] = useState(null);
     const [selectedBoardId, setSelectedBoardId] = useState(null);
 
     const currentUserId = useSelector((state) => state.session.user.id);
@@ -47,9 +47,9 @@ function LandingPage() {
         (board) => board.name === "All Pins" && board.user_id === currentUserId
     );
 
-    const handlePinHover = (id) => {
-        setPinId(id);
-    };
+    // const handlePinHover = (id) => {
+    //     // setPinId(id);
+    // };
 
     const handleSave = (pinId) => {
         if (selectedBoardId && allPinsBoard) {
@@ -75,7 +75,7 @@ function LandingPage() {
                 <NavLink key={id}>
                     <div
                         className="pin-container"
-                        onMouseEnter={() => handlePinHover(id)}
+                        // onMouseEnter={() => handlePinHover(id)}
                     >
                         <img src={img_url} alt={`Pin ${id}`} />
                         <div className="image-overlay">

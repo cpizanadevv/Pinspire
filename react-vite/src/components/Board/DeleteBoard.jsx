@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { putBoard, fetchOneBoard } from "../../redux/board";
+// import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import { putBoard, fetchOneBoard } from "../../redux/board";
 import "./EditBoard.css";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardActions from "../../redux/board";

@@ -6,7 +6,7 @@ import './CreatePin.css';
 
 const CreatePin = () => {
     const [file, setFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState("");
+    // const [imageUrl, setImageUrl] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
@@ -49,7 +49,7 @@ const CreatePin = () => {
 
         const data = await dispatch(addPin(newPin));
         if (data.img_url) {
-            setImageUrl(data.img_url);
+            // setImageUrl(data.img_url);
             console.log("Pin added to the database:", data);
             navigate(`/pin/${data.id}`); //nav to ViewPin
         } else {
