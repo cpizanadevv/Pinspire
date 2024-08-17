@@ -30,6 +30,23 @@
   gap: 1em;
 }
 
+.login {
+  background: #FF0079;
+  text-align: center;
+  width: 6em;
+  border-radius: 2em;
+  padding: 1em;
+  color: white;
+}
+.sign-up {
+  background: #dbd6d8;
+  text-align: center;
+  width: 6em;
+  border-radius: 2em;
+  padding: 1em;
+  color: black;
+}
+
 .search {
   width: 50em;
   height: 1.25em;
