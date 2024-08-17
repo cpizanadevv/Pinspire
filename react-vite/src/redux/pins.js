@@ -101,7 +101,7 @@ export const addPin = (newPin) => async (dispatch) => {
     const response = await fetch("/api/pins/new", {
         method: "POST",
         body: formData,
-        credentials: 'include',  // Important for session-based auth
+        credentials: 'include',
     });
 
     if (response.ok) {
