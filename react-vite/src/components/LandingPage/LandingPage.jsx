@@ -21,7 +21,7 @@ function LandingPage() {
     // const [pinId, setPinId] = useState(null);
     const [selectedBoardId, setSelectedBoardId] = useState(null);
 
-    const currentUserId = useSelector((state) => state.session.user.id);
+    const currentUserId = useSelector((state) => state.session.user?.id);
     const pins = useSelector((state) => state.pinState.pins || {});
     const boards = useSelector((state) => state.boardState || []);
     const boardsObj = Object.values(boards);
