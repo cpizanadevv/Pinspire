@@ -73,7 +73,7 @@ function LandingPage() {
         <div className="created-grid-container">
             {shuffledPins.map(({ id, img_url }) => (
                 // <NavLink key={id} to={`/pin/${id}`}>
-                <NavLink key={id}>
+                // <NavLink key={id}>
                     <div className="pin-container"
 
                     >
@@ -114,7 +114,7 @@ function LandingPage() {
                             </button>
                         </div>
                     </div>
-                </NavLink>
+                // </NavLink>
             ))}
         </div>
     );
@@ -168,5 +168,5 @@ function LandingPage() {
     //         ))}
     //     </div>
     // );
-};
+}
 export default LandingPage;
