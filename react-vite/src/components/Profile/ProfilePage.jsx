@@ -7,7 +7,7 @@ import "./ProfilePage.css";
 import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board"
 import EditPin from "../EditPin/EditPin";
-
+import CreateBoard from '../Board/CreateBoard'
 
 const Profile = () => {
     const user = useSelector((state) => state.session.user);
@@ -18,14 +18,14 @@ const Profile = () => {
     const userPins = pins.filter((pin) => pin.user_id == user.id)
     const userBoards = boards.filter((board) => board.user_id == user.id)
     // console.log(userBoards)
-    
+
     const [activeTab, setActiveTab] = useState('saved');
-    
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { userId } = useParams()
 
-    
+
     useEffect(() => {
         if (!user || user.id !== +userId) {
             navigate('/');
@@ -68,19 +68,25 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            {activeTab === 'saved' && 
+            {activeTab === 'saved' &&
                 <div className="profile-middle-container">
                     <button>
                         <i className="fa-solid fa-sort"></i>
                     </button>
-                    <button>
-                        <i className="fa-solid fa-plus"></i>
-                    </button>
+                    <OpenModalButton
+                    buttonText={
+                        <button>
+                            <i className="fa-solid fa-plus"></i>
+                        </button>
+                    }
+                    modalComponent={<CreateBoard/>}
+                    className='create-modal'
+                     />
                 </div>
-            }           
+            }
             <div className="profile-bottom-container">
 
-                {activeTab === 'created' && 
+                {activeTab === 'created' &&
                     <div className="created-grid">
                         {userPins.map((pin) => (
                             <NavLink key={pin.id} to={`/pin/${pin.id}`}>
@@ -102,7 +108,7 @@ const Profile = () => {
                     </div>
                 }
 
-                {activeTab === 'saved' && 
+                {activeTab === 'saved' &&
                     <div className="profile-board-grid">
                         {userBoards.map((board) => (
                             <NavLink key={board.id} to={`/boards/${board.id}`}>

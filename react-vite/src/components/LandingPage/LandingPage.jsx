@@ -118,55 +118,5 @@ function LandingPage() {
             ))}
         </div>
     );
-
-    // return (
-    //     <div className="created-grid-container">
-    //         {shuffledPins.map(({ id, img_url }) => (
-    //             <div
-    //                 key={id}
-    //                 className="pin-container"
-    //                 onClick={() => handlePinClick(id)}
-    //             >
-    //                 <div className="pin-content">
-    //                     <img src={img_url} alt={`Pin ${id}`} />
-    //                     <div className="image-overlay">
-    //                         <div
-    //                             className="board-container"
-    //                             onClick={(e) => e.stopPropagation()}
-    //                         >
-    //                             <h4 className="save-to-board-text">Save to Board</h4>
-    //                             <select
-    //                                 className="overlay-text"
-    //                                 value={selectedBoardId || ""}
-    //                                 onChange={(e) =>
-    //                                     setSelectedBoardId(e.target.value)
-    //                                 }
-    //                             >
-    //                                 <option value="" disabled>
-    //                                     Select a Board
-    //                                 </option>
-    //                                 {userBoards.map((board) => (
-    //                                     <option key={board.id} value={board.id}>
-    //                                         {board.name}
-    //                                     </option>
-    //                                 ))}
-    //                             </select>
-    //                         </div>
-    //                         <button
-    //                             className={`landing-save-button ${isPinSaved(id, selectedBoardId) ? "saved" : ""
-    //                                 }`}
-    //                             onClick={(e) => {
-    //                                 e.stopPropagation();
-    //                                 handleSave(id);
-    //                             }}
-    //                         >
-    //                             {isPinSaved(id, selectedBoardId) ? "Saved" : "Save"}
-    //                         </button>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         ))}
-    //     </div>
-    // );
 }
 export default LandingPage;
