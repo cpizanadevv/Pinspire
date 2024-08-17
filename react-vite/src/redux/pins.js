@@ -98,10 +98,10 @@ export const addPin = (newPin) => async (dispatch) => {
     formData.append("description", description);
     formData.append("link", link);
 
-    const response = await fetch("http://localhost:8000/api/pins/new", {
+    const response = await fetch("/api/pins/new", {
         method: "POST",
         body: formData,
-        credentials: 'include',  // Important for session-based auth
+        credentials: 'include',
     });
 
     if (response.ok) {
