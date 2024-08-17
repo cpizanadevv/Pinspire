@@ -72,7 +72,7 @@ function LandingPage() {
     return (
         <div className="created-grid-container">
             {shuffledPins.map(({ id, img_url }) => (
-                <NavLink key={id}>
+                <NavLink key={id} to={`/pin/${id}`}>
                     <div
                         className="pin-container"
                         // onMouseEnter={() => handlePinHover(id)}
