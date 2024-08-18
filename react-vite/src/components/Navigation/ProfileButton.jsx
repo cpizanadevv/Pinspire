@@ -43,24 +43,72 @@ function ProfileButton() {
     navigate('/')
   };
 
-  return (
-    <>
-      {user ? (
-        <div className="profile-menu">
-          <NavLink to={`/${user.id}`}>
-            <FaUserCircle />
-          </NavLink>
+  const getInitial = (name) => {
+    return name ? name.charAt(0).toUpperCase() : '';
+  };
 
-          <button onClick={toggleMenu}>
+  return (
+    // <>
+    //   {user ? (
+    //     <div className="profile-menu">
+    //       <NavLink to={`/${user.id}`}>
+    //         <FaUserCircle />
+    //       </NavLink>
+
+    //       <button onClick={toggleMenu}>
+    //         <FaAngleDown />
+    //       </button>
+    //       {showMenu && (
+    //         <ul className="profile-dropdown" ref={ulRef}>
+    //           <div className="dropdown-content">
+    //             <li>{user.username}</li>
+    //             <li>{user.email}</li>
+    //             <li>
+    //               <button onClick={logout}>Log Out</button>
+    //             </li>
+    //           </div>
+    //         </ul>
+    //       )}
+    //     </div>
+    //   ) : (
+    //     <div className="auth-buttons">
+    //       <div className="login">
+    //         <OpenModalMenuItem
+    //           itemText="Log In"
+    //           onItemClick={() => {}}
+    //           modalComponent={<LoginFormModal />}
+    //         />
+    //       </div>
+    //       <div className="sign-up">
+    //         <OpenModalMenuItem
+    //           itemText="Sign Up"
+    //           onItemClick={() => {}}
+    //           modalComponent={<SignupFormModal />}
+    //         />
+    //       </div>
+    //     </div>
+    //   )}
+    // </>
+    <>
+      {user ? ( //made profile menu and profile dropdown into one button
+        <div className="profile-menu">
+          <button onClick={toggleMenu} className="profile-button">
+            <div className="profile-icon">{getInitial(user.username)}</div>
             <FaAngleDown />
           </button>
           {showMenu && (
             <ul className="profile-dropdown" ref={ulRef}>
               <div className="dropdown-content">
-                <li>{user.username}</li>
-                <li>{user.email}</li>
+                <li className="vp-container">
+                  <NavLink to={`/${user.id}`} className="view-profile" onClick={closeMenu}>
+                    View Profile
+                  </NavLink>
+                </li>
+                <li className="pf-username">{user.username}</li>
+                <li className="pf-email">{user.email}</li>
+                <span></span>
                 <li>
-                  <button onClick={logout}>Log Out</button>
+                  <button className="logout-button" onClick={logout}>Log Out</button>
                 </li>
               </div>
             </ul>
@@ -71,14 +119,14 @@ function ProfileButton() {
           <div className="login">
             <OpenModalMenuItem
               itemText="Log In"
-              onItemClick={() => {}}
+              onItemClick={() => { }}
               modalComponent={<LoginFormModal />}
             />
           </div>
           <div className="sign-up">
             <OpenModalMenuItem
               itemText="Sign Up"
-              onItemClick={() => {}}
+              onItemClick={() => { }}
               modalComponent={<SignupFormModal />}
             />
           </div>

@@ -5,7 +5,7 @@ from sqlalchemy.schema import ForeignKey
 
 class Comment(db.Model):
     __tablename__ = 'comments'
-    
+
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
@@ -22,5 +22,6 @@ class Comment(db.Model):
             "id": self.id,
             "pin_id": self.pin_id,
             "user_id": self.user_id,
-            "comment": self.comment
+            "comment": self.comment,
+            'username': self.user.username
         }

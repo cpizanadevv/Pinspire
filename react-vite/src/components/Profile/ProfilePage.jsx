@@ -28,7 +28,7 @@ const Profile = () => {
 
     const selectedBoard = userBoards.filter(board => board.id === selectedBoardPin.boardId)
 
-    console.log('AAAAAAAAAAAAAAAA', selectedBoard[0].name)
+    // console.log('AAAAAAAAAAAAAAAA', selectedBoard[0].name)
 
     const handleSavePin = async () => {
         if (selectedBoardPin.boardId && selectedBoardPin.pinId) {
