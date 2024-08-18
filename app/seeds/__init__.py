@@ -3,7 +3,7 @@ from .users import seed_users, undo_users
 from .pins import seed_pins, undo_pins
 from .comments import seed_comments, undo_comments
 from .boards import seed_boards, undo_boards
-from .qpin_boards import seed_board_pins, undo_board_pins
+from .pin_boards import seed_board_pins, undo_board_pins
 from .favorites import seed_favorites, undo_favorites
 # from .favorites import seed_favorites, undo_favorites
 

@@ -1,1 +1,31 @@
-react-vite/src/components/LoginFormModal/LoginForm.css
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25em;
+    padding: 2em;
+}
+
+/* div #modal-content {
+    padding: 1em;
+    border-radius: 2em;
+} */
+
+.login-form label {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.login-form input {
+    width: 20em;
+    height: 2em;
+    border-radius: 2em;
+    margin-bottom: .5em;
+    padding: .2em .5em;
+}
+
+.errors {
+    color: red;
+}
