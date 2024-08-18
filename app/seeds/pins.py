@@ -42,23 +42,91 @@ def fetch_images_from_pexels(query,per_page):
     return []
 
 def seed_pins():
+    
+    #   category_tags = {
+    #     'nature': ['Nature', 'Plants'],
+    #     'animals': ['Animals'],
+    #     'technology': ['Technology', 'Programming'],
+    #     'food': ['Food'],
+    #     'travel': ['Travel'],
+    #     'fashion': ['Fashion'],
+    #     'architecture': ['Architecture'],
+    #     'people': ['People'],
+    #     'sports': ['Sports'],
+    #     'music': ['Music'],
+    #     'art': ['Art'],
+    #     'cities': ['Cities'],
+    #     'landscape': ['Landscape'],
+    #     'interior design': ['Interior Design'],
+    #     'crochet': ['Crochet'],
+    #     'fantasy': ['Fantasy'],
+    #     'gaming': ['Gaming'],
+    #     'medieval': ['Medieval'],
+    #     'castles': ['Castles'],
+    #     'movies': ['Movies'],
+    #     'disney': ['Disney'],
+    #     'space': ['Space'],
+    #     'stars': ['Stars']
+    # }
+
+    # # Loop through categories
+    # for category, tags in category_tags.items():
+    #     # Fetch images for the current category
+    #     images = fetch_images_from_pexels(category, 20)
+        
+    #     # Ensure all tags are created in the database
+    #     tag_objects = {}
+    #     for tag_name in tags:
+    #         tag = Tag.query.filter_by(name=tag_name).first()
+    #         if not tag:
+    #             tag = Tag(name=tag_name)
+    #             db.session.add(tag)
+    #             db.session.commit()
+    #         tag_objects[tag_name] = tag.id
+
+    #     # Create pins and assign tags
+    #     for img in images:
+    #         user_id = random.randint(1, 20)
+    #         img_url = img['src']['large']
+    #         title = img['alt']
+    #         description = f"Photo by {img['photographer']}"
+    #         link = img['url']
+
+    #         new_pin = Pin(
+    #             user_id=user_id,
+    #             img_url=img_url,
+    #             title=title,
+    #             description=description,
+    #             link=link
+    #         )
+    #         db.session.add(new_pin)
+    #         db.session.commit()  # Commit to get the pin ID
+
+    #         # Create pin_tags for the current pin based on the category tags
+    #         for tag_name in tags:
+    #             tag_id = tag_objects[tag_name]
+    #             pin_tag = PinTag(pin_id=new_pin.id, tag_id=tag_id)
+    #             db.session.add(pin_tag)
+
+    #         db.session.commit()
+    
     #*Each fetch is considered 1 request on the api side
     # All fetch requests, 50 imgs per query
     categories = [
         'nature', 'animals', 'technology', 'programming', 'food', 'travel',
         'fashion', 'architecture', 'people', 'sports', 'music', 'art', 'cities',
-        'landscape', 'interior design', 'crochet design', 'plants', 'fantasy',
+        'landscape', 'interior design', 'crochet', 'plants', 'fantasy',
         'gaming', 'medieval', 'castles', 'movies', 'disney','space','stars'
     ]
 
     all_imgs = []
 
     for category in categories:
-        all_imgs.extend(fetch_images_from_pexels(category, 50))
+        all_imgs.extend(fetch_images_from_pexels(category, 20))
 
     # Looping through the array to create pins
     for img in all_imgs:
-        user_id = random.randint(1, 3)
+        user_id = random.randint(1, 20)
         img_url = img['src']['large']
         title = img['alt']
         description = f"Photo by {img['photographer']}"
