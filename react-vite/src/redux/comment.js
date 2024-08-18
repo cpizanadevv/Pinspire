@@ -79,17 +79,18 @@ export const updateComment = (comment) => async (dispatch) => {
     }
 }
 
-export const deleteComment = (comment) => async (dispatch) => {
-    const response = await fetch(`/api/pins/${comment.pinId}/${comment.id}`, {
+export const deleteComment = (commentId, pinId) => async (dispatch) => {
+    const response = await fetch(`/api/pins/${pinId}/${commentId}`, {
         method: "DELETE"
-    })
+    });
     if (response.ok) {
-        dispatch(removeComment(comment.id))
+        dispatch(removeComment(commentId));
+        return true;
     } else {
-        const error = await response.json()
-        return error
+        const error = await response.json();
+        return error;
     }
-}
+};
 
 
 const initialState = { comments: {} }

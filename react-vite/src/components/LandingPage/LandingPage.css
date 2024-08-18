@@ -7,7 +7,7 @@
 
 .landing {
     flex: 1;
-    
+
 }
 
 .loading-message ,
@@ -72,29 +72,29 @@
     margin-top: 90px;
 }
 
-.pin-container {
+.pins-message .pin-container { /* added .pins-message to prevent it from leaking to other css files */
     min-height: 150px;
-    margin-bottom: 15px;    /* space between items */
-    break-inside: avoid;    /* prevents items from breaking across columns */
-    position: relative;      /* positioning context for overlay and button */
-    overflow: hidden;        /* hide overflow so overlay doesn't exceed the image */
+    margin-bottom: 15px; /* space between items */
+    break-inside: avoid; /* prevents items from breaking across columns */
+    position: relative; /* positioning context for overlay and button */
+    overflow: hidden; /* hide overflow so overlay doesn't exceed the image */
 }
 
-.pin-container img {
+.pins-message .pin-container img { /* added .pins-message to prevent it from leaking to other css files */
     width: 100%;
     height: auto;
     min-height: 150px;
-    display: block;         /* removes space below the image */
+    display: block; /* removes space below the image */
     border-radius: 20px;
 }
 
 .image-overlay {
-    position: absolute;      /* overlay positioned over image */
+    position: absolute; /* overlay positioned over image */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;              /* hidden */
+    opacity: 0; /* hidden */
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -103,9 +103,9 @@
     overflow: hidden;
 }
 
-.pin-container:hover .image-overlay {
+.pins-message .pin-container:hover .image-overlay { /* added .pins-message to prevent it from leaking to other css files */
     background-color: rgba(0, 0, 0, 0.5); /* grey overlay with 50% opacity */
-    opacity: 1;              /* show overlay */
+    opacity: 1; /* show overlay */
 }
 
 .overlay-text {

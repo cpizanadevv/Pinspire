@@ -41,9 +41,9 @@ function Navigation() {
     <>
       <ul className="navigation-list">
         <li className="left-nav">
-          <NavLink className='logo' to='/'>
+          {/* <NavLink className='logo' to='/'> */}
             <img className="logo-png" src='../../../pinspire_logo.png' alt="Logo" />
-          </NavLink>
+          {/* </NavLink> */}
           <NavLink className='home-button' to="/">Home</NavLink>
           {user && (
             <NavLink className='create-button' to="/create">Create</NavLink>
