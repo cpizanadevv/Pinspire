@@ -1,31 +1,57 @@
+.navigation-list {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 .auth-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 1em;
+  gap: 8px;
 }
 
 .login {
   background: #FF0079;
-  text-align: center;
+  /* text-align: center;
   width: 6em;
   border-radius: 2em;
-  padding: 1em;
+  padding: 1em; */
+  /* padding: 10px 8px; */
+  width: 75px;
+  padding: 10px 14px;
+  height: 40px;
+  border-radius: 30px;
   color: white;
-}
-.sign-up {
-  background: #dbd6d8;
-  text-align: center;
-  width: 6em;
-  border-radius: 2em;
-  padding: 1em;
-  color: black;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.search {
+.login:hover {
+  background-color: #d90166;
+}
+
+.sign-up {
+  background: #E9E9E9;
+  text-align: center;
+  /* width: 6em;
+  border-radius: 2em;
+  padding: 1em; */
+  width: 90px;
+  height: auto;
+  padding: 10px 14px;
+  border-radius: 30px;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sign-up:hover {
+  background-color: #E2E2E2;
+}
+
+/* .search {
   width: 50em;
   height: 1.25em;
   border-radius: 5em;
-}
+} */
 
 ul {
   display: flex;
@@ -33,7 +59,6 @@ ul {
   list-style-type: none;
   text-decoration: none;
   align-items: center;
-  /* margin-top: 10px; */
   position: fixed;
   background-color: white;
   width: 100vw;
@@ -67,11 +92,11 @@ a {
   background-color: black; */
   border-radius: 30px;
   padding: 10px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .left-nav .create-button {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .search-bar {
@@ -124,7 +149,7 @@ a {
   text-align: center;
   font-size: 15px;
   /* color: white; */
-  font-weight: bold;
+  font-weight: 500;
 
 }
 
@@ -136,7 +161,7 @@ a {
 
 .profile-menu .view-profile {
   color: #FF0079;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .profile-menu .vp-container {
@@ -157,7 +182,7 @@ a {
   border-radius: 15px;
   /* cursor: pointer; */
   align-items: start;
-  margin-top: 6px;
+  margin-top: 10px;
 }
 
 .dropdown-content {
@@ -186,5 +211,5 @@ a {
   padding: 5px 10px;
   cursor: pointer;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 500;
 }

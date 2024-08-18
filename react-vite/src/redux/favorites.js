@@ -3,7 +3,7 @@ const CREATE_FAVORITE = "favorites/createFavorite"
 const REMOVE_FAVORITE = "favorites/removeFavorite"
 
 const getFavorites = (favorites) => ({
-    type:  GET_FAVORITES,
+    type: GET_FAVORITES,
     favorites
 });
 
@@ -28,13 +28,25 @@ export const getAllFavorites = () => async (dispatch) => {
     }
 };
 
+export const getUserFavorites = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/favorites/user/${userId}`);
+    if (response.ok) {
+        const favorites = await response.json();
+        dispatch(getFavorites(favorites));
+        return favorites;
+    } else {
+        const error = await response.json();
+        return error;
+    }
+};
+
 export const createNewFavorite = (pinId) => async (dispatch) => {
     console.log(typeof pinId)
     const response = await fetch(`/api/favorites/${pinId}/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     })
-    
+
     console.log("PINNNIDDD", response)
     if (response.ok) {
         const resFavorite = await response.json()
@@ -66,10 +78,17 @@ const initialState = { favorites: {} };
 function favoritesReducer(state = initialState, action) {
     let newState = {};
     switch (action.type) {
+        // case GET_FAVORITES: {
+        //     newState = { ...state, favorites: {} };
+        //     action.favorites.forEach( favorite => { newState.favorites[favorite.id] = favorite })
+        //     return newState
+        // }
         case GET_FAVORITES: {
-            newState = { ...state, favorites: {} };
-            action.favorites.forEach( favorite => { newState.favorites[favorite.id] = favorite })
-            return newState
+            newState = { ...state };
+            action.favorites.forEach(favorite => {
+                newState.favorites[favorite.pin_id] = favorite; // store by pin_id for consistency
+            });
+            return newState;
         }
         case CREATE_FAVORITE: {
             const newFavorite = action.favorite;
@@ -77,7 +96,7 @@ function favoritesReducer(state = initialState, action) {
             return newState;
         }
         case REMOVE_FAVORITE: {
-            newState = {...state}
+            newState = { ...state }
             delete newState.favorites[action.favoriteId];
             return newState
         }

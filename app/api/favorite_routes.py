@@ -4,6 +4,15 @@ from app.models import db, Favorite, Pin
 
 favorite_routes = Blueprint('favorites', __name__)
 
+@favorite_routes.route('/user/<int:user_id>', methods=['GET'])
+@login_required
+def get_user_favorites(user_id):
+    if current_user.id != user_id:
+        return jsonify({'error': 'Unauthorized access'}), 403
+
+    favorites = Favorite.query.filter_by(user_id=user_id).all()
+    return jsonify([favorite.to_dict() for favorite in favorites])
+
 @favorite_routes.route('/<int:pin_id>/create', methods=['POST'])
 @login_required
 def add_favorite(pin_id):
