@@ -169,7 +169,8 @@ function pinsReducer(state = initialState, action) {
     let newState = {};
     switch (action.type) {
         case LOAD_PIN: {
-            newState = { ...state, pins: { ...state.pins, [action.pin.id]: action.pin } };
+            // newState = { ...state, pins: { ...state.pins, [action.pin.id]: action.pin } };
+            newState = { ...state, pin: action.pin }
             return newState;
         }
         case GET_PINS: {
