@@ -9,14 +9,13 @@ class Comment(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-
     id = db.Column(db.Integer, primary_key=True)
-    pin_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('pins.id'),ondelete='CASCADE'), nullable=False)
-    user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    pin_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('pins.id'), ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     comment = db.Column(db.String(1000), nullable=False)
 
     user = db.relationship("User", back_populates='comments')
-    pin = db.relationship("Pin", back_populates='comments', cascade='all, delete')
+    pin = db.relationship("Pin", back_populates='comments')
 
     def to_dict(self):
         return {

@@ -5,19 +5,15 @@ from sqlalchemy.schema import Column, ForeignKey, Table
 board_pins = db.Table(
     "board_pins",
     db.Model.metadata,
-    Column("board_id", ForeignKey(add_prefix_for_prod("boards.id"), ondelete='CASCADE'), primary_key=True),
-    Column("pin_id", ForeignKey(add_prefix_for_prod("pins.id"), ondelete='CASCADE'), primary_key=True)
+    db.Column("board_id", db.ForeignKey(add_prefix_for_prod("boards.id"), ondelete='CASCADE'), primary_key=True),
+    db.Column("pin_id", db.ForeignKey(add_prefix_for_prod("pins.id"), ondelete='CASCADE'), primary_key=True)
 )
 
-if environment == "production":
-    board_pins.schema = SCHEMA
-
-# Join table for tags and pins many-to-many relationship
 pin_tags = db.Table(
     "pin_tags",
     db.Model.metadata,
-    Column("pin_id", ForeignKey(add_prefix_for_prod("pins.id"), ondelete='CASCADE'), primary_key=True),
-    Column("tag_id", ForeignKey(add_prefix_for_prod("tags.id"), ondelete='CASCADE'), primary_key=True)
+    db.Column("pin_id", db.ForeignKey(add_prefix_for_prod("pins.id"), ondelete='CASCADE'), primary_key=True),
+    db.Column("tag_id", db.ForeignKey(add_prefix_for_prod("tags.id"), ondelete='CASCADE'), primary_key=True)
 )
 
 if environment == "production":
