@@ -1,6 +1,6 @@
-import * as boardActions from "../../redux/board";
+// import * as boardActions from "../../redux/board";
 import * as pinActions from "../../redux/pins";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./AddBoardPin.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal';
