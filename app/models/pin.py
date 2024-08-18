@@ -19,7 +19,7 @@ class Pin(db.Model):
     comments = db.relationship('Comment', back_populates='pin', cascade='all, delete-orphan')
     boards = db.relationship('Board', secondary=board_pins, back_populates='pins')
     tags = db.relationship('Tag', secondary=pin_tags, back_populates='pins')
-    favorites = db.relationship('Favorite', back_populates='pins', cascade='all, delete-orphan')
+    favorites = db.relationship('Favorite', back_populates='pin', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -29,5 +29,5 @@ class Pin(db.Model):
             'title': self.title,
             'description': self.description,
             'link': self.link,
-            'comments': {comment.id: comment.to_dict() for comment in self.comments} #retrives comments upon pin render
+            'comments': {comment.id: comment.to_dict() for comment in self.comments}  # retrieves comments upon pin render
         }

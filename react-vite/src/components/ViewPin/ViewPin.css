@@ -65,6 +65,70 @@
     all: unset;
 }
 
+/* ----- EDIT & FAVORITE ----- */
+.view-pin-page .right .favorite-edit {
+    margin: 20px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FD0079;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    gap: 5px;
+    width: 20px;
+    transition: 0.2s ease;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin:hover {
+    background-color: #FD0079;
+    width: 60px;
+    cursor: pointer;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin i {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.view-pin-page .right .favorite-edit .edit-pin span {
+    display: none;
+    color: #fff;
+    transition: display 0.2s ease;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin:hover span {
+    display: inline;
+}
+
+.view-pin-page .right .favorite-edit button {
+    all: unset;
+}
+
+.view-pin-page .right .favorite-edit .favorite i {
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    color: rgb(53, 53, 53);
+    transition: transform 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.view-pin-page .right .favorite-edit .favorite.favorited i {
+    color: gold;
+}
+
+.view-pin-page .right .favorite-edit .favorite.clicked i {
+    transform: scale(1.4);
+}
+
 /* ----- COMMENT CONTAINER ----- */
 .view-pin-page .pin-container .right .comment-container {
     /* border: 1px solid black; */
@@ -272,4 +336,3 @@
     background-color: #ccc;
     color: black;
 }
-

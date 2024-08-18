@@ -118,14 +118,14 @@ function ProfileButton() {
         <div className="auth-buttons">
           <div className="login">
             <OpenModalMenuItem
-              itemText="Log In"
+              itemText="Log in"
               onItemClick={() => { }}
               modalComponent={<LoginFormModal />}
             />
           </div>
           <div className="sign-up">
             <OpenModalMenuItem
-              itemText="Sign Up"
+              itemText="Sign up"
               onItemClick={() => { }}
               modalComponent={<SignupFormModal />}
             />
