@@ -1,16 +1,20 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import CreatePin from '../components/CreatePin/CreatePin';
 import ViewPin from '../components/ViewPin/ViewPin';
 import Layout from './Layout';
-import Profile from '../components/Profile/ProfilePage'
+// import Profile from '../components/Profile/ProfilePage'
 import Boards from '../components/Board/BoardPage'
 import OneBoard from '../components/Board/OneBoard'
 import CreateBoard from '../components/Board/CreateBoard'
 // import PutBoard from '../components/Board/EditBoard'
 import LandingPage from '../components/LandingPage'
 import SearchPins from '../components/LandingPage/SearchPins';
+import NewProfile from '../components/NewProfile/NewProfile';
+import ProfileFavorites from '../components/ProfileFavorites/ProfileFavorites';
+import ProfileCreated from '../components/ProfileCreated/ProfileCreated'
+import ProfileSaved from '../components/ProfileSaved/ProfileSaved'
 
 export const router = createBrowserRouter([
   {
@@ -36,9 +40,31 @@ export const router = createBrowserRouter([
         path: "/pin/:pinId",
         element: <ViewPin />,
       },
+      // {
+      //   path: "/old/:userId",
+      //   element: <Profile />
+      // }, 
       {
         path: "/:userId",
-        element: <Profile />
+        element: <NewProfile />, 
+        children: [
+          {
+            index: true,
+            element: <Navigate to="saved" />,
+          },
+          {
+            path: "saved",
+            element: <ProfileSaved />, 
+          },
+          {
+            path: "created",
+            element: <ProfileCreated />,
+          },
+          {
+            path: "favorites",
+            element: <ProfileFavorites />,
+          },
+        ],
       },
       {
         path: "/boards",
