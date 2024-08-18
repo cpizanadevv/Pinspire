@@ -57,8 +57,8 @@ function SignupFormModal() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        {errors.firstName && <p className="errors">{errors.firstName}</p>}
+        </label>{errors.first_name && <p className="errors">{errors.first_name}</p>}
+
         <label>
           Last Name
           <input
@@ -70,7 +70,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p className="errors">{errors.lastName}</p>}
+        {errors.last_name && <p className="errors">{errors.last_name}</p>}
         <label>
           Email
           <input

@@ -15,8 +15,8 @@ class Favorite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     pin_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('pins.id')), nullable=False)
 
-    user = relationship('User', back_populates='favorites')
-    pins = relationship('Pin', back_populates='favorites',cascade='all, delete')
+    user = db.relationship('User', back_populates='favorites')
+    pins = db.relationship('Pin', back_populates='favorites')
 
     def to_dict(self):
         return {
