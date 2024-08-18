@@ -28,5 +28,6 @@ class Pin(db.Model):
             'img_url': self.img_url,
             'title': self.title,
             'description': self.description,
-            'link': self.link
+            'link': self.link,
+            'comments': {comment.id: comment.to_dict() for comment in self.comments} #retrives comments upon pin render
         }
