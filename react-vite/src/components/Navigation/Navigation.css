@@ -134,7 +134,7 @@ a {
 }
 
 .profile-menu button {
-  all: unset;
+  /* all: unset; */
 }
 
 .profile-dropdown {
