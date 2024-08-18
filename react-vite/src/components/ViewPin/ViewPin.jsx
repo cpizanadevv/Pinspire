@@ -47,10 +47,7 @@ const ViewPin = () => {
 
     const handleEditSubmit = async (e, commentId) => {
         e.preventDefault();
-        if (editedComment.trim() === '') {
-            setEditError("Can't leave input empty");
-            return;
-        }
+        if (editedComment.trim() === '') return;
 
         const updatedCommentData = {
             id: commentId,

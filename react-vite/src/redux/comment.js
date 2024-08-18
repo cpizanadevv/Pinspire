@@ -110,12 +110,14 @@ function commentsReducer(state = initialState, action) {
                     [action.comment.id]: action.comment,
                 },
             };
-        case 'REMOVE_COMMENT':
-            const { [action.commentId]: _, ...remainingComments } = state.comments;
+        case 'REMOVE_COMMENT': {
+            const remainingComments = { ...state.comments };
+            delete remainingComments[action.commentId];
             return {
                 ...state,
-                comments: remainingComments,  // Remove the comment by filtering out its key
+                comments: remainingComments,  // Remove the comment by deleting its key
             };
+        }
         default:
             return state;
     }
