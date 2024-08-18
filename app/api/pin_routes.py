@@ -21,19 +21,19 @@ def get_pins():
 def get_pins_pagination():
     page = int(request.args.get('page', 1))
     page_size = int(request.args.get('page_size', 10))
-    
+
     pins = Pin.query.all()
 
     if page == 1:
         random.shuffle(pins)
-    
+
     start = (page - 1) * page_size
     end = start + page_size
     paginated = pins[start:end]
-    
+
     all_pins = [pin.to_dict() for pin in paginated]
     return jsonify({"Pins": all_pins})
-   
+
 
 @pin_routes.route("/<int:pin_id>", methods=["GET"])
 def get_single_pin(pin_id):
@@ -148,18 +148,23 @@ def get_pin_comments(pin_id):
 @pin_routes.route('/<int:pin_id>/new-comment', methods=['POST'])
 @login_required
 def create_pin_comment(pin_id):
-    form=CommentForm()
+    form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    print("Received data:", request.json)
+
     if form.validate_on_submit():
         new_comment = Comment(
-            user_id = current_user.id,
+            user_id=current_user.id,
             pin_id=pin_id,
-            comment =  form.data['comment']
+            comment=form.comment.data
         )
         db.session.add(new_comment)
         db.session.commit()
-
-    return new_comment.to_dict()
+        return jsonify(new_comment.to_dict()), 201
+    else:
+        print(f"Form errors: {form.errors}")
+        return jsonify(form.errors), 400
 
 #Update comment on a pin
 @pin_routes.route('/<int:pin_id>/<int:comment_id>/edit', methods=['PUT'])

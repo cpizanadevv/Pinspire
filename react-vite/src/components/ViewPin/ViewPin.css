@@ -2,16 +2,21 @@
     display: flex;
     justify-content: center;
 
-    margin-top: 120px;
+    margin-top: 110px;
     padding: 0 100px;
 }
 
 .view-pin-page .pin-container {
     /* border: 2px solid red; */
-    width: 100%;
+    width: 800px;
     max-width: 1200px;
+    max-height: 600px;
 
     display: flex;
+    flex-direction: row;
+
+    overflow: hidden;
+    /* Prevent overflow of child elements */
 
     border-radius: 30px;
 
@@ -26,12 +31,16 @@
 
 /* ----- LEFT COLUMN ----- */
 .view-pin-page .pin-container .left {
-    max-width: 100%;
+    /* max-width: 100%; */
 }
 
 .view-pin-page .pin-container .left img {
     max-width: 100%;
-    height: 100%;
+    max-height: 700px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
 
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -39,6 +48,291 @@
 
 /* ----- RIGHT COLUMN ----- */
 .view-pin-page .pin-container .right {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.view-pin-page .pin-container .right .info {
+    padding: 20px 20px 50px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.view-pin-page .pin-container .right .info p {
+    all: unset;
+}
+
+/* ----- EDIT & FAVORITE ----- */
+.view-pin-page .right .favorite-edit {
+    margin: 20px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FD0079;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    gap: 5px;
+    width: 20px;
+    transition: 0.2s ease;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin:hover {
+    background-color: #FD0079;
+    width: 60px;
+    cursor: pointer;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin i {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.view-pin-page .right .favorite-edit .edit-pin span {
+    display: none;
+    color: #fff;
+    transition: display 0.2s ease;
+}
+
+.view-pin-page .right .favorite-edit .edit-pin:hover span {
+    display: inline;
+}
+
+.view-pin-page .right .favorite-edit button {
+    all: unset;
+}
+
+.view-pin-page .right .favorite-edit .favorite i {
+    font-size: 25px;
+    width: 25px;
+    height: 25px;
+    color: rgb(53, 53, 53);
+    transition: transform 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.view-pin-page .right .favorite-edit .favorite.favorited i {
+    color: gold;
+}
+
+.view-pin-page .right .favorite-edit .favorite.clicked i {
+    transform: scale(1.4);
+}
+
+/* ----- COMMENT CONTAINER ----- */
+.view-pin-page .pin-container .right .comment-container {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.right .comment-container .comments {
+    /* border: 1px solid red; */
+    margin: 0px 25px;
+}
+
+.right .comment-container .comments .header {
+    border-bottom: 1px solid #E9E9E9;
+}
+
+.right .comment-container .comments .header span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.right .comment-container .comments-section {
+    overflow-y: auto;
+    max-height: 320px;
+    margin: 10px 0 0px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right .comments-section p {
+    color: #c6c6c6;
+}
+
+/* ----- INDIVIDUAL COMMENTS ----- */
+.comments-section .individual-comment {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.comments-section .comment {
+    font-size: 15px;
+    display: flex;
+    gap: 5px;
+    /* word-wrap: break-word; */
+    /* flex-wrap: wrap; */
+
+    /* border: 1px solid red; */
+}
+
+.comments-section .comment span {
+    flex-wrap: wrap;
+    width: 100%;
+    word-wrap: break-word;
+
+    overflow: hidden;
+    font-weight: normal;
+}
+
+.comments-section h4 {
+    font-size: 15px;
+}
+
+.comments-section .individual-comment .options .buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.comments-section .individual-comment .options .buttons button {
+    all: unset;
+    font-size: 12px;
+    color: #c6c6c6;
+    transition: 0.2s ease;
+}
+
+.comments-section .individual-comment .options .buttons button:hover {
+    color: #9a9a9a;
+    cursor: pointer;
+}
+
+/* ----- INLINE EDITING ----- */
+.individual-comment form {
+    display: flex;
+    gap: 5px;
+}
+
+.individual-comment form button {
+    all: unset;
+    font-size: 14px;
+    color: #c6c6c6;
+    transition: 0.2s ease;
+}
+
+.individual-comment form button:hover {
+    cursor: pointer;
+    color: #9a9a9a;
+}
+
+.individual-comment input {
+    all: unset;
+    font-size: 15px;
+    padding: 5px 10px;
+    border: 1px solid #c6c6c6;
+    border-radius: 20px;
+    width: 200px;
+}
+
+
+/* ----- INPUT BOX STYLING ----- */
+.right .comment-container .input-box {
+    /* border: 2px solid red; */
+    /* border-top: 2px solid #E9E9E9; */
+    padding: 15px;
+
+    border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.right .comment-container .input-box input {
+    all: unset;
+    padding: 10px 50px 10px 10px;
+    border: 1px solid #c6c6c6;
+    border-radius: 40px;
+
+    width: 300px;
+}
+
+.right .comment-container .input-box button {
+    all: unset;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.right .comment-container .input-box button i {
+    font-size: 15px;
+    padding: 7px;
+    border-radius: 50%;
+}
+
+.right .comment-container .input-box button.inactive i {
+    color: white;
+    background-color: #7b7b7b;
+}
+
+.right .comment-container .input-box button.active i {
+    color: white;
+    background-color: #FD0079;
+}
+
+.right .comment-container .input-box button.active:hover i {
+    background-color: #FD0079;
+    cursor: pointer;
+}
+
+/* ---- DELETE MODAL ----- */
+.delete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.delete-modal-content {
+    background-color: #fff;
     padding: 20px;
-    width: calc(100% - 40px);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.delete-modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.delete-modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-modal-buttons button:first-child {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.delete-modal-buttons button:last-child {
+    background-color: #ccc;
+    color: black;
 }

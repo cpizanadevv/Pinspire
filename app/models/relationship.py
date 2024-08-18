@@ -18,3 +18,4 @@ pin_tags = db.Table(
 
 if environment == "production":
     pin_tags.schema = SCHEMA
+    board_pins.schema = SCHEMA
