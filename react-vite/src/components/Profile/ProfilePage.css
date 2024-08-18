@@ -120,13 +120,15 @@ p {
     opacity: 1;              /* show overlay */
 }
 
-.profile-overlay-text {
+.add-board-pin-button {
     position: absolute;
     top: 25px;
     left: 13px;
     color: white;
     font-size: medium;
     font-family: Arial, Helvetica, sans-serif;
+    background: none;
+    border: none;
 }
 
 .save-button {
@@ -138,6 +140,10 @@ p {
     border-radius: 25px;
     border: 0px;
     cursor: pointer;
+}
+
+.save-button.saved {
+    background-color: black
 }
 
 .profile-image-overlay .profile-edit-button {
