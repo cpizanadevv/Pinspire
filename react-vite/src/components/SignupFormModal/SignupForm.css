@@ -3,8 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30em;
-    padding: 2em;
+    width: 25em;
 }
 
 /* div #modal-content {
@@ -20,8 +19,12 @@
 
 .sign-up-form input {
     width: 20em;
-    height: 2em;
+    height: 2.2em;
     border-radius: 2em;
     margin-bottom: .5em;
     padding: .2em .5em;
+}
+
+.signup-button {
+    margin-top: 1em;
 }

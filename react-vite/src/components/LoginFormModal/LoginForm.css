@@ -1,40 +1,61 @@
 .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* width: 25em;
-    padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 25em;
     border-radius: 40em; */
-    width: 500px;
-    height: 500px;
-    border-radius: 40px;
+  padding: 2em;
+  width: 20em;
+  height: 12em;
+
+  border-radius: 40px;
 }
 
 .modal .login-modal {
-    border-radius: 40px;
-    display: flex;
+  border-radius: 40px;
+  display: flex;
 }
 
-/* div #modal-content {
-    padding: 1em;
-    border-radius: 2em;
-} */
+div #modal-content .login-modal, 
+div #modal-content .signup-modal{
+  padding: 1em;
+}
 
 .login-form label {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .login-form input {
-    width: 20em;
-    height: 2em;
-    border-radius: 2em;
-    margin-bottom: .5em;
-    padding: .2em .5em;
+  width: 20em;
+  height: 2em;
+  border-radius: 2em;
+  margin-bottom: 0.5em;
+  padding: 0.2em 0.5em;
+}
+
+.login-buttons {
+  display: flex;
+  margin-top: 1em;
+  gap: 2em;
+}
+
+.login-buttons button,
+.signup-button {
+  background-color: #ff0079;
+  color: white;
+  border-radius: 40px;
+  border: none;
+  padding: 1em 1.5em;
+  cursor: pointer;
+  font-size: .8em;
+  font-weight: 500;
 }
 
 .errors {
-    color: red;
+  color: red;
+  font-size: 1em;
 }
+
