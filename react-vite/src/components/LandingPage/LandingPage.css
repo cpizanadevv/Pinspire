@@ -17,6 +17,29 @@
 img {
     width: 100%;
 }
+@media screen and (max-width: 1200px) {
+    .pins {
+        column-count: 4;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .pins {
+        column-count: 3;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .pins {
+        column-count: 2;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .pins {
+        column-count: 1;
+    }
+}
 
 .save-button.saved {
     color: white;
@@ -100,9 +123,6 @@ img {
     justify-content: space-between;
     border-radius: 20px;
     overflow: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-    pointer-events: none;
 }
 
 .pin-container:hover .image-overlay {
@@ -117,9 +137,7 @@ img {
     color: white;
     font-size: medium;
     font-family: Arial, Helvetica, sans-serif;
-    margin-top: 13px;
-    z-index: 10;
-
+    margin-top: 13px
 }
 
 .landing-save-button {
