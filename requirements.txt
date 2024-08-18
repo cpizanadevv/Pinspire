@@ -26,3 +26,5 @@ zipp==3.17.0; python_version >= '3.8'
 # psycopg2 # If using dev container
 boto3 # If using AWS
 requests
+email-validator==1.3.0
+
