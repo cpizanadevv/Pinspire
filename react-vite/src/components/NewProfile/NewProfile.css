@@ -51,23 +51,23 @@ p {
     background-color: lightgray;
 }
 
-.old-profile-links {
+.profile-links {
     display: flex;
     margin: 20px 0px
 }
 
-.old-profile-links > div {
+.profile-links > a {
     margin: 0px 15px;
     border-bottom: 3px transparent solid;
     padding: 5px 5px;
     font-weight: 550;
 }
 
-.old-profile-links > div:hover{
+.profile-links > a:hover{
     cursor: pointer;
 }
 
-.old-profile-links > div.active {
+.profile-links > a.active {
     border-bottom: 3px black solid;
 }
 
