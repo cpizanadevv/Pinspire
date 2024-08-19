@@ -69,7 +69,7 @@ const ProfileFavorites = () => {
             {favorites.map((favorite) => (
                 <NavLink key={favorite.id} to={`/pin/${favorite.pin_id}`}>
                     <div className="profile-pin-container">
-                        <img src={pins[favorite.pin_id]?.img_url} alt={pins[favorite.pin_id]?.title} />
+                        <img src={pinsObj[favorite.pin_id]?.img_url} alt={pins[favorite.pin_id]?.title} />
                         <div className="profile-image-overlay">
                             <OpenModalButton
                                 buttonText={selectedBoard[0]?.name || "Add to Board"}
