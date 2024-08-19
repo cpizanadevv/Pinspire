@@ -106,7 +106,7 @@ def get_pins_by_board_id(board_id):
     pins = [pin.to_dict() for pin in board.pins]
 
     if not pins:
-        return jsonify({"error": "no pins found for that board"})
+        return jsonify({"error": "Loading"})
 
     return jsonify({"Pins": pins})
 

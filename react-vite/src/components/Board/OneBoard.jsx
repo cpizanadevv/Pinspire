@@ -4,7 +4,7 @@ import { fetchOneBoard } from "../../redux/board";
 import "./OneBoard.css";
 import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import DeleteModal from "./DeletePinModal";
+import DeleteModal from "./RemovePinModal";
 import PutBoard from "./EditBoard";
 import DeleteBoard from "./DeleteBoard";
 
@@ -64,7 +64,7 @@ const OneBoard = () => {
                             </div>
                         ))
                     ) : (
-                        <p>No pins available for this board.</p>
+                        <p>Loading...</p>
                     )}
                 </div>
             </div>

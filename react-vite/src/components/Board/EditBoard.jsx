@@ -4,7 +4,7 @@ import { fetchOneBoard } from "../../redux/board";
 import "./EditBoard.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import * as boardActions from '../../redux/board'
+import * as boardActions from "../../redux/board";
 const PutBoard = ({ boardId }) => {
     // const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
@@ -47,55 +47,71 @@ const PutBoard = ({ boardId }) => {
         const boardBody = {
             name,
             private: privacy,
-            description
+            description,
         };
 
         try {
-            dispatch(boardActions.putBoard(boardBody, boardId));
+            // Dispatch the update action
+            await dispatch(boardActions.putBoard(boardBody, boardId));
             closeModal(); // Close the modal
-            window.location.reload(); // Refresh the page
+            // Optionally, you can trigger a refresh of the board state if needed
+            // For example, by dispatching an action to fetch the updated board
+            dispatch(fetchOneBoard(boardId));
         } catch (error) {
             console.error("Error updating board:", error);
         }
     };
 
     return (
-        <form id="form" onSubmit={handleSubmit}>
-            <h1>Edit Board</h1>
-            <div className="name-container">
-                <label htmlFor="name">Name</label>
-                <input
-                    type="text"
-                    value={name}
-                    id="name"
-                    name="name"
-                    onChange={(e) => setName(e.target.value)}
-                />
-                {hasSubmitted && errors.name && <span>{errors.name}</span>}
-            </div>
-            <div className="description-container">
-                <label htmlFor="description">Description</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-            </div>
-            <div className="privacy-container">
-                <label htmlFor="privacy">Set Privacy</label>
-                <input
-                    type="checkbox"
-                    id="privacy"
-                    name="private"
-                    checked={privacy}
-                    onChange={(e) => setPrivacy(e.target.checked)}
-                />
-            </div>
-            <button type="submit" className="submit-button">
-                Save Changes
-            </button>
-        </form>
+        <div className="edit-board-container">
+            <h1 className="edit-board-title">Edit Board</h1>
+            <form id="form" onSubmit={handleSubmit}>
+                <div className="edit-board-field-container">
+                    <label className="edit-board-label" htmlFor="name">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        value={name}
+                        id="name"
+                        name="name"
+                        onChange={(e) => setName(e.target.value)}
+                        className="edit-board-input"
+                    />
+                    {hasSubmitted && errors.name && <span>{errors.name}</span>}
+                </div>
+                <div className="edit-board-field-container">
+                    <label className="edit-board-label" htmlFor="description">
+                        Description
+                    </label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="edit-board-input edit-board-text"
+                    ></textarea>
+                </div>
+                <div className="edit-board-privacy-container">
+                    <label className="edit-board-label" htmlFor="privacy">
+                        Set Privacy
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="privacy"
+                        name="private"
+                        checked={privacy}
+                        onChange={(e) => setPrivacy(e.target.checked)}
+                        className="edit-board-privacy"
+                    />
+                </div>
+                <div className="edit-board-buttons">
+                    <button type="submit" className="edit-board-save-button">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 
