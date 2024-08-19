@@ -12,6 +12,8 @@ const CreatePin = () => {
     const [link, setLink] = useState("");
     const [isImageUploaded, setIsImageUploaded] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
+    const [linkError, setLinkError] = useState("");
+    const [titleError, setTitleError] = useState("");
     const imageInputRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -40,6 +42,16 @@ const CreatePin = () => {
             return;
         }
 
+        if (title.trim().length < 1) {
+            setTitleError("Title must be at least 1 character long.");
+            return;
+        }
+
+        if (link && !isValidURL(link)) {
+            setLinkError("Please enter a valid URL!");
+            return;
+        }
+
         const newPin = {
             file,
             title,
@@ -55,6 +67,15 @@ const CreatePin = () => {
         } else {
             alert("Error uploading file");
             console.log("Error uploading file:", data);
+        }
+    };
+
+    const isValidURL = (string) => {
+        try {
+            new URL(string);
+            return true;
+        } catch (err) {
+            return false;
         }
     };
 
@@ -76,6 +97,20 @@ const CreatePin = () => {
         e.stopPropagation(); // Prevent event bubbling
         const droppedFile = e.dataTransfer.files[0];
         handleFile(droppedFile);
+    };
+
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+        if (e.target.value.trim().length >= 1) {
+            setTitleError(""); // Clear the error if the title meets the criteria
+        }
+    };
+
+    const handleLinkChange = (e) => {
+        setLink(e.target.value);
+        if (isValidURL(e.target.value)) {
+            setLinkError(""); // Clear the error if the link is valid
+        }
     };
 
     return (
@@ -131,12 +166,13 @@ const CreatePin = () => {
                 </div>
                 <div className={`right-column ${!isImageUploaded ? 'disabled' : ''}`}>
                     <div className="title">
-                        <h5>Title</h5>
+                        <h5>Title {titleError && <p className="error-message">{titleError}</p>}</h5>
                         <input
                             type="text"
                             placeholder="Add a title"
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            // onChange={(e) => setTitle(e.target.value)}
+                            onChange={handleTitleChange}
                             disabled={!isImageUploaded}
                         />
                     </div>
@@ -150,12 +186,13 @@ const CreatePin = () => {
                         />
                     </div>
                     <div className="link">
-                        <h5>Link</h5>
+                        <h5>Link {linkError && <p className="error-message">{linkError}</p>}</h5>
                         <input
                             type="text"
                             placeholder="Add a link"
                             value={link}
-                            onChange={(e) => setLink(e.target.value)}
+                            // onChange={(e) => setLink(e.target.value)}
+                            onChange={handleLinkChange}
                             disabled={!isImageUploaded}
                         />
                     </div>
