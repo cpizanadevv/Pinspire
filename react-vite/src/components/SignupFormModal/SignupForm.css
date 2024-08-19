@@ -47,11 +47,11 @@
   margin: 1em;
 }
 
-h5 {
+.signup-modal h5 {
   margin-left: .5em;
 }
 
-p {
+.signup-modalp {
     font-size: .7em;
     margin-bottom: 5em;
     font-weight: 600;
