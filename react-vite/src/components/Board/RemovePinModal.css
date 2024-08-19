@@ -1,4 +1,4 @@
-.delete-board-modal-container {
+.remove-pin-modal-container {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -8,14 +8,14 @@
     gap: 20px;
 }
 
-.delete-board-modal-title {
+.remove-pin-modal-title {
     font-weight: normal;
     font-size: 30px;
     padding-left: 20px;
 }
 
 
-.delete-board-modal-buttons > button {
+.remove-pin-modal-buttons > button {
     margin: 0px 5px;
     padding: 10px;
     font-size: 18px;
@@ -23,21 +23,21 @@
     border: none
 }
 
-.delete-board-modal-cancel {
+.remove-pin-modal-cancel {
     color: black;
 }
 
-.delete-board-modal-cancel:hover {
+.remove-pin-modal-cancel:hover {
     cursor: pointer;
     background-color: rgb(205, 205, 205);
 }
 
-.delete-board-modal-confirm {
+.remove-pin-modal-confirm {
     color: white;
     background-color: rgb(255,0,121);
 }
 
-.delete-board-modal-confirm:hover {
+.remove-pin-modal-confirm:hover {
     cursor: pointer;
     background-color: rgb(218, 5, 105);
 }
