@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { postBoard } from "../../redux/board";
 import "./CreateBoard.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useModal } from '../../context/Modal'
+import { useModal } from "../../context/Modal";
 const CreateBoard = () => {
-    const { closeModal } = useModal()
+    const { closeModal } = useModal();
     const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,12 +19,11 @@ const CreateBoard = () => {
         let formErrors = {};
 
         if (!name) formErrors.name = "Name is required";
-        // if (!privacy) formErrors.privacy = "Need to set privacy"; // shouldn't appear
 
         setErrors(formErrors);
     }, [name]);
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setHasSubmitted(true);
 
@@ -34,48 +33,56 @@ const CreateBoard = () => {
             name,
             private: privacy,
             user_id: currUser.id,
+        };
+
+        try {
+            const createdBoard = await dispatch(postBoard(boardBody));
+            closeModal();
+            navigate(`/boards/${createdBoard.id}`, { replace: true });
+        } catch (error) {
+            console.error("Error creating board:", error);
         }
-
-        let createdBoard = await dispatch(postBoard(boardBody));
-
-        closeModal();
-        navigate(`/boards/${createdBoard.id}`, { replace: true})
-    }
+    };
 
     return (
-        <form id="form" onSubmit={handleSubmit}>
-            <h1>Create a Board</h1>
-            <div className="name-container">
-                <label htmlFor="name">Name</label>
-                <input
-                type="text"
-                value={name}
-                id="name"
-                name="name"
-                onChange={e => setName(e.target.value)}
-                />
-                {hasSubmitted && errors.name && (
-                    <span>{errors.name}</span>
-                )}
-            </div>
-            <div className="privacy-container">
-                <label htmlFor="privacy">Set Privacy</label>
-                <input
-                type="checkbox"
-                id="privacy"
-                name="private"
-                checked={privacy}
-                onChange={e => setPrivacy(e.target.checked)}
-                />
-                {/* {hasSubmitted && errors.privacy && (
-                    <span>{errors.privacy}</span>
-                )} */}
-            </div>
-            <button type="submit" className="submit-button">
-                Create Board
-            </button>
-        </form>
+        <div className="create-board-container">
+            <h1 className="create-board-title">Create a Board</h1>
+            <form id="form" onSubmit={handleSubmit}>
+                <div className="create-board-field-container">
+                    <label className="create-board-label" htmlFor="name">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        value={name}
+                        id="name"
+                        name="name"
+                        onChange={(e) => setName(e.target.value)}
+                        className="create-board-input"
+                    />
+                    {hasSubmitted && errors.name && <span>{errors.name}</span>}
+                </div>
+                <div className="create-board-privacy-container">
+                    <label className="create-board-label" htmlFor="privacy">
+                        Set Privacy
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="privacy"
+                        name="private"
+                        checked={privacy}
+                        onChange={(e) => setPrivacy(e.target.checked)}
+                        className="create-board-privacy"
+                    />
+                </div>
+                <div className="create-board-buttons">
+                    <button type="submit" className="create-board-save-button">
+                        Create Board
+                    </button>
+                </div>
+            </form>
+        </div>
     );
-}
+};
 
 export default CreateBoard;

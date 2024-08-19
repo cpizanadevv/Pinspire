@@ -4,10 +4,10 @@ import { fetchOneBoard } from "../../redux/board";
 import "./OneBoard.css";
 import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import DeleteModal from "./DeletePinModal";
+import DeleteModal from "./RemovePinModal";
 import PutBoard from "./EditBoard";
 import DeleteBoard from "./DeleteBoard";
-
+import { NavLink } from "react-router-dom";
 const OneBoard = () => {
     const { boardId } = useParams();
     const dispatch = useDispatch();
@@ -38,12 +38,11 @@ const OneBoard = () => {
                         boardId={boardId}
                     />
                     <OpenModalButton
-                    buttonText="Delete Board"
-                    modalComponent={<DeleteBoard/>}
-                    className="delete-board-button"
-                    boardId={boardId}
+                        buttonText="Delete Board"
+                        modalComponent={<DeleteBoard />}
+                        className="delete-board-button"
+                        boardId={boardId}
                     />
-
                 </div>
             </div>
             <div className="pins-container">
@@ -64,7 +63,9 @@ const OneBoard = () => {
                             </div>
                         ))
                     ) : (
-                        <p>No pins available for this board.</p>
+                        <div>
+                            <NavLink to="/">No boards yet. Go to Home to browse for Pins!</NavLink>
+                        </div>
                     )}
                 </div>
             </div>

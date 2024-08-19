@@ -48,20 +48,23 @@ const deleteBoard = (boardId) => {
 
 export const removePinFromBoard = (boardId, pin) => ({
     type: DELETE_BOARD_PIN,
-    payload: { boardId, pin }
+    payload: { boardId, pin },
 });
 
 export const postBoardPin = (boardId, pinId) => async () => {
-    const response = await fetch(`/api/boards/${boardId}/pins/${pinId}/create`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+    const response = await fetch(
+        `/api/boards/${boardId}/pins/${pinId}/create`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
 
     if (response.ok) {
         const pin = await response.json();
-        return pin
+        return pin;
         // dispatch(addPinToBoard(boardId, pin));
     } else {
         const error = await response.json();
@@ -70,12 +73,15 @@ export const postBoardPin = (boardId, pinId) => async () => {
 };
 
 export const deleteBoardPin = (boardId, pinId) => async (dispatch) => {
-    const response = await fetch(`/api/boards/${boardId}/pins/${pinId}/delete`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+    const response = await fetch(
+        `/api/boards/${boardId}/pins/${pinId}/delete`,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
 
     if (response.ok) {
         const pin = await response.json();
@@ -111,25 +117,28 @@ export const fetchOneBoard = (boardId) => async (dispatch) => {
 };
 
 export const postBoard = (board) => async (dispatch) => {
-    const response = await fetch("/api/boards/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(board),
-        credentials: "include",
-    });
+    try {
+        const response = await fetch("/api/boards/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(board),
+            credentials: "include",
+        });
 
-    console.log("RESPONSE RESPONSE", response);
-    if (response.ok) {
-        const newBoard = await response.json();
-        dispatch(createBoard(newBoard));
-
-        return newBoard;
-    } else {
-        const error = await response.json();
-
-        return error;
+        if (response.ok) {
+            const newBoard = await response.json();
+            dispatch(createBoard(newBoard));
+            return newBoard;
+        } else {
+            const error = await response.json();
+            console.error("Error response:", error);
+            return error;
+        }
+    } catch (error) {
+        console.error("Error posting board:", error);
+        throw error; // Re-throw the error to handle it upstream
     }
 };
 

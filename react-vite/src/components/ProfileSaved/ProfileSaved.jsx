@@ -40,7 +40,12 @@ const ProfileSaved = () => {
                     <i className="fa-solid fa-sort"></i>
                 </button>
                 <OpenModalButton
-                    buttonText={<i className="fa-solid fa-plus"></i>}
+                    buttonText={
+                        <div className="create-board-button-content">
+                            <i className="fa-solid fa-plus"></i>
+                            <h2>Create Board</h2>
+                        </div>
+                    }
                     modalComponent={<CreateBoard />}
                     className="create-board-button"
                 />

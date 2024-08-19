@@ -5,7 +5,6 @@ import CreatePin from '../components/CreatePin/CreatePin';
 import ViewPin from '../components/ViewPin/ViewPin';
 import Layout from './Layout';
 // import Profile from '../components/Profile/ProfilePage'
-import Boards from '../components/Board/BoardPage'
 import OneBoard from '../components/Board/OneBoard'
 import CreateBoard from '../components/Board/CreateBoard'
 // import PutBoard from '../components/Board/EditBoard'
@@ -40,13 +39,9 @@ export const router = createBrowserRouter([
         path: "/pin/:pinId",
         element: <ViewPin />,
       },
-      // {
-      //   path: "/old/:userId",
-      //   element: <Profile />
-      // }, 
       {
         path: "/:userId",
-        element: <NewProfile />, 
+        element: <NewProfile />,
         children: [
           {
             index: true,
@@ -54,7 +49,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "saved",
-            element: <ProfileSaved />, 
+            element: <ProfileSaved />,
           },
           {
             path: "created",
@@ -66,10 +61,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "/boards",
-        element: <Boards />
-      },
+
       {
         path: "/boards/:boardId",
         element: <OneBoard />

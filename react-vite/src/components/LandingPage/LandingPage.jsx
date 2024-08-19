@@ -17,11 +17,10 @@ const stopBounce = (func, wait) => {
 
 function LandingPage() {
     const dispatch = useDispatch();
-    // const currentUserId = useSelector((state) => state.session.user?.id);
+
     const { pins, page, pageSize, hasMore, loading } = useSelector(
         (state) => state.pinState || {}
     );
-    // const boards = useSelector((state) => state.boardState || []);
 
     useEffect(() => {
         dispatch(pinActions.resetPins());
