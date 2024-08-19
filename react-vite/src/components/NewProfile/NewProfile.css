@@ -238,14 +238,19 @@
     background-color: white;
     color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px 10px;
     opacity: 0;
     cursor: pointer;
+    font-size: medium;
 }
 
 .profile-board-image-container:hover .profile-board-edit-button {
     opacity: 1;
+}
+
+.profile-board-edit-button:hover {
+    background-color: rgb(232, 232, 232);
 }
 
 .profile-board-title-container {

@@ -4,6 +4,7 @@ import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
 import { getAllFavorites } from "../../redux/favorites";
+import PutBoard from "../Board/EditBoard";
 import CreateBoard from "../Board/CreateBoard";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
@@ -109,9 +110,15 @@ const ProfileSaved = () => {
                                     </div>
                                 </div>
                                 {board.name !== "All Pins" && (
-                                    <button className="profile-board-edit-button">
-                                        Edit
-                                    </button>
+                                    // <button className="profile-board-edit-button">
+                                    //     Edit
+                                    // </button>
+                                    <OpenModalButton
+                                        buttonText="Edit"
+                                        modalComponent={<PutBoard />}
+                                        className="profile-board-edit-button"
+                                        boardId={board.id}
+                                    />
                                 )}
                             </div>
                             <div className="profile-board-title-container">
