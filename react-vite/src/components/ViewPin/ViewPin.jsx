@@ -7,6 +7,7 @@ import { createNewFavorite, deleteFavorite, getUserFavorites } from '../../redux
 import Notification from '../Notification/Notification';
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import EditPin from '../EditPin/EditPin';
+import AddBoardPin from "../AddBoardPin/AddBoardPin";
 import './ViewPin.css';
 
 const ViewPin = () => {
@@ -200,6 +201,12 @@ const ViewPin = () => {
             <Notification message={notificationMessage} show={showNotification} />
             <div className='pin-container'>
                 <div className='left'>
+                    <OpenModalButton
+                        buttonText="Save"
+                        modalComponent={<AddBoardPin />}
+                        className="landing-save-button"
+                        pinId={pin.id}
+                    />
                     <img src={pin.img_url} alt={pin.title} />
                 </div>
                 <div className='right'>

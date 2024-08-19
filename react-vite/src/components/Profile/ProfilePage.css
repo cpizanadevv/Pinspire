@@ -18,6 +18,7 @@
     text-align: center;
     margin-bottom: 20px;
 }
+
 #profile-picture {
     display: flex;
     align-items: center;
@@ -41,7 +42,7 @@ p {
     margin: 5px;
 }
 
-.profile-buttons > button{
+.profile-buttons>button {
     padding: 13px 15px;
     margin: 10px 5px;
     font-size: medium;
@@ -56,18 +57,18 @@ p {
     margin: 20px 0px
 }
 
-.old-profile-links > div {
+.old-profile-links>div {
     margin: 0px 15px;
     border-bottom: 3px transparent solid;
     padding: 5px 5px;
     font-weight: 550;
 }
 
-.old-profile-links > div:hover{
+.old-profile-links>div:hover {
     cursor: pointer;
 }
 
-.old-profile-links > div.active {
+.old-profile-links>div.active {
     border-bottom: 3px black solid;
 }
 
@@ -86,27 +87,34 @@ p {
 
 .profile-pin-container {
     min-height: 150px;
-    margin-bottom: 15px;    /* space between items */
-    break-inside: avoid;    /* prevents items from breaking across columns */
-    position: relative;      /* positioning context for overlay and button */
-    overflow: hidden;        /* hide overflow so overlay doesn't exceed the image */
+    margin-bottom: 15px;
+    /* space between items */
+    break-inside: avoid;
+    /* prevents items from breaking across columns */
+    position: relative;
+    /* positioning context for overlay and button */
+    overflow: hidden;
+    /* hide overflow so overlay doesn't exceed the image */
 }
 
 .profile-pin-container img {
     width: 100%;
     height: auto;
     min-height: 150px;
-    display: block;         /* removes space below the image */
+    display: block;
+    /* removes space below the image */
     border-radius: 20px;
 }
 
 .profile-image-overlay {
-    position: absolute;      /* overlay positioned over image */
+    position: absolute;
+    /* overlay positioned over image */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;              /* hidden */
+    opacity: 0;
+    /* hidden */
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -116,11 +124,13 @@ p {
 }
 
 .profile-pin-container:hover .profile-image-overlay {
-    background-color: rgba(0, 0, 0, 0.5); /* grey overlay with 50% opacity */
-    opacity: 1;              /* show overlay */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* grey overlay with 50% opacity */
+    opacity: 1;
+    /* show overlay */
 }
 
-.save-button {
+/* .save-button {
     background-color: red;
     color: white;
     margin: 10px;
@@ -133,13 +143,13 @@ p {
 
 .save-button.saved {
     background-color: black
-}
+} */
 
 .profile-image-overlay .profile-edit-button {
     background-color: white;
     color: black;
-    margin: 10px;
-    padding: 15px 16px;
+    /* margin: 10px; */
+    padding: 10px 15px;
     font-size: medium;
     border-radius: 25px;
     border: 0px;
@@ -163,13 +173,15 @@ p {
     width: 100%;
     height: 150px;
     background-color: lightgrey;
-    overflow: hidden; /* hides anything outside the container */
+    overflow: hidden;
+    /* hides anything outside the container */
 }
 
 .profile-board-image-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* image covers the entire container */
+    object-fit: cover;
+    /* image covers the entire container */
 }
 
 .profile-board-edit-button {
@@ -207,7 +219,7 @@ p {
     margin: 20px;
 }
 
-.profile-middle-container > button {
+.profile-middle-container>button {
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -218,28 +230,36 @@ p {
 }
 
 @media (min-width: 750px) and (max-width: 1009px) {
-    .created-grid, .profile-board-grid {
+
+    .created-grid,
+    .profile-board-grid {
         column-count: 3;
         width: 730px;
     }
 }
 
 @media (min-width: 1010px) and (max-width: 1264px) {
-    .created-grid, .profile-board-grid {
+
+    .created-grid,
+    .profile-board-grid {
         column-count: 4;
         width: 990px;
     }
 }
 
 @media (min-width: 1265px) and (max-width: 1509px) {
-    .created-grid, .profile-board-grid {
+
+    .created-grid,
+    .profile-board-grid {
         column-count: 5;
         width: 1245px;
     }
 }
 
 @media (min-width: 1510px) {
-    .created-grid, .profile-board-grid {
+
+    .created-grid,
+    .profile-board-grid {
         column-count: 6;
         width: 1480px;
     }
@@ -248,4 +268,3 @@ p {
 .landing-save-button.saved {
     background-color: black
 }
-

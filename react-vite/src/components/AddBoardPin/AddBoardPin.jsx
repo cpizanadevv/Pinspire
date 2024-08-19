@@ -29,19 +29,33 @@ const AddBoardPin = ({ pinId }) => {
         (board) => board.user_id === currentUserId
     );
 
-    const handleSavePinToBoard = (boardId) => {
-        dispatch(boardActions.postBoardPin(boardId, pinId)).then(() => {
-            setSavedBoards((prevSavedBoards) =>
-                new Set(prevSavedBoards).add(boardId)
-            );
-        });
+    const handleTogglePinOnBoard = (boardId) => {
+        if (savedBoards.has(boardId)) {
+            // If the pin is already saved to this board, remove it
+            dispatch(boardActions.deleteBoardPin(boardId, pinId)).then(() => {
+                setSavedBoards((prevSavedBoards) => {
+                    const newSavedBoards = new Set(prevSavedBoards);
+                    newSavedBoards.delete(boardId);
+                    return newSavedBoards;
+                });
+            });
+        } else {
+            // If the pin is not saved to this board, add it
+            dispatch(boardActions.postBoardPin(boardId, pinId)).then(() => {
+                setSavedBoards((prevSavedBoards) => {
+                    const newSavedBoards = new Set(prevSavedBoards);
+                    newSavedBoards.add(boardId);
+                    return newSavedBoards;
+                });
+            });
+        }
     };
 
     return (
         <div className="add-board-pin-container">
             <img src={pin.img_url} alt="Pin Image" id="board-pin-image" />
             <div className="board-list">
-                <h2>Select a board to save this pin:</h2>
+                <h2>Select a board to save this pin</h2>
                 <div className="board-button-container">
                     {userBoards.map((board) => (
                         <div className="board-button" key={board.id}>
@@ -50,9 +64,8 @@ const AddBoardPin = ({ pinId }) => {
                                 className={`save-button ${savedBoards.has(board.id) ? "saved" : ""}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleSavePinToBoard(board.id);
+                                    handleTogglePinOnBoard(board.id);
                                 }}
-                                disabled={savedBoards.has(board.id)}
                             >
                                 {savedBoards.has(board.id) ? "Saved" : "Save"}
                             </button>
