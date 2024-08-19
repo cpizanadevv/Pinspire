@@ -15,6 +15,12 @@ const NewProfile = () => {
         }
     }, [user, userId, navigate]);
 
+
+    // Early return if user is null or undefined
+    if (!user) {
+        return null; // or a loading spinner, or redirect, etc.
+    }
+    
     return (
         <div id="profile-page-container">
             <div id="profile-top-container">
