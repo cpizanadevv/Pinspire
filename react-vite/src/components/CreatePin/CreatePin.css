@@ -171,6 +171,9 @@
     border-radius: 15px;
     margin-top: 5px;
     background-color: white;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .create-pin-container .right-column .title input:disabled,
