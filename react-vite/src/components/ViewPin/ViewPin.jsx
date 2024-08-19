@@ -195,11 +195,6 @@ const ViewPin = () => {
             });
     };
 
-    const openEditModal = () => {
-        openModal(<EditPin pinId={pinId} />);
-    };
-
-
     return (
         <div className='view-pin-page'>
             <Notification message={notificationMessage} show={showNotification} />
