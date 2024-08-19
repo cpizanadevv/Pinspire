@@ -13,13 +13,15 @@
     gap: 20px;
     padding-top: 20px;
 }
+
 .one-board-name {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:20px
+    gap: 20px
 }
-.edit-board-modal-container > button {
+
+.edit-board-modal-container>button {
     padding: 13px 15px;
     margin: 10px 5px;
     font-size: medium;
@@ -29,9 +31,10 @@
     background-color: lightgray;
 }
 
-.edit-board-modal-container > button:hover {
+.edit-board-modal-container>button:hover {
     cursor: pointer
 }
+
 .one-board {
     list-style-type: none;
     padding: 0;
@@ -48,21 +51,28 @@
 .pins-container li {
     list-style-type: none;
     margin: 0;
-    border: 1px solid #ddd; /* Optional border around each pin */
-    border-radius: 8px; /* Optional rounded corners */
-    overflow: hidden; /* Hide overflow */
+    border: 1px solid #ddd;
+    /* Optional border around each pin */
+    border-radius: 8px;
+    /* Optional rounded corners */
+    overflow: hidden;
+    /* Hide overflow */
 }
 
 .pins-container img {
-    width: 100%; /* Make image take up the full width of the container */
-    height: auto; /* Allow height to vary */
+    width: 100%;
+    /* Make image take up the full width of the container */
+    height: auto;
+    /* Allow height to vary */
     display: block;
-    object-fit: cover; /* Cover the container while preserving aspect ratio */
+    object-fit: cover;
+    /* Cover the container while preserving aspect ratio */
 }
 
 .pins-container p {
     margin: 10px;
-    font-size: 0.9rem; /* Smaller text for title and description */
+    font-size: 0.9rem;
+    /* Smaller text for title and description */
     text-align: center;
 }
 
@@ -71,17 +81,19 @@
 }
 
 .delete-pin-modal-button {
-    background-color:  #FF0079;
+    background-color: #FF0079;
     color: white;
     margin: 10px;
-    padding: 15px 16px;
+    padding: 10px 15px;
     font-size: medium;
     border-radius: 25px;
     border: 0px;
     cursor: pointer;
 
+    transition: 0.2s ease;
 }
 
 .delete-pin-modal-button:hover {
-    background-color: pink
+    background-color: pink;
+    color: #FF0079;
 }

@@ -34,6 +34,17 @@
     /* max-width: 100%; */
 }
 
+.view-pin-page .pin-container .landing-save-button {
+    position: absolute;
+
+    opacity: 0;
+}
+
+.view-pin-page .pin-container:hover .landing-save-button {
+    opacity: 1;
+}
+
+
 .view-pin-page .pin-container .left img {
     max-width: 100%;
     max-height: 700px;

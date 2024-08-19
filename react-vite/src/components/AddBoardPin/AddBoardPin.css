@@ -2,40 +2,49 @@
     display: flex;
     gap: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: white;
+
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-height: 600px;
 }
 
-#board-pin-image {
+.add-board-pin-container #board-pin-image {
     width: 300px;
     height: 400px;
     border-radius: 15px;
     margin: 0;
-    border: 2px solid #ddd;
     object-fit: cover;
 }
 
-.board-list {
+.add-board-pin-container .board-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 20px;
+    justify-content: flex-start;
+
+    /* border: 2px solid red; */
 }
 
-.board-button-container {
+.add-board-pin-container .board-list h2 {
+    margin-bottom: 10px;
+}
+
+.add-board-pin-container .board-button-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    /* border: 2px solid blue; */
+
+    overflow-y: auto;
 }
 
-.board-button {
+.add-board-pin-container .board-button {
     position: relative;
     text-decoration: none;
     background: #f1f1f1;
     color: #333;
     font-size: 18px;
-    padding: 15px 20px;
+    padding: 10px 10px;
     border-radius: 8px;
     border: 1px solid #ddd;
     cursor: pointer;
@@ -46,41 +55,64 @@
     align-items: center;
 }
 
-.board-button:hover {
+.add-board-pin-container .board-button:hover {
     background-color: #e0e0e0;
 }
 
-.save-button {
-    display: none;
+.add-board-pin-container .save-button {
+    opacity: 0;
     background-color: #FF0079;
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 5px 10px;
+    border-radius: 20px;
+    padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.save-button.save {
-    background-color: black;
-    cursor:default
+.add-board-pin-container .save-button:hover {
+    background-color: white;
+    color: #FF0079;
 }
 
-.board-button:hover .save-button {
-    display: block;
+.add-board-pin-container .save-button.saved {
+    opacity: 1;
+    background-color: rgb(98, 98, 98);
+    color: rgb(202, 202, 202);
+    cursor: pointer;
 }
 
-.save-button:hover {
-    background-color: #FF0079;
+.add-board-pin-container .save-button.saved:hover {
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
 }
+
+.add-board-pin-container .board-button:hover .save-button {
+    opacity: 1;
+}
+
+.save-button.saved {
+    background-color: black
+}
+
+
+
+
 
 .profile-image-overlay .add-board-pin-button {
     background-color: #FF0079;
     color: white;
+    font-size: 14px;
     margin-top: -13px;
-    padding: 12px 15px;
+    padding: 10px 15px;
     font-size: medium;
     border-radius: 25px;
     cursor: pointer;
 
+    transition: 0.2s ease;
+}
+
+.profile-image-overlay .add-board-pin-button:hover {
+    background-color: white;
+    color: #FF0079;
 }
