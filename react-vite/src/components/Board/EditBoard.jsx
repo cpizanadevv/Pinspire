@@ -4,7 +4,7 @@ import { fetchOneBoard } from "../../redux/board";
 import "./EditBoard.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-
+import * as boardActions from '../../redux/board'
 const PutBoard = ({ boardId }) => {
     // const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
@@ -44,14 +44,14 @@ const PutBoard = ({ boardId }) => {
 
         if (Object.keys(errors).length > 0) return;
 
-        // const boardBody = {
-        //     name,
-        //     private: privacy,
-        //     ...(description && { description }), // Include description only if it has a value
-        // };
+        const boardBody = {
+            name,
+            private: privacy,
+            description
+        };
 
         try {
-            // const updatedBoard = await dispatch(putBoard(boardBody, boardId));
+            dispatch(boardActions.putBoard(boardBody, boardId));
             closeModal(); // Close the modal
             window.location.reload(); // Refresh the page
         } catch (error) {
