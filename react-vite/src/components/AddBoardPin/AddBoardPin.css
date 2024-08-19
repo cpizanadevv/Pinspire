@@ -73,3 +73,14 @@
 .save-button:hover {
     background-color: #FF0079;
 }
+
+.profile-image-overlay .add-board-pin-button {
+    background-color: #FF0079;
+    color: white;
+    margin-top: -13px;
+    padding: 12px 15px;
+    font-size: medium;
+    border-radius: 25px;
+    cursor: pointer;
+
+}

@@ -7,6 +7,7 @@ import { getAllFavorites } from "../../redux/favorites";
 import CreateBoard from "../Board/CreateBoard";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
+
 const ProfileSaved = () => {
     const user = useSelector((state) => state.session.user);
     const boardsObj = useSelector((state) => state.boardState);
