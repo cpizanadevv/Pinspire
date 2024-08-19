@@ -50,21 +50,25 @@ const OneBoard = () => {
                     {boardPins.length > 0 ? (
                         boardPins.map((pin) => (
                             <div key={pin.id} className="profile-pin-container">
-                                <img src={pin.img_url} alt={pin.title} />
-                                <div className="profile-image-overlay">
-                                    <OpenModalButton
-                                        buttonText="Delete"
-                                        modalComponent={<DeleteModal />}
-                                        className="delete-pin-modal-button"
-                                        pinId={pin.id}
-                                        boardId={boardId}
-                                    />
-                                </div>
+                                <NavLink to={`/pin/${pin.id}`}>
+                                    <img src={pin.img_url} alt={pin.title} />
+                                    <div className="profile-image-overlay">
+                                        <OpenModalButton
+                                            buttonText="Delete"
+                                            modalComponent={<DeleteModal />}
+                                            className="delete-pin-modal-button"
+                                            pinId={pin.id}
+                                            boardId={boardId}
+                                        />
+                                    </div>
+                                </NavLink>
                             </div>
                         ))
                     ) : (
                         <div>
-                            <NavLink to="/">No boards yet. Go to Home to browse for Pins!</NavLink>
+                            <NavLink to="/">
+                                No boards yet. Go to Home to browse for Pins!
+                            </NavLink>
                         </div>
                     )}
                 </div>
