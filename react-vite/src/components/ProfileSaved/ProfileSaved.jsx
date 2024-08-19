@@ -29,6 +29,10 @@ const ProfileSaved = () => {
         dispatch(getAllFavorites());
     }, [dispatch]);
 
+    if (!boards.length) {
+        return <div className="loading-message">Loading board data...</div>;
+    }
+
     return (
         <>
             <div className="profile-middle-container">
