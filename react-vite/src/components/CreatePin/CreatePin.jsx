@@ -1,12 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { useState, useRef } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { addPin } from '../../redux/pins';
 import './CreatePin.css';
 
 const CreatePin = () => {
     const [file, setFile] = useState(null);
-    // const [imageUrl, setImageUrl] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
@@ -17,6 +16,13 @@ const CreatePin = () => {
     const imageInputRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const currentUser = useSelector((state) => state.session.user);
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/');
+        }
+    }, [currentUser, navigate]);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];

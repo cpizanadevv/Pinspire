@@ -54,19 +54,6 @@ function LandingPage() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
 
-    // const allPinsBoard = useMemo(
-    //     () =>
-    //         boardsObj.find(
-    //             (board) =>
-    //                 board.name === "All Pins" && board.user_id === currentUserId
-    //         ),
-    //     [boardsObj, currentUserId]
-    // );
-
-    // const isPinSaved = (pinId, boardId) => {
-    //     return savedPins[boardId]?.has(pinId);
-    // };
-
     const displayPins = useMemo(() => Object.values(pins), [pins]);
 
     return (
@@ -83,37 +70,12 @@ function LandingPage() {
                                             <OpenModalButton
                                                 buttonText="Save"
                                                 modalComponent={
-                                                    <AddBoardPin
-                                                    />
+                                                    <AddBoardPin />
                                                 }
                                                 className="landing-save-button"
                                                 pinId={id}
                                             />
                                         </div>
-                                        {/* <button
-                                            className={`landing-save-button ${
-                                                savedPins[
-                                                    `${id}-${selectedBoardPin.boardId}`
-                                                ]
-                                                    ? "saved"
-                                                    : ""
-                                            }`}
-                                            onClick={(e) => {
-                                                e.stopPropagation(); // Prevent the click from propagating to the image
-                                                handleSavePin();
-                                            }}
-                                            disabled={
-                                                savedPins[
-                                                    `${id}-${selectedBoardPin.boardId}`
-                                                ]
-                                            }
-                                        >
-                                            {savedPins[
-                                                `${id}-${selectedBoardPin.boardId}`
-                                            ]
-                                                ? "Saved"
-                                                : "Save"}
-                                        </button> */}
                                     </div>
                                 </div>
                             </NavLink>
@@ -121,12 +83,6 @@ function LandingPage() {
                     </div>
                 )}
             </div>
-            {/* Render no pins message outside of the .pins-wrapper */}
-            {/* {loading && (
-          <p className="loading-message">
-            {page === 1 ? "Loading pins..." : "Loading more pins..."}
-          </p>
-        )} */}
             {!loading && !hasMore && (
                 <div className="no-pins-message">No more pins available.</div>
             )}
