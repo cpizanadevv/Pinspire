@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getPin } from '../../redux/pins';
 import { createComment, updateComment, deleteComment } from '../../redux/comment';
 import { createNewFavorite, deleteFavorite, getUserFavorites } from '../../redux/favorites';
+import Notification from '../Notification/Notification';
 import './ViewPin.css';
 
 const ViewPin = () => {
@@ -19,12 +20,15 @@ const ViewPin = () => {
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
+    const [showNotification, setShowNotification] = useState(false);
+    const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
     useEffect(() => {
         dispatch(getPin(pinId));
         checkIfFavorite();
         // dispatch(getPinComments(pinId));
-    }, [dispatch, pinId, checkIfFavorite]);
+    }, [dispatch, pinId]);
 
     const checkIfFavorite = async () => {
         const favorites = await dispatch(getUserFavorites(currentUser.id));
@@ -43,11 +47,19 @@ const ViewPin = () => {
 
         if (isFavorite) {
             await dispatch(deleteFavorite(pinId));
+            showNotificationMessage('Pin removed from favorites!');
         } else {
             await dispatch(createNewFavorite(pinId));
+            showNotificationMessage('Pin added to favorites!');
         }
 
         setIsFavorite(!isFavorite);
+    };
+
+    const showNotificationMessage = (message) => {
+        setNotificationMessage(message);
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
     };
 
     const handleCommentSubmit = async (e) => {
@@ -106,6 +118,21 @@ const ViewPin = () => {
         }
     };
 
+    const toggleDescription = () => {
+        setIsDescriptionExpanded(!isDescriptionExpanded);
+    };
+
+    const renderDescription = () => {
+        if (!pin.description) {
+            return '';
+        }
+
+        if (isDescriptionExpanded || pin.description.length <= 60) {
+            return pin.description;
+        }
+        return pin.description.slice(0, 50) + ' ...';
+    };
+
     const comments = pin.comments || {};
 
     if (!pin) {
@@ -114,24 +141,29 @@ const ViewPin = () => {
 
     return (
         <div className='view-pin-page'>
+            <Notification message={notificationMessage} show={showNotification} />
             <div className='pin-container'>
                 <div className='left'>
                     <img src={pin.img_url} alt={pin.title} />
                 </div>
                 <div className='right'>
                     <div className='favorite-edit'>
-                        <button
-                            className={`favorite ${isFavorite ? 'favorited' : ''} ${isClicked ? 'clicked' : ''}`}
-                            onClick={toggleFavorite}>
-                            <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-star`}></i>
-                        </button>
+                        {currentUser && (
+                            <button
+                                className={`favorite ${isFavorite ? 'favorited' : ''} ${isClicked ? 'clicked' : ''}`}
+                                onClick={toggleFavorite}>
+                                <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-star`}></i>
+                            </button>
+                        )}
                         {currentUser?.id === pin.user_id && (
                             <button className='edit-pin'><i className="fa-solid fa-pen-to-square"></i><span>Edit</span></button>
                         )}
                     </div>
                     <div className='info'>
                         <h2>{pin.title}</h2>
-                        <p>{pin.description}</p>
+                        <p onClick={toggleDescription} style={{ cursor: 'default' }}>
+                            {renderDescription()}
+                        </p>
                         {pin.link && <a href={pin.link} target="_blank" rel="noopener noreferrer">Visit Link</a>}
                     </div>
                     <div className='comment-container'>

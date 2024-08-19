@@ -26,10 +26,10 @@ const NewProfile = () => {
             <div id="profile-top-container">
                 <div id="profile-user-container">
                     <span id="profile-picture">{user.last_name[0]}</span>
-                    <h1>
+                    <h1 className="profile-page-name">
                         {user.first_name} {user.last_name}
                     </h1>
-                    <p>{user.username}</p>
+                    <p className="profile-page-username">{user.username}</p>
                     <div className="profile-buttons">
                         <button>Share</button>
                         <button>Edit profile</button>

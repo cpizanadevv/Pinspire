@@ -42,13 +42,19 @@ function SignupFormModal() {
     }
   };
 
+
+
   return (
     <div className="signup-modal">
-      <h1>Sign Up</h1>
+    <img className="logo-png" src='../../../pinspire_logo.png' alt="Logo" />
+
+    <h1>Welcome to Pinspire</h1>
+    <p>Discover fresh inspirations to explore</p>
       {errors.server && <p className="errors">{errors.server}</p>}
       <form onSubmit={handleSubmit} className="sign-up-form">
         <label>
-          First Name
+          <h5>First Name</h5>
+          
           <input
             type="text"
             name="first_name"
@@ -60,7 +66,8 @@ function SignupFormModal() {
         </label>{errors.first_name && <p className="errors">{errors.first_name}</p>}
 
         <label>
-          Last Name
+          <h5>Last Name</h5>
+          
           <input
             type="text" 
             name="last_name"
@@ -72,7 +79,8 @@ function SignupFormModal() {
         </label>
         {errors.last_name && <p className="errors">{errors.last_name}</p>}
         <label>
-          Email
+          <h5>Email</h5>
+          
           <input
             type="text"
             value={email}
@@ -83,7 +91,8 @@ function SignupFormModal() {
         </label>
         {errors.email && <p className="errors">{errors.email}</p>}
         <label>
-          Username
+          <h5>Username</h5>
+          
           <input
             type="text"
             value={username}
@@ -94,7 +103,8 @@ function SignupFormModal() {
         </label>
         {errors.username && <p className="errors">{errors.username}</p>}
         <label>
-          Password
+          <h5>Password</h5>
+          
           <input
             type="password"
             value={password}
@@ -105,7 +115,8 @@ function SignupFormModal() {
         </label>
         {errors.password && <p className="errors">{errors.password}</p>}
         <label>
-          Confirm Password
+          <h5>Confirm Password</h5>
+          
           <input
             type="password"
             placeholder="Confirm Password"

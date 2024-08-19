@@ -32,12 +32,12 @@
     margin: 5px
 }
 
-h1 {
+.profile-page-name {
     font-weight: 550;
     margin: 5px;
 }
 
-p {
+.profile-page-username {
     margin: 5px;
 }
 
@@ -156,6 +156,8 @@ p {
     border: 0px;
 }
 
+/* styling saved page START */
+
 .profile-board-grid {
     column-count: 2;
     column-gap: 15px;
@@ -173,15 +175,55 @@ p {
     border-radius: 15px;
     width: 100%;
     height: 150px;
-    background-color: lightgrey;
+    background-color: white;
     overflow: hidden; /* hides anything outside the container */
+    display: flex;
 }
 
-.profile-board-image-container img {
+/* styling for SAVED BOARDS display START */
+.profile-board-image {
+    display: flex;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* image covers the entire container */
+    gap: 1px
 }
+
+.profile-board-first-image {
+    flex: 1;
+    overflow: hidden;
+}
+
+.profile-board-first-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-board-second-image {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px
+}
+
+.profile-board-second-image-nested {
+    flex: 1;
+    overflow: hidden;
+}
+
+.profile-board-second-image-nested img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* styling for SAVED BOARDS display END */
+
+/* .profile-board-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; image covers the entire container 
+} */
 
 .profile-board-edit-button {
     position: absolute;
@@ -227,6 +269,8 @@ p {
 .fa-solid {
     font-size: 26px;
 }
+
+/* styling saved page END */
 
 @media (min-width: 750px) and (max-width: 1009px) {
     .created-grid, .profile-board-grid {
