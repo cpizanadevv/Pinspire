@@ -116,10 +116,7 @@ function LandingPage() {
                                     <div className="image-overlay">
                                         <div className="board-container">
                                             <OpenModalButton
-                                                buttonText={
-                                                    selectedBoard[0]?.name ||
-                                                    "Select Board"
-                                                }
+                                                buttonText="Save"
                                                 modalComponent={
                                                     <AddBoardPin
                                                         onSelectBoard={
@@ -127,11 +124,11 @@ function LandingPage() {
                                                         }
                                                     />
                                                 }
-                                                className="add-board-pin-button"
+                                                className="landing-save-button"
                                                 pinId={id}
                                             />
                                         </div>
-                                        <button
+                                        {/* <button
                                             className={`landing-save-button ${
                                                 savedPins[
                                                     `${id}-${selectedBoardPin.boardId}`
@@ -154,7 +151,7 @@ function LandingPage() {
                                             ]
                                                 ? "Saved"
                                                 : "Save"}
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             </NavLink>
