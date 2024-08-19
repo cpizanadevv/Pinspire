@@ -1,8 +1,8 @@
 from app.models import db, Board, Pin, board_pins
 from flask import jsonify, request, Blueprint, abort
 from flask_login import login_required, current_user
-from app.forms import BoardForm
-from app.forms import PinForm
+from app.models.forms import BoardForm
+from app.models.forms import PinForm
 from app.models import Pin
 
 board_routes = Blueprint('boards', __name__)

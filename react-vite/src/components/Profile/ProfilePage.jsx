@@ -209,7 +209,7 @@ const Profile = () => {
                         </NavLink>
                     ))}
                 </div>
-                    
+
                 )}
             </div>
         </div>
