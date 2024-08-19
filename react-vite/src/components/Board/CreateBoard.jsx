@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { postBoard } from "../../redux/board";
 import "./CreateBoard.css";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useModal } from '../../context/Modal'
 const CreateBoard = () => {
+    const { closeModal } = useModal()
     const currUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -37,6 +38,7 @@ const CreateBoard = () => {
 
         let createdBoard = await dispatch(postBoard(boardBody));
 
+        closeModal();
         navigate(`/boards/${createdBoard.id}`, { replace: true})
     }
 
