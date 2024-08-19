@@ -44,14 +44,14 @@ const PutBoard = ({ boardId }) => {
 
         if (Object.keys(errors).length > 0) return;
 
-        const boardBody = {
-            name,
-            private: privacy,
-            ...(description && { description }), // Include description only if it has a value
-        };
+        // const boardBody = {
+        //     name,
+        //     private: privacy,
+        //     ...(description && { description }), // Include description only if it has a value
+        // };
 
         try {
-            const updatedBoard = await dispatch(putBoard(boardBody, boardId));
+            // const updatedBoard = await dispatch(putBoard(boardBody, boardId));
             closeModal(); // Close the modal
             window.location.reload(); // Refresh the page
         } catch (error) {

@@ -24,7 +24,7 @@ const ViewPin = () => {
         dispatch(getPin(pinId));
         checkIfFavorite();
         // dispatch(getPinComments(pinId));
-    }, [dispatch, pinId]);
+    }, [dispatch, pinId, checkIfFavorite]);
 
     const checkIfFavorite = async () => {
         const favorites = await dispatch(getUserFavorites(currentUser.id));
