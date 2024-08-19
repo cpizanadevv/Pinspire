@@ -7,9 +7,6 @@ const DeleteModal = ({ pinId, boardId }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    console.log("DeleteModal - pinId:", pinId); // Log pinId
-    console.log("DeleteModal - boardId:", boardId); // Log boardId
-
     const handleDelete = () => {
         if (pinId && boardId) {
             dispatch(deleteBoardPin(boardId, pinId)).then(() => {

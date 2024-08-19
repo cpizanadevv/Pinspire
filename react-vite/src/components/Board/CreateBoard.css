@@ -64,7 +64,7 @@
 }
 
 .create-board-save-button {
-    background-color: red;
+    background-color: #FF0079;
     color: white;
     margin: 10px;
     padding: 15px 16px;
@@ -77,4 +77,3 @@
 .create-board-privacy-container {
     padding-right: 10px
 }
-

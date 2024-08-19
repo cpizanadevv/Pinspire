@@ -19,7 +19,6 @@ const CreateBoard = () => {
         let formErrors = {};
 
         if (!name) formErrors.name = "Name is required";
-        // if (!privacy) formErrors.privacy = "Need to set privacy"; // shouldn't appear
 
         setErrors(formErrors);
     }, [name]);
