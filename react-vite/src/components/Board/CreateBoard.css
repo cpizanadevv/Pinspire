@@ -1,0 +1,80 @@
+.create-board-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 510px;
+    position: fixed;
+    background-color: white;
+    /* color: #000000; */
+    top: 0px;
+    right: 0px;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.create-board-title {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: 30px;
+}
+
+.create-board-field-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+
+.create-board-label {
+    margin: 5px 0px;
+    color: black;
+    font-size: small;
+}
+
+.create-board-input {
+    border-radius: 10px;
+    height: 45px;
+    /* border-color: darkgray; */
+    /* box-shadow: none; */
+    border: 2px solid lightgrey; /* or a color that matches your design */
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    font-size: medium;
+}
+
+.create-board-input.create-board-text {
+    height: 70px;
+    padding: 15px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.create-board-privacy-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.create-board-buttons {
+    position: fixed;
+    /* margin: 20px; */
+    gap: 10px;
+    width: 510px;
+    padding: 20px;
+    background-color: white;
+    padding-left: 150px;
+}
+
+.create-board-save-button {
+    background-color: red;
+    color: white;
+    margin: 10px;
+    padding: 15px 16px;
+    font-size: medium;
+    border-radius: 25px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.create-board-privacy-container {
+    padding-right: 10px
+}
+
