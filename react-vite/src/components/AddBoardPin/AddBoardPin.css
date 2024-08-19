@@ -1,20 +1,70 @@
-.add-board-pin-container{
+.add-board-pin-container {
     display: flex;
-}
-
-board-list {
-    display: flex;
-    flex-direction: column
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 #board-pin-image {
-    width: 250px;
+    width: 300px;
     height: 400px;
-    border-radius: 25px;
-    border: 1px solid black
+    border-radius: 15px;
+    margin: 0;
+    border: 2px solid #ddd;
+    object-fit: cover;
+}
+
+.board-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
 }
 
 .board-button-container {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    gap: 15px;
+}
+
+.board-button {
+    position: relative;
+    text-decoration: none;
+    background: #f1f1f1;
+    color: #333;
+    font-size: 18px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-button:hover {
+    background-color: #e0e0e0;
+}
+
+.save-button {
+    display: none;
+    background-color: #FF0079;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.board-button:hover .save-button {
+    display: block;
+}
+
+.save-button:hover {
+    background-color: #FF0079;
 }

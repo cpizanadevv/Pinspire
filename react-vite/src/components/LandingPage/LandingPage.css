@@ -130,6 +130,10 @@
     margin-bottom: 500px;
 }
 
+.landing-save-button.saved {
+    background-color: black;
+    color: white
+}
 @media (min-width: 750px) and (max-width: 1009px) {
     .created-grid-container {
         column-count: 3;

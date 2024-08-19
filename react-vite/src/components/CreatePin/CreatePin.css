@@ -133,6 +133,16 @@
     color: #CDCDCD;
 }
 
+.create-pin-container .right-column .link h5,
+.create-pin-container .right-column .title h5 {
+    display: flex;
+    gap: 5px;
+}
+
+.create-pin-container .right-column .link h5 p,
+.create-pin-container .right-column .title h5 p {
+    color: red;
+}
 
 .create-pin-container .right-column .title input,
 .create-pin-container .right-column .link input {
@@ -167,5 +177,6 @@
 .create-pin-container .right-column .link input:disabled,
 .create-pin-container .right-column .description textarea:disabled {
     background-color: white;
-    color: #CDCDCD;
+    /* color: #e2e2e2; */
+    border: 1px solid #eeeeee;
 }

@@ -51,15 +51,54 @@ const ProfileSaved = () => {
                         <div className="profile-board-container">
                             <div className="profile-board-image-container">
                                 <div className="profile-board-image">
-                                    <div className="profile-board-first-image" style={{ backgroundColor: board.pins[0].img_url ? 'transparent' : 'lightgray' }}>
-                                        {board.pins[0].img_url ? <img src={board.pins[0].img_url}/> : null}
+                                    <div
+                                        className="profile-board-first-image"
+                                        style={{
+                                            backgroundColor: board.pins?.[0]
+                                                ?.img_url
+                                                ? "transparent"
+                                                : "lightgray",
+                                        }}
+                                    >
+                                        {board.pins?.[0]?.img_url ? (
+                                            <img
+                                                src={board.pins[0].img_url}
+                                                alt={`Pin`}
+                                            />
+                                        ) : null}
                                     </div>
                                     <div className="profile-board-second-image">
-                                        <div className="profile-board-second-image-nested" style={{ backgroundColor: board.pins[1].img_url ? 'transparent' : 'lightgray' }}>
-                                            {board.pins[1].img_url ? <img src={board.pins[1].img_url}/> : null}
+                                        <div
+                                            className="profile-board-second-image-nested"
+                                            style={{
+                                                backgroundColor: board.pins?.[1]
+                                                    ?.img_url
+                                                    ? "transparent"
+                                                    : "lightgray",
+                                            }}
+                                        >
+                                            {board.pins?.[1]?.img_url ? (
+                                                <img
+                                                    src={board.pins[1].img_url}
+                                                    alt={`Pin`}
+                                                />
+                                            ) : null}
                                         </div>
-                                        <div className="profile-board-second-image-nested" style={{ backgroundColor: board.pins[2].img_url ? 'transparent' : 'lightgray' }}>
-                                            {board.pins[2].img_url ? <img src={board.pins[2].img_url}/> : null}
+                                        <div
+                                            className="profile-board-second-image-nested"
+                                            style={{
+                                                backgroundColor: board.pins?.[2]
+                                                    ?.img_url
+                                                    ? "transparent"
+                                                    : "lightgray",
+                                            }}
+                                        >
+                                            {board.pins?.[2]?.img_url ? (
+                                                <img
+                                                    src={board.pins[2].img_url}
+                                                    alt={`Pin`}
+                                                />
+                                            ) : null}
                                         </div>
                                     </div>
                                 </div>

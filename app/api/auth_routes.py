@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from app.models import User, db, Board
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from app.models.forms import LoginForm
+from app.models.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 
 auth_routes = Blueprint('auth', __name__)
@@ -59,14 +59,14 @@ def sign_up():
             password=form.data['password']
         )
         db.session.add(user)
-        db.session.flush() 
+        db.session.flush()
 
         board = Board(
             name='All Pins',
             user_id=user.id,
             private=True
         )
-        
+
         db.session.add(board)
         db.session.commit()
         login_user(user)
