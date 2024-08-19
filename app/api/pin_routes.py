@@ -1,7 +1,7 @@
 from app.models import db, Pin, board_pins, Comment
 from flask import jsonify, request, Blueprint
 from flask_login import login_required, current_user
-from app.forms import CommentForm, PinForm
+from app.models.forms import CommentForm, PinForm
 from app.api.aws_utils import upload_file_to_s3, get_unique_filename, ALLOWED_EXTENSIONS
 
 from werkzeug.utils import secure_filename
@@ -13,8 +13,14 @@ pin_routes = Blueprint('pins', __name__)
 @pin_routes.route("/", methods=["GET"])
 def get_pins():
     pins = Pin.query.all()
-    pin_list = [pin.to_dict() for pin in pins]
-    return jsonify({ "Pins": pin_list})
+    pins_list = []
+
+    for pin in pins:
+        pin_data = pin.to_dict()
+        pin_data['boards'] = [board.to_dict() for board in pin.boards]
+        pins_list.append(pin_data)
+
+    return jsonify({ "Pins": pins_list})
 
 
 @pin_routes.route("/pagination", methods=["GET"])
@@ -40,7 +46,10 @@ def get_single_pin(pin_id):
     pin = Pin.query.get(pin_id)
 
     if pin:
-        return jsonify(pin.to_dict())
+        pin_data = pin.to_dict()
+        pin_data['boards'] = [board.to_dict() for board in pin.boards]
+
+        return jsonify(pin_data)
     else:
         return jsonify({"message": "Pin not found"}), 404
 

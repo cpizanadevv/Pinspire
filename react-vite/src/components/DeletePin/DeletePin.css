@@ -1,0 +1,49 @@
+.delete-pin-modal-container {
+    width: 530px;
+    height: 230px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.delete-pin-modal-title {
+    font-weight: normal;
+    font-size: 30px;
+}
+
+.delete-pin-modal-text {
+    font-weight: normal;
+    font-size: 16px;
+    margin: 0px 20px
+}
+
+.delete-pin-modal-buttons > button {
+    margin: 0px 5px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none
+}
+
+.delete-pin-modal-cancel {
+    color: black
+}
+
+.delete-pin-modal-cancel:hover {
+    cursor: pointer;
+    background-color: rgb(205, 205, 205);
+}
+
+.delete-pin-modal-assert {
+    color: white;
+    background-color: rgb(255,0,121);
+}
+
+.delete-pin-modal-assert:hover {
+    cursor: pointer;
+    background-color: rgb(218, 5, 105);
+}
+
+
