@@ -92,7 +92,13 @@ function favoritesReducer(state = initialState, action) {
         }
         case CREATE_FAVORITE: {
             const newFavorite = action.favorite;
-            newState = { ...state, favorites: { ...state.favorites, [newFavorite.id]: newFavorite } };
+            newState = {
+                ...state,
+                favorites: {
+                    ...state.favorites,
+                    [newFavorite.pin_id]: newFavorite // store by pin_id for consistency
+                }
+            };
             return newState;
         }
         case REMOVE_FAVORITE: {
