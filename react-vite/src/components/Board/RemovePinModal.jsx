@@ -20,7 +20,7 @@ const DeleteModal = ({ pinId, boardId }) => {
     return (
         <div className="remove-pin-modal-container">
             <h1 className="remove-pin-modal-title">
-                Are you sure you want to remove this pin?
+                Are you sure you want to remove this pin from this board?
             </h1>
             <div className="remove-pin-modal-buttons">
                 <button

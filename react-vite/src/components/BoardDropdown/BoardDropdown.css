@@ -1,0 +1,73 @@
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-dropdown .dropdown-header {
+    padding: 10px;
+    border: 2px solid lightgrey;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    color: rgb(128, 128, 128);
+}
+
+.custom-dropdown .dropdown-header i {
+    font-size: 15px;
+    color: black;
+}
+
+.custom-dropdown .dropdown-arrow {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.custom-dropdown .dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.custom-dropdown .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-bottom: 2px solid lightgrey;
+    border-right: 2px solid lightgrey;
+    border-left: 2px solid lightgrey;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin: 0 5px;
+
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.custom-dropdown .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-dropdown .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.custom-dropdown .board-name {
+    flex-grow: 1;
+}
+
+.custom-dropdown .checkmark {
+    color: rgb(35, 147, 35);
+    margin-left: 10px;
+}
+
+.custom-dropdown .checkmark i {
+    font-size: 20px;
+}

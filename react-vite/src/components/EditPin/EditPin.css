@@ -24,6 +24,10 @@
     margin: 20px 0px;
 }
 
+.edit-pin-field-container .edit-pin-label p {
+    color: red;
+}
+
 .edit-pin-label {
     margin: 5px 0px;
     color: black;
@@ -35,7 +39,7 @@
     height: 45px;
     /* border-color: darkgray; */
     /* box-shadow: none; */
-    border: 2px solid lightgrey; /* or a color that matches your design */
+    border: 2px solid lightgrey;
     padding: 0px 10px;
     margin-bottom: 10px;
     font-size: medium;
@@ -74,7 +78,7 @@
 
 .edit-pin-save-button {
     color: white;
-    background-color: rgb(255,0,121)
+    background-color: rgb(255, 0, 121)
 }
 
 .edit-pin-save-button:hover {

@@ -20,7 +20,7 @@ const NewProfile = () => {
     if (!user) {
         return null; // or a loading spinner, or redirect, etc.
     }
-    
+
     return (
         <div id="profile-page-container">
             <div id="profile-top-container">
@@ -40,7 +40,7 @@ const NewProfile = () => {
                         Created
                     </NavLink>
                     <NavLink to={`/${userId}/saved`} className={({ isActive }) => (isActive ? 'active' : '')}>
-                        Saved
+                        Boards
                     </NavLink>
                     <NavLink to={`/${userId}/favorites`} className={({ isActive }) => (isActive ? 'active' : '')}>
                         Favorites

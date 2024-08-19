@@ -1,37 +1,30 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { editPin, getPin } from "../../redux/pins";
-// import { useNavigate } from 'react-router-dom';
 import { fetchAllBoards } from "../../redux/board";
 import { postBoardPin } from "../../redux/board";
 import { useModal } from "../../context/Modal";
+import BoardDropdown from "../BoardDropdown/BoardDropdown";
 import "./EditPin.css"
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeletePin from "../DeletePin/DeletePin"
 
 const EditPin = ({ pinId }) => {
-    console.log("Received pinId in EditPin:", pinId);
     const user = useSelector((state) => state.session.user);
-    const pin = useSelector(state => state.pinState.pin)
-    const boardObj = useSelector(state => state.boardState)
-    const boards = Object.values(boardObj)
-    const userBoards = boards.filter((board) => board.user_id == user.id)
+    const pin = useSelector(state => state.pinState.pin);
+    const boardObj = useSelector(state => state.boardState);
+    const boards = Object.values(boardObj);
+    const userBoards = boards.filter((board) => board.user_id == user.id);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
-    const [board, setBoard] = useState("")
+    const [selectedBoard, setSelectedBoard] = useState(null);
+    const [titleError, setTitleError] = useState("");
+    const [linkError, setLinkError] = useState("");
 
-    const dispatch = useDispatch()
-    // const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { closeModal, setModalContent } = useModal();
-
-    // const deleteCurrentPin = async (e) => {
-    //     e.preventDefault();
-    //     closeModal()
-    //     await dispatch(deletePin(pinId));
-    //     navigate(`/${user.id}/created`)
-    // };
 
     const openEditPin = () => {
         setModalContent(<EditPin pinId={pinId} />);
@@ -41,31 +34,49 @@ const EditPin = ({ pinId }) => {
         if (pinId) {
             dispatch(getPin(pinId));
         }
-
         dispatch(fetchAllBoards());
     }, [dispatch, pinId]);
 
     useEffect(() => {
         if (pin) {
-            setTitle(pin.title || "")
-            setDescription(pin.description || "")
-            setLink(pin.link || "")
+            setTitle(pin.title || "");
+            setDescription(pin.description || "");
+            setLink(pin.link || "");
         }
-    }, [pin])
+    }, [pin]);
+
+    const isValidURL = (string) => {
+        try {
+            new URL(string);
+            return true;
+        } catch (err) {
+            return false;
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (title.trim().length < 1) {
+            setTitleError("A title is required.");
+            return;
+        }
+
+        if (link && !isValidURL(link)) {
+            setLinkError("Please enter a valid URL.");
+            return;
+        }
+
         const editedPin = {
             image: pin.img_url,
             title,
-            description,
+            description: description.trim() || null,
             link,
         };
 
         let boardResponse = true;
-        if (board) {
-            boardResponse = await dispatch(postBoardPin(+board, pinId));
+        if (selectedBoard) {
+            boardResponse = await dispatch(postBoardPin(+selectedBoard, pinId));
         }
 
         const pinResponse = await dispatch(editPin({ editedPin, pinId }));
@@ -76,19 +87,26 @@ const EditPin = ({ pinId }) => {
         }
     };
 
+    const imageBoardIds = pin.boards ? pin.boards.map(board => board.id) : [];
+
     return (
         <div className="edit-pin-container">
             <h1 className="edit-pin-title">Edit Pin</h1>
             <form onSubmit={handleSubmit}>
                 <div className="edit-pin-field-container">
                     <label className="edit-pin-label">
-                        Title
+                        Title {titleError && <p className="error-message">{titleError}</p>}
                     </label>
                     <input
                         type="text"
                         placeholder="Add a title"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                            if (e.target.value.trim().length >= 1) {
+                                setTitleError(""); // Clear the error if the title meets the criteria
+                            }
+                        }}
                         className="edit-pin-input"
                     />
                 </div>
@@ -105,13 +123,18 @@ const EditPin = ({ pinId }) => {
                 </div>
                 <div className="edit-pin-field-container">
                     <label className="edit-pin-label">
-                        Link
+                        Link {linkError && <p className="error-message">{linkError}</p>}
                     </label>
                     <input
                         type="text"
                         placeholder="Add a link"
                         value={link}
-                        onChange={(e) => setLink(e.target.value)}
+                        onChange={(e) => {
+                            setLink(e.target.value);
+                            if (isValidURL(e.target.value)) {
+                                setLinkError(""); // Clear the error if the link is valid
+                            }
+                        }}
                         className="edit-pin-input"
                     />
                 </div>
@@ -119,16 +142,14 @@ const EditPin = ({ pinId }) => {
                     <label className="edit-pin-label">
                         Board
                     </label>
-                    <select name='board' value={board} onChange={(e) => { setBoard(e.target.value) }} className="edit-pin-input">
-                        <option value='' className="select-placeholder" disabled>Choose board</option>
-                        {userBoards.map((board) => (
-                            <option key={board.id} value={board.id}>{board.name === 'All Pins' ? 'Profile' : `${board.name}`}</option>
-                        ))
-                        }
-                    </select>
+                    <BoardDropdown
+                        boards={userBoards}
+                        selectedBoard={selectedBoard}
+                        onSelectBoard={setSelectedBoard}
+                        imageBoardIds={imageBoardIds}
+                    />
                 </div>
                 <div className="edit-pin-buttons">
-                    {/* <button onClick={(e) => deleteCurrentPin(e)}>Delete</button> */}
                     <OpenModalButton
                         buttonText="Delete"
                         modalComponent={<DeletePin openEditPin={openEditPin} />}
@@ -140,8 +161,6 @@ const EditPin = ({ pinId }) => {
             </form>
         </div>
     );
-
-
 }
 
 export default EditPin;
