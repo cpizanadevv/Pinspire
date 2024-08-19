@@ -40,7 +40,7 @@ function SearchPins() {
                                         {user && (
                                             <div className="board-container">
                                                 <OpenModalButton
-                                                    buttonText="Add to Board"
+                                                    buttonText="Save"
                                                     modalComponent={<AddBoardPin />}
                                                     className="landing-save-button"
                                                     pinId={id}
