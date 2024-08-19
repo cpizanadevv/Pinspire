@@ -120,11 +120,13 @@ const ViewPin = () => {
                 </div>
                 <div className='right'>
                     <div className='favorite-edit'>
-                        <button
-                            className={`favorite ${isFavorite ? 'favorited' : ''} ${isClicked ? 'clicked' : ''}`}
-                            onClick={toggleFavorite}>
-                            <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-star`}></i>
-                        </button>
+                        {currentUser && (
+                            <button
+                                className={`favorite ${isFavorite ? 'favorited' : ''} ${isClicked ? 'clicked' : ''}`}
+                                onClick={toggleFavorite}>
+                                <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-star`}></i>
+                            </button>
+                        )}
                         {currentUser?.id === pin.user_id && (
                             <button className='edit-pin'><i className="fa-solid fa-pen-to-square"></i><span>Edit</span></button>
                         )}
