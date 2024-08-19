@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import * as pinActions from "../../redux/pins";
@@ -7,13 +7,6 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
 import "./LandingPage.css";
 
-const stopBounce = (func, wait) => {
-    let timeout;
-    return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-};
 
 function SearchPins() {
     const dispatch = useDispatch();
