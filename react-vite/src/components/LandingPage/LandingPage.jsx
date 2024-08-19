@@ -21,7 +21,7 @@ function LandingPage() {
   const { pins, page, pageSize, hasMore, loading } = useSelector(
     (state) => state.pinState || {}
   );
-  
+
   const user = useSelector((store) => store.session.user);
   // const boards = useSelector((state) => state.boardState || []);
 
@@ -67,7 +67,7 @@ function LandingPage() {
                     {user && (
                       <div className="board-container">
                         <OpenModalButton
-                          buttonText="Add to Board"
+                          buttonText="Save"
                           modalComponent={<AddBoardPin />}
                           className="landing-save-button"
                           pinId={id}

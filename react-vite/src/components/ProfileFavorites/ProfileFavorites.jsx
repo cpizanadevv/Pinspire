@@ -72,7 +72,7 @@ const ProfileFavorites = () => {
                         <img src={pinsObj[favorite.pin_id]?.img_url} alt={pins[favorite.pin_id]?.title} />
                         <div className="profile-image-overlay">
                             <OpenModalButton
-                                buttonText={selectedBoard[0]?.name || "Add to Board"}
+                                buttonText={selectedBoard[0]?.name || "Save"}
                                 modalComponent={
                                     <AddBoardPin
                                         onSelectBoard={

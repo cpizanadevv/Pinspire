@@ -124,7 +124,7 @@ const Profile = () => {
                                     <img src={pin.img_url} alt={pin.title} />
                                     <div className="profile-image-overlay">
                                         <OpenModalButton
-                                            buttonText={selectedBoard[0]?.name || "Add to Board"}
+                                            buttonText={selectedBoard[0]?.name || "Save"}
                                             modalComponent={
                                                 <AddBoardPin
                                                     onSelectBoard={

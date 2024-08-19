@@ -49,12 +49,12 @@ const CreatePin = () => {
         }
 
         if (title.trim().length < 1) {
-            setTitleError("Title must be at least 1 character long.");
+            setTitleError("A title is required.");
             return;
         }
 
         if (link && !isValidURL(link)) {
-            setLinkError("Please enter a valid URL!");
+            setLinkError("Please enter a valid URL.");
             return;
         }
 

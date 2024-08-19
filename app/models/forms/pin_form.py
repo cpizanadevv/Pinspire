@@ -22,7 +22,7 @@ class PinForm(FlaskForm):
     )
     description = TextAreaField(
         "Description",
-        validators=[DataRequired()]
+        validators=[Optional()]
     )
     link = StringField(
         "Link",
