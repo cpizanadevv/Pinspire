@@ -6,7 +6,7 @@ import "./LandingPage.css";
 import * as boardActions from "../../redux/board";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
-import Loader from "../Loader/Loader";
+// import Loader from "../Loader/Loader";
 
 const stopBounce = (func, wait) => {
   let timeout;
@@ -57,7 +57,7 @@ function LandingPage() {
 
   return (
     <div className="pins-message">
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <div className="created-grid-container">
         {!loading && displayPins.length > 0 && (
           <div className="landing">
