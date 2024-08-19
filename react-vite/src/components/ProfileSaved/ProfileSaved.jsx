@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
-import { getAllFavorites } from "../../redux/favorites"
-import '../NewProfile/NewProfile.css';
+import { getAllFavorites } from "../../redux/favorites";
+import CreateBoard from "../Board/CreateBoard";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
 const ProfileSaved = () => {
     const user = useSelector((state) => state.session.user);
@@ -26,7 +27,7 @@ const ProfileSaved = () => {
     useEffect(() => {
         dispatch(getAllPins());
         dispatch(fetchAllBoards());
-        dispatch(getAllFavorites())
+        dispatch(getAllFavorites());
     }, [dispatch]);
 
     return (
@@ -35,9 +36,11 @@ const ProfileSaved = () => {
                 <button>
                     <i className="fa-solid fa-sort"></i>
                 </button>
-                <button>
-                    <i className="fa-solid fa-plus"></i>
-                </button>
+                <OpenModalButton
+                    buttonText={<i className="fa-solid fa-plus"></i>}
+                    modalComponent={<CreateBoard />}
+                    className="create-board-button"
+                />
             </div>
             <div className="profile-board-grid">
                 {userBoards.map((board) => (
@@ -73,7 +76,7 @@ const ProfileSaved = () => {
                 ))}
             </div>
         </>
-    )
+    );
 };
 
 export default ProfileSaved;

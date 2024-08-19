@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useNavigate, NavLink } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards, postBoardPin } from "../../redux/board";
@@ -30,7 +30,9 @@ const ProfileCreated = () => {
         setSelectedBoardPin({ boardId, pinId });
     };
 
-    const selectedBoard = userBoards.filter(board => board.id === selectedBoardPin.boardId)
+    const selectedBoard = userBoards.filter(
+        (board) => board.id === selectedBoardPin.boardId
+    );
 
     const handleSavePin = async () => {
         if (selectedBoardPin.boardId && selectedBoardPin.pinId) {
@@ -47,7 +49,6 @@ const ProfileCreated = () => {
         }
     };
 
-
     useEffect(() => {
         if (!user || user.id !== +userId) {
             navigate("/");
@@ -62,40 +63,57 @@ const ProfileCreated = () => {
     return (
         <div className="created-grid">
             {userPins.map((pin) => (
-                <NavLink key={pin.id} to={`/pin/${pin.id}`}>
-                    <div className="profile-pin-container">
-                        <img src={pin.img_url} alt={pin.title} />
-                        <div className="profile-image-overlay">
-                            <OpenModalButton
-                                buttonText={selectedBoard[0]?.name || "Add to Board"}
-                                modalComponent={
-                                    <AddBoardPin
-                                        onSelectBoard={
-                                            handleSelectedBoard
-                                        }
-                                    />
-                                }
-                                pinId={pin.id}
-                                className="add-board-pin-button"
-                            />
-                            <button
-                            className={`save-button ${savedPins[`${pin.id}-${selectedBoardPin.boardId}`] ? 'saved' : ''}`}
-                            onClick={handleSavePin}
-                            disabled={savedPins[`${pin.id}-${selectedBoardPin.boardId}`]}
-                            >
-                                    {savedPins[`${pin.id}-${selectedBoardPin.boardId}`] ? "Saved" : "Save"}
-                            </button>
-                            <OpenModalButton
-                                buttonText="Edit"
-                                modalComponent={<EditPin />}
-                                className="profile-edit-button"
-                                pinId={pin.id}
-                            />
-                        </div>
+                <div key={pin.id} className="profile-pin-container">
+                    <img
+                        src={pin.img_url}
+                        alt={pin.title}
+                        onClick={() => navigate(`/pin/${pin.id}`)}
+                    />
+                    <div className="profile-image-overlay">
+                        <OpenModalButton
+                            buttonText={
+                                selectedBoard[0]?.name || "Add to Board"
+                            }
+                            modalComponent={
+                                <AddBoardPin
+                                    onSelectBoard={handleSelectedBoard}
+                                />
+                            }
+                            pinId={pin.id}
+                            className="add-board-pin-button"
+                        />
+                        <button
+                            className={`save-button ${
+                                savedPins[
+                                    `${pin.id}-${selectedBoardPin.boardId}`
+                                ]
+                                    ? "saved"
+                                    : ""
+                            }`}
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent the click from propagating to the image
+                                handleSavePin();
+                            }}
+                            disabled={
+                                savedPins[
+                                    `${pin.id}-${selectedBoardPin.boardId}`
+                                ]
+                            }
+                        >
+                            {savedPins[`${pin.id}-${selectedBoardPin.boardId}`]
+                                ? "Saved"
+                                : "Save"}
+                        </button>
+                        <OpenModalButton
+                            buttonText="Edit"
+                            modalComponent={<EditPin />}
+                            className="profile-edit-button"
+                            pinId={pin.id}
+                        />
                     </div>
-                </NavLink>
+                </div>
             ))}
-        </div>  
+        </div>
     );
 };
 
