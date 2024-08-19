@@ -2,7 +2,6 @@
   padding-top: 18px;
   padding-bottom: 18px;
 }
-
 .auth-buttons {
   display: flex;
   justify-content: space-between;
@@ -54,27 +53,29 @@
   border-radius: 5em;
 } */
 
-ul {
+.navigation-list {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
   text-decoration: none;
   align-items: center;
   position: fixed;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.317);
+  backdrop-filter: blur(10px);
   width: 100vw;
   top: 0;
-  padding: 10px 20px;
+  padding: 15px 20px;
   z-index: 100;
   /* need to add margin-top: 40px? to every page to implement fixed header */
 }
+
+
 
 a {
   text-decoration: none;
   color: black;
 
 }
-
 .logo-png {
   width: 40px;
 }
@@ -116,7 +117,7 @@ a {
 
 .search-bar input {
   all: unset;
-  background-color: #F1F1F1;
+  background-color: #f1f1f193;
   width: 100%;
   border-radius: 40px;
   padding: 14px 15px 14px 40px;
@@ -133,7 +134,7 @@ a {
 }
 
 .search-bar input:hover {
-  background-color: #E1E1E1;
+  background-color: #e1e1e19f;
 }
 
 .profile-menu .profile-button {
@@ -221,6 +222,12 @@ a {
 .profile-menu .profile-dropdown {
   display: flex;
   justify-content: center;
+  padding: 10px;
+
+  background-color: rgba(255, 255, 255, 0.892);
+  backdrop-filter: blur(10px);
+
+  list-style-type: none;
 }
 
 .profile-menu .logout-button {
@@ -233,6 +240,7 @@ a {
   font-size: 12px;
   font-weight: 500;
   /* width: 100%; */
+
 }
 
 .profile-menu .logout-button:hover {
