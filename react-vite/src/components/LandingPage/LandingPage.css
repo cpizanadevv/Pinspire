@@ -1,8 +1,12 @@
 .pins-message {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     min-height: 100vh;
 
+}
+.pins{
+    column-count: 5;
 }
 
 .landing {
