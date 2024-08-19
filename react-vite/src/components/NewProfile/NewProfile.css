@@ -2,6 +2,12 @@
     margin: 70px 10px
 }
 
+.loading-message {
+    display: flex;
+    justify-content: center;
+    margin: 30px
+}
+
 #profile-top-container {
     display: flex;
     flex-direction: column;

@@ -68,9 +68,18 @@
     cursor: pointer;
 }
 
+.edit-delete-pin:hover {
+    background-color: rgb(205, 205, 205);
+}
+
 .edit-pin-save-button {
     color: white;
-    background-color: red;
+    background-color: rgb(255,0,121)
+}
+
+.edit-pin-save-button:hover {
+    color: white;
+    background-color: rgb(218, 5, 105);
 }
 
 

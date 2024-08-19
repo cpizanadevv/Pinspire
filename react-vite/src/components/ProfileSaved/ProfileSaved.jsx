@@ -16,7 +16,6 @@ const ProfileSaved = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userId } = useParams();
-    console.log(userBoards)
 
     useEffect(() => {
         if (!user || user.id !== +userId) {
@@ -29,6 +28,10 @@ const ProfileSaved = () => {
         dispatch(fetchAllBoards());
         dispatch(getAllFavorites());
     }, [dispatch]);
+
+    if (!boards.length) {
+        return <div className="loading-message">Loading board data...</div>;
+    }
 
     return (
         <>

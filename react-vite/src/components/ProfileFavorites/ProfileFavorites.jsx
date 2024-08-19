@@ -60,6 +60,10 @@ const ProfileFavorites = () => {
         dispatch(getAllFavorites())
     }, [dispatch]);
 
+    if (!pins.length) {
+        return <div className="loading-message">Loading pin data...</div>;
+    }
+
     return (
         <div className="created-grid">
             {favorites.map((favorite) => (
