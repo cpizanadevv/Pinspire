@@ -1,63 +1,71 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as pinActions from '../../redux/pins'
 import { NavLink, useParams } from "react-router-dom";
-import './LandingPage.css'
-// import PinComponent from './PinComponent'
+import * as pinActions from "../../redux/pins";
+import * as boardActions from "../../redux/board";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import AddBoardPin from "../AddBoardPin/AddBoardPin";
+import "./LandingPage.css";
 
-// Function to shuffle pins on load to show variety
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
+const stopBounce = (func, wait) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+};
 
-
-function SearchPins(){
+function SearchPins() {
     const dispatch = useDispatch();
-
-    const {keyword} = useParams();
+    const { keyword } = useParams();
 
     const pins = useSelector((state) => state.pinState.pins || {} );
-    // console.log('THIS IS PINS',pins)
-    
+    const user = useSelector((store) => store.session.user);
     const allPins = Object.values(pins);
-    
+
     const filtered = allPins.filter(pin => 
         pin.title.toLowerCase().includes(keyword.toLowerCase())
     );
-    // console.log('THIS IS filtered', filtered)
-    shuffleArray(filtered)
-    
-    useEffect(()=>{
-        dispatch(pinActions.getAllPins())
-    },[dispatch])
+
+
+    useEffect(() => {
+        dispatch(pinActions.getAllPins());
+        dispatch(boardActions.fetchAllBoards());
+    }, [dispatch]);
 
 
     return (
-        <div className="pins">
-            {filtered && filtered.map(({
-                id,
-                img_url,
-                // user_id,
-                // title,
-                // description,
-                // link
-            }) =>(
-                <div key={id} className="pin">
-                    <NavLink key={id} to={`/pin/${id}`}><img src={img_url} alt="" className="img"/></NavLink>
-                </div>
-                
-            ))}
-        
+        <div className="pins-message">
+            <div className="created-grid-container">
+                {filtered && filtered.length > 0 ? (
+                    <div className="landing">
+                        {filtered.map(({ id, img_url }) => (
+                            <NavLink key={id} to={`/pin/${id}`}>
+                                <div className="pin-container">
+                                    <img src={img_url} alt={`Pin ${id}`} />
+                                    <div className="image-overlay">
+                                        {user && (
+                                            <div className="board-container">
+                                                <OpenModalButton
+                                                    buttonText="Add to Board"
+                                                    modalComponent={<AddBoardPin />}
+                                                    className="landing-save-button"
+                                                    pinId={id}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </NavLink>
+                        ))}
+                    </div>
+                ):(
+                <div className="no-pins-message">No pins available.</div>
+            )}
+            </div>
             
         </div>
-        
-
-    )
-    
+    );
 }
 
 export default SearchPins;
