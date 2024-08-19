@@ -4,6 +4,7 @@ import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
 import { getAllFavorites } from "../../redux/favorites"
+import '../NewProfile/NewProfile.css';
 
 const ProfileSaved = () => {
     const user = useSelector((state) => state.session.user);
@@ -14,6 +15,7 @@ const ProfileSaved = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userId } = useParams();
+    console.log(userBoards)
 
     useEffect(() => {
         if (!user || user.id !== +userId) {
@@ -42,6 +44,19 @@ const ProfileSaved = () => {
                     <NavLink key={board.id} to={`/boards/${board.id}`}>
                         <div className="profile-board-container">
                             <div className="profile-board-image-container">
+                                <div className="profile-board-image">
+                                    <div className="profile-board-first-image" style={{ backgroundColor: board.pins[0].img_url ? 'transparent' : 'lightgray' }}>
+                                        {board.pins[0].img_url ? <img src={board.pins[0].img_url}/> : null}
+                                    </div>
+                                    <div className="profile-board-second-image">
+                                        <div className="profile-board-second-image-nested" style={{ backgroundColor: board.pins[1].img_url ? 'transparent' : 'lightgray' }}>
+                                            {board.pins[1].img_url ? <img src={board.pins[1].img_url}/> : null}
+                                        </div>
+                                        <div className="profile-board-second-image-nested" style={{ backgroundColor: board.pins[2].img_url ? 'transparent' : 'lightgray' }}>
+                                            {board.pins[2].img_url ? <img src={board.pins[2].img_url}/> : null}
+                                        </div>
+                                    </div>
+                                </div>
                                 {board.name !== "All Pins" && (
                                     <button className="profile-board-edit-button">
                                         Edit

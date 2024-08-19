@@ -28,7 +28,7 @@ const EditPin = ({ pinId }) => {
         e.preventDefault();
         closeModal()
         await dispatch(deletePin(pinId));
-        navigate(`/${user.id}`)
+        navigate(`/${user.id}/created`)
     };
 
     useEffect(() => {
