@@ -16,7 +16,7 @@ function SearchComponent() {
       <input
         className="search"
         type="text"
-        placeholder="Search"
+        placeholder="Search for ideas"
         onChange={(e) => setKeyword(e.target.value)}
         onKeyDown={handleSearch}
       />
