@@ -61,6 +61,11 @@
     transition: background-color 0.3s ease;
 }
 
+.save-button.save {
+    background-color: black;
+    cursor:default
+}
+
 .board-button:hover .save-button {
     display: block;
 }

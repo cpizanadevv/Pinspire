@@ -73,10 +73,16 @@ a {
   color: black;
 
 }
-
-
 .logo-png {
+  width: 40px;
+}
+
+.short-logo-png {
   width: 45px;
+}
+
+.long-logo-png {
+  width: 150px;
 }
 
 .left-nav {

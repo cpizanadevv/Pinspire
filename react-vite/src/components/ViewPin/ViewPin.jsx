@@ -217,11 +217,12 @@ const ViewPin = () => {
                                 <span>Edit</span>
                             </button>
                         )} */}
-                        {currentUser?.id === pin.user_id && (
+                        {pin.id && currentUser?.id === pin.user_id && (
                             <OpenModalButton
                                 buttonText={<><i className="fa-solid fa-pen-to-square"></i><span>Edit</span></>}
-                                modalComponent={<EditPin pinId={pin.id} />}
+                                modalComponent={<EditPin />}
                                 className="edit-pin"
+                                pinId={pin.id}
                             />
                         )}
                     </div>
