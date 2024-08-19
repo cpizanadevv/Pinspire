@@ -54,7 +54,7 @@ const OneBoard = () => {
                                     <img src={pin.img_url} alt={pin.title} />
                                     <div className="profile-image-overlay">
                                         <OpenModalButton
-                                            buttonText="Delete"
+                                            buttonText="Remove"
                                             modalComponent={<DeleteModal />}
                                             className="delete-pin-modal-button"
                                             pinId={pin.id}
