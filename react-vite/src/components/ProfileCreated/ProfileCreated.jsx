@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
@@ -35,27 +35,29 @@ const ProfileCreated = () => {
     return (
         <div className="created-grid">
             {userPins.map((pin) => (
-                <div key={pin.id} className="profile-pin-container">
-                    <img
-                        src={pin.img_url}
-                        alt={pin.title}
-                        onClick={() => navigate(`/pin/${pin.id}`)}
-                    />
-                    <div className="profile-image-overlay">
-                        <OpenModalButton
-                            buttonText="Save"
-                            modalComponent={<AddBoardPin />}
-                            className="add-board-pin-button"
-                            pinId={pin.id}
+                <NavLink key={pin.id} to={`/pin/${pin.id}`}>
+                    <div key={pin.id} className="profile-pin-container">
+                        <img
+                            src={pin.img_url}
+                            alt={pin.title}
+                            onClick={() => navigate(`/pin/${pin.id}`)}
                         />
-                        <OpenModalButton
-                            buttonText="Edit"
-                            modalComponent={<EditPin />}
-                            className="profile-edit-button"
-                            pinId={pin.id}
-                        />
+                        <div className="profile-image-overlay">
+                            <OpenModalButton
+                                buttonText="Save"
+                                modalComponent={<AddBoardPin />}
+                                className="add-board-pin-button"
+                                pinId={pin.id}
+                            />
+                            <OpenModalButton
+                                buttonText="Edit"
+                                modalComponent={<EditPin />}
+                                className="profile-edit-button"
+                                pinId={pin.id}
+                            />
+                        </div>
                     </div>
-                </div>
+                </NavLink>
             ))}
         </div>
     );
