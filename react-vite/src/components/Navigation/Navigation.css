@@ -1,6 +1,6 @@
 .navigation-list {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
 .auth-buttons {
   display: flex;
@@ -102,14 +102,16 @@ a {
 .search-bar {
   display: flex;
   align-items: center;
+  flex-grow: 1;
+  margin: 0 20px;
 }
 
 .search-bar input {
   all: unset;
   background-color: #F1F1F1;
-  width: 1000px;
+  width: 100%;
   border-radius: 40px;
-  padding: 10px 15px 10px 40px;
+  padding: 14px 15px 14px 40px;
   position: relative;
   box-sizing: border-box;
 
@@ -177,7 +179,7 @@ a {
   height: 150px;
 
   z-index: 1000;
-  width: 180px;
+  width: 300px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.164);
   border-radius: 15px;
   /* cursor: pointer; */
@@ -190,6 +192,7 @@ a {
   align-items: start;
   display: flex;
   flex-direction: column;
+  /* width: 200px; */
 }
 
 .profile-menu svg {
@@ -197,7 +200,7 @@ a {
 }
 
 .profile-menu span {
-  background-color: black;
+  background-color: #D3D3D3;
   height: 1px;
   width: 100%;
   margin-top: 10px;

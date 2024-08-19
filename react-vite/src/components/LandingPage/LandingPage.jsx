@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as pinActions from "../../redux/pins";
 import { NavLink } from "react-router-dom";
@@ -17,14 +17,11 @@ const stopBounce = (func, wait) => {
 
 function LandingPage() {
     const dispatch = useDispatch();
-    const [savedPins, setSavedPins] = useState({});
-
-    const currentUserId = useSelector((state) => state.session.user?.id);
+    // const currentUserId = useSelector((state) => state.session.user?.id);
     const { pins, page, pageSize, hasMore, loading } = useSelector(
         (state) => state.pinState || {}
     );
-    const boards = useSelector((state) => state.boardState || []);
-    const boardsObj = Object.values(boards);
+    // const boards = useSelector((state) => state.boardState || []);
 
     useEffect(() => {
         dispatch(pinActions.resetPins());
@@ -58,51 +55,7 @@ function LandingPage() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
 
-    const userBoards = useMemo(
-        () => boardsObj.filter((board) => board.user_id === currentUserId),
-        [boardsObj, currentUserId]
-    );
-
-    // const allPinsBoard = useMemo(
-    //     () =>
-    //         boardsObj.find(
-    //             (board) =>
-    //                 board.name === "All Pins" && board.user_id === currentUserId
-    //         ),
-    //     [boardsObj, currentUserId]
-    // );
-
-    // const isPinSaved = (pinId, boardId) => {
-    //     return savedPins[boardId]?.has(pinId);
-    // };
-
     const displayPins = useMemo(() => Object.values(pins), [pins]);
-
-    const [selectedBoardPin, setSelectedBoardPin] = useState({
-        boardId: null,
-        pinId: null,
-    });
-
-    const handleSelectedBoard = (boardId, pinId) => {
-        setSelectedBoardPin({ boardId, pinId });
-    };
-
-    const selectedBoard = userBoards.filter(
-        (board) => board.id === selectedBoardPin.boardId
-    );
-
-    const handleSavePin = async () => {
-        if (selectedBoardPin.boardId && selectedBoardPin.pinId) {
-            await dispatch(
-                boardActions.postBoardPin(selectedBoardPin.boardId, selectedBoardPin.pinId)
-            );
-
-            setSavedPins((prev) => ({
-                ...prev,
-                [`${selectedBoardPin.pinId}-${selectedBoardPin.boardId}`]: true,
-            }));
-        }
-    };
 
     return (
         <div className="pins-message">
@@ -118,40 +71,12 @@ function LandingPage() {
                                             <OpenModalButton
                                                 buttonText="Save"
                                                 modalComponent={
-                                                    <AddBoardPin
-                                                        onSelectBoard={
-                                                            handleSelectedBoard
-                                                        }
-                                                    />
+                                                    <AddBoardPin />
                                                 }
                                                 className="landing-save-button"
                                                 pinId={id}
                                             />
                                         </div>
-                                        {/* <button
-                                            className={`landing-save-button ${
-                                                savedPins[
-                                                    `${id}-${selectedBoardPin.boardId}`
-                                                ]
-                                                    ? "saved"
-                                                    : ""
-                                            }`}
-                                            onClick={(e) => {
-                                                e.stopPropagation(); // Prevent the click from propagating to the image
-                                                handleSavePin();
-                                            }}
-                                            disabled={
-                                                savedPins[
-                                                    `${id}-${selectedBoardPin.boardId}`
-                                                ]
-                                            }
-                                        >
-                                            {savedPins[
-                                                `${id}-${selectedBoardPin.boardId}`
-                                            ]
-                                                ? "Saved"
-                                                : "Save"}
-                                        </button> */}
                                     </div>
                                 </div>
                             </NavLink>
@@ -159,12 +84,6 @@ function LandingPage() {
                     </div>
                 )}
             </div>
-            {/* Render no pins message outside of the .pins-wrapper */}
-            {/* {loading && (
-          <p className="loading-message">
-            {page === 1 ? "Loading pins..." : "Loading more pins..."}
-          </p>
-        )} */}
             {!loading && !hasMore && (
                 <div className="no-pins-message">No more pins available.</div>
             )}

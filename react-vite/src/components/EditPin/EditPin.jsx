@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from 'react-redux';
-import { deletePin, editPin, getPin } from "../../redux/pins";
-import { useNavigate } from 'react-router-dom';
+import { editPin, getPin } from "../../redux/pins";
+// import { useNavigate } from 'react-router-dom';
 import { fetchAllBoards} from "../../redux/board";
 import { postBoardPin } from "../../redux/board";
 import { useModal } from "../../context/Modal";
 import "./EditPin.css"
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeletePin from "../DeletePin/DeletePin"
 
 const EditPin = ({ pinId }) => {
     const user = useSelector((state) => state.session.user);
@@ -20,15 +22,19 @@ const EditPin = ({ pinId }) => {
     const [board, setBoard] = useState("")
 
     const dispatch = useDispatch()
-    const navigate = useNavigate();
-    const { closeModal } = useModal();
+    // const navigate = useNavigate();
+    const { closeModal, setModalContent } = useModal();
     // const { pinId } = useParams()
 
-    const deleteCurrentPin = async (e) => {
-        e.preventDefault();
-        closeModal()
-        await dispatch(deletePin(pinId));
-        navigate(`/${user.id}/created`)
+    // const deleteCurrentPin = async (e) => {
+    //     e.preventDefault();
+    //     closeModal()
+    //     await dispatch(deletePin(pinId));
+    //     navigate(`/${user.id}/created`)
+    // };
+
+    const openEditPin = () => {
+        setModalContent(<EditPin pinId={pinId} />);
     };
 
     useEffect(() => {
@@ -124,7 +130,13 @@ const EditPin = ({ pinId }) => {
                     </select>
                 </div>
                 <div className="edit-pin-buttons">
-                    <button onClick={(e) => deleteCurrentPin(e)}>Delete</button>
+                    {/* <button onClick={(e) => deleteCurrentPin(e)}>Delete</button> */}
+                    <OpenModalButton 
+                    buttonText="Delete"
+                    modalComponent={<DeletePin openEditPin={openEditPin} />}
+                    className="edit-delete-pin"
+                    pinId={pinId}
+                    />
                     <button type="submit" className="edit-pin-save-button">Save</button>
                 </div>
             </form>

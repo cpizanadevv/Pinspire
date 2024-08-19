@@ -5,13 +5,14 @@ import { getPin } from '../../redux/pins';
 import { createComment, updateComment, deleteComment } from '../../redux/comment';
 import { createNewFavorite, deleteFavorite, getUserFavorites } from '../../redux/favorites';
 import Notification from '../Notification/Notification';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import EditPin from '../EditPin/EditPin';
 import './ViewPin.css';
 
 const ViewPin = () => {
     const { pinId } = useParams();
     const dispatch = useDispatch();
     const pin = useSelector((state) => state.pinState.pin || {});
-    // const comments = useSelector((state) => state.commentsState?.comments || {});
     const currentUser = useSelector((state) => state.session.user);
     const [newComment, setNewComment] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
@@ -27,7 +28,6 @@ const ViewPin = () => {
     useEffect(() => {
         dispatch(getPin(pinId));
         checkIfFavorite();
-        // dispatch(getPinComments(pinId));
     }, [dispatch, pinId]);
 
     const checkIfFavorite = async () => {
@@ -133,11 +133,67 @@ const ViewPin = () => {
         return pin.description.slice(0, 50) + ' ...';
     };
 
+    const getAuthorName = () => {
+        if (pin.user_id && currentUser?.id === pin.user_id) {
+            return currentUser.username;
+        }
+        if (pin.description && pin.description.startsWith("Photo by")) {
+            const author = pin.description.split("by")[1].trim();
+            return author || 'Unknown';
+        }
+        return 'Unknown';
+    };
+
     const comments = pin.comments || {};
 
     if (!pin) {
         return <div>Loading pin data...</div>;
     }
+
+    const renderComments = () => {
+        if (!comments || Object.keys(comments).length === 0) {
+            return <p>No comments yet.</p>;
+        }
+
+        return Object.values(comments)
+            .filter(comment => comment && comment.id)
+            .map(comment => {
+                if (!comment) return null;
+
+                return (
+                    <div className='individual-comment' key={comment.id}>
+                        {editingCommentId === comment.id ? (
+                            <form onSubmit={(e) => handleEditSubmit(e, comment.id)}>
+                                <input
+                                    value={editedComment}
+                                    onChange={(e) => setEditedComment(e.target.value)}
+                                    autoFocus
+                                />
+                                {editedComment.trim() !== '' && (
+                                    <button type="submit">Save</button>
+                                )}
+                                <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
+                            </form>
+                        ) : (
+                            <>
+                                <div className="comment">
+                                    <h4 className='username'>{comment.username}</h4>
+                                    <span>{comment.comment}</span>
+                                </div>
+                                {comment.user_id === currentUser?.id && (
+                                    <div className='options'>
+                                        <div className='buttons'>
+                                            <button className="edit-button" onClick={() => handleEditClick(comment)}>Edit</button>
+                                            <button className="delete-button" onClick={() => handleDeleteClick(comment.id)}>Delete</button>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
+                );
+            });
+    };
 
     return (
         <div className='view-pin-page'>
@@ -155,16 +211,31 @@ const ViewPin = () => {
                                 <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-star`}></i>
                             </button>
                         )}
+                        {/* {currentUser?.id === pin.user_id && (
+                            <button className='edit-pin' onClick={openEditModal}>
+                                <i className="fa-solid fa-pen-to-square"></i>
+                                <span>Edit</span>
+                            </button>
+                        )} */}
                         {currentUser?.id === pin.user_id && (
-                            <button className='edit-pin'><i className="fa-solid fa-pen-to-square"></i><span>Edit</span></button>
+                            <OpenModalButton
+                                buttonText={<><i className="fa-solid fa-pen-to-square"></i><span>Edit</span></>}
+                                modalComponent={<EditPin pinId={pin.id} />}
+                                className="edit-pin"
+                            />
                         )}
                     </div>
                     <div className='info'>
                         <h2>{pin.title}</h2>
-                        <p onClick={toggleDescription} style={{ cursor: 'default' }}>
+                        <p className='author'>{getAuthorName()}</p>
+                        <p
+                            className='description-line'
+                            onClick={pin.description && pin.description.length > 60 ? toggleDescription : undefined}
+                            style={{ cursor: pin.description && pin.description.length > 60 ? 'pointer' : 'default' }}
+                        >
                             {renderDescription()}
                         </p>
-                        {pin.link && <a href={pin.link} target="_blank" rel="noopener noreferrer">Visit Link</a>}
+                        {pin.link && <a className='link-line' href={pin.link} target="_blank" rel="noopener noreferrer">Visit Link</a>}
                     </div>
                     <div className='comment-container'>
                         <div className='comments'>
@@ -176,58 +247,31 @@ const ViewPin = () => {
                                 </span>
                             </div>
                             <div className='comments-section'>
-                                {Object.keys(comments).length > 0 ? (
-                                    Object.values(comments).map(comment => (
-                                        <div className='individual-comment' key={comment.id}>
-                                            {editingCommentId === comment.id ? (
-                                                <form onSubmit={(e) => handleEditSubmit(e, comment.id)}>
-                                                    <input
-                                                        value={editedComment}
-                                                        onChange={(e) => setEditedComment(e.target.value)}
-                                                        autoFocus
-                                                    />
-                                                    {editedComment.trim() !== '' && (
-                                                        <button type="submit">Save</button>
-                                                    )}
-                                                    <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
-                                                </form>
-                                            ) : (
-                                                <>
-                                                    <div className="comment">
-                                                        <h4 className='username'>{comment.username}</h4>
-                                                        <span>{comment.comment}</span>
-                                                    </div>
-                                                    {comment.user_id === currentUser.id && (
-                                                        <div className='options'>
-                                                            <div className='buttons'>
-                                                                <button className="edit-button" onClick={() => handleEditClick(comment)}>Edit</button>
-                                                                <button className="delete-button" onClick={() => handleDeleteClick(comment.id)}>Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            )}
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p>No comments yet.</p>
-                                )}
+                                {renderComments()}
                             </div>
                         </div>
                         <div className='input-box'>
-                            <form onSubmit={handleCommentSubmit}>
-                                <input
-                                    value={newComment}
-                                    onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder='Add a comment'
-                                />
-                                <button
-                                    type="submit"
-                                    className={newComment.trim() === '' ? 'inactive' : 'active'}
-                                >
-                                    <i className="fa-solid fa-paper-plane"></i>
-                                </button>
-                            </form>
+                            <div className="tooltip-container">
+                                <form onSubmit={handleCommentSubmit}>
+                                    <input
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                        placeholder='Add a comment'
+                                        disabled={!currentUser}
+                                        style={{ color: !currentUser ? 'lightgray' : 'inherit' }}
+                                    />
+                                    <button
+                                        type="submit"
+                                        className={newComment.trim() === '' ? 'inactive' : 'active'}
+                                        disabled={!currentUser}
+                                    >
+                                        <i className="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                                {!currentUser && (
+                                    <span className="tooltip-text">Sign in to comment!</span>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

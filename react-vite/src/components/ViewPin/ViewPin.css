@@ -57,9 +57,42 @@
 }
 
 .view-pin-page .pin-container .right .info {
-    padding: 20px 20px 50px 20px;
+    padding: 10px 20px 50px 20px;
     display: flex;
     flex-direction: column;
+}
+
+.view-pin-page .pin-container .right .info h2 {
+    font-size: 20px;
+}
+
+.view-pin-page .pin-container .right .info .author {
+    /* margin: 5px 0; */
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.view-pin-page .pin-container .right .info .description-line {
+    width: 100%;
+    overflow: hidden;
+    /* border: 1px solid red; */
+    transition: 0.2s ease;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.view-pin-page .pin-container .right .info .link-line {
+    padding: 5px;
+    font-size: 14px;
+    color: #7b7b7b;
+}
+
+.view-pin-page .pin-container .right .info .link-line:hover {
+    text-decoration: underline;
+}
+
+.view-pin-page .pin-container .right .info .description-line:hover {
+    background-color: rgba(199, 199, 199, 0.142);
 }
 
 .view-pin-page .pin-container .right .info p {
@@ -261,6 +294,10 @@
     flex-shrink: 0;
 }
 
+.right .comment-container .input-box input::placeholder {
+    color: #c6c6c6;
+}
+
 .right .comment-container .input-box input {
     all: unset;
     padding: 10px 50px 10px 10px;
@@ -273,7 +310,7 @@
 .right .comment-container .input-box button {
     all: unset;
     position: absolute;
-    right: 25px;
+    right: 7px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -297,6 +334,35 @@
 .right .comment-container .input-box button.active:hover i {
     background-color: #FD0079;
     cursor: pointer;
+}
+
+/* ----- TOOLTIP ------ */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    /* width: 140px; */
+    background-color: rgba(0, 0, 0, 0.654);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 47%;
+    margin-left: -70px;
+    /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* ---- DELETE MODAL ----- */
