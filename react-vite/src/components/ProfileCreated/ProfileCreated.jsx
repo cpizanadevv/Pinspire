@@ -72,7 +72,7 @@ const ProfileCreated = () => {
                     <div className="profile-image-overlay">
                         <OpenModalButton
                             buttonText={
-                                selectedBoard[0]?.name || "Add to Board"
+                                selectedBoard[0]?.name || "Select Board"
                             }
                             modalComponent={
                                 <AddBoardPin
