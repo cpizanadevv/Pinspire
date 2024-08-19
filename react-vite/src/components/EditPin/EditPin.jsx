@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editPin, getPin } from "../../redux/pins";
 // import { useNavigate } from 'react-router-dom';
-import { fetchAllBoards} from "../../redux/board";
+import { fetchAllBoards } from "../../redux/board";
 import { postBoardPin } from "../../redux/board";
 import { useModal } from "../../context/Modal";
 import "./EditPin.css"
@@ -10,6 +10,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeletePin from "../DeletePin/DeletePin"
 
 const EditPin = ({ pinId }) => {
+    console.log("Received pinId in EditPin:", pinId);
     const user = useSelector((state) => state.session.user);
     const pin = useSelector(state => state.pinState.pin)
     const boardObj = useSelector(state => state.boardState)
@@ -24,7 +25,6 @@ const EditPin = ({ pinId }) => {
     const dispatch = useDispatch()
     // const navigate = useNavigate();
     const { closeModal, setModalContent } = useModal();
-    // const { pinId } = useParams()
 
     // const deleteCurrentPin = async (e) => {
     //     e.preventDefault();
@@ -38,9 +38,12 @@ const EditPin = ({ pinId }) => {
     };
 
     useEffect(() => {
-        dispatch(getPin(pinId))
-        dispatch(fetchAllBoards())
-    }, [dispatch, pinId])
+        if (pinId) {
+            dispatch(getPin(pinId));
+        }
+
+        dispatch(fetchAllBoards());
+    }, [dispatch, pinId]);
 
     useEffect(() => {
         if (pin) {
@@ -58,24 +61,19 @@ const EditPin = ({ pinId }) => {
             title,
             description,
             link,
-        }
+        };
 
-        let boardResponse
+        let boardResponse = true;
         if (board) {
-            boardResponse = await dispatch(postBoardPin(+board, pinId))
-        } else {
-            boardResponse = true
+            boardResponse = await dispatch(postBoardPin(+board, pinId));
         }
 
-        const pinResponse = await dispatch(editPin({editedPin, pinId}))
-        // console.log(pinResponse, boardResponse)
+        const pinResponse = await dispatch(editPin({ editedPin, pinId }));
+
         if (pinResponse && boardResponse) {
-            closeModal()
+            await dispatch(getPin(pinId));
+            closeModal();
         }
-
-    //     if (pinResponse) {
-    //         closeModal()
-    //     }
     };
 
     return (
@@ -121,21 +119,21 @@ const EditPin = ({ pinId }) => {
                     <label className="edit-pin-label">
                         Board
                     </label>
-                    <select name='board' value={board} onChange={(e) => {setBoard(e.target.value)}} className="edit-pin-input">
+                    <select name='board' value={board} onChange={(e) => { setBoard(e.target.value) }} className="edit-pin-input">
                         <option value='' className="select-placeholder" disabled>Choose board</option>
                         {userBoards.map((board) => (
-                                <option key={board.id} value={board.id}>{board.name === 'All Pins' ? 'Profile' : `${board.name}`}</option>
-                            ))
+                            <option key={board.id} value={board.id}>{board.name === 'All Pins' ? 'Profile' : `${board.name}`}</option>
+                        ))
                         }
                     </select>
                 </div>
                 <div className="edit-pin-buttons">
                     {/* <button onClick={(e) => deleteCurrentPin(e)}>Delete</button> */}
-                    <OpenModalButton 
-                    buttonText="Delete"
-                    modalComponent={<DeletePin openEditPin={openEditPin} />}
-                    className="edit-delete-pin"
-                    pinId={pinId}
+                    <OpenModalButton
+                        buttonText="Delete"
+                        modalComponent={<DeletePin openEditPin={openEditPin} />}
+                        className="edit-delete-pin"
+                        pinId={pinId}
                     />
                     <button type="submit" className="edit-pin-save-button">Save</button>
                 </div>
