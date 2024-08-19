@@ -62,11 +62,9 @@ const CreatePin = () => {
         const data = await dispatch(addPin(newPin));
         if (data.img_url) {
             // setImageUrl(data.img_url);
-            console.log("Pin added to the database:", data);
             navigate(`/pin/${data.id}`); //nav to ViewPin
         } else {
             alert("Error uploading file");
-            console.log("Error uploading file:", data);
         }
     };
 

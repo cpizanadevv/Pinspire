@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as pinActions from "../../redux/pins";
 import { NavLink } from "react-router-dom";
@@ -17,14 +17,10 @@ const stopBounce = (func, wait) => {
 
 function LandingPage() {
     const dispatch = useDispatch();
-    const [savedPins, setSavedPins] = useState({});
 
-    const currentUserId = useSelector((state) => state.session.user?.id);
     const { pins, page, pageSize, hasMore, loading } = useSelector(
         (state) => state.pinState || {}
     );
-    const boards = useSelector((state) => state.boardState || []);
-    const boardsObj = Object.values(boards);
 
     useEffect(() => {
         dispatch(pinActions.resetPins());
@@ -58,11 +54,6 @@ function LandingPage() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
 
-    const userBoards = useMemo(
-        () => boardsObj.filter((board) => board.user_id === currentUserId),
-        [boardsObj, currentUserId]
-    );
-
     // const allPinsBoard = useMemo(
     //     () =>
     //         boardsObj.find(
@@ -77,32 +68,6 @@ function LandingPage() {
     // };
 
     const displayPins = useMemo(() => Object.values(pins), [pins]);
-
-    const [selectedBoardPin, setSelectedBoardPin] = useState({
-        boardId: null,
-        pinId: null,
-    });
-
-    const handleSelectedBoard = (boardId, pinId) => {
-        setSelectedBoardPin({ boardId, pinId });
-    };
-
-    const selectedBoard = userBoards.filter(
-        (board) => board.id === selectedBoardPin.boardId
-    );
-
-    const handleSavePin = async () => {
-        if (selectedBoardPin.boardId && selectedBoardPin.pinId) {
-            await dispatch(
-                boardActions.postBoardPin(selectedBoardPin.boardId, selectedBoardPin.pinId)
-            );
-
-            setSavedPins((prev) => ({
-                ...prev,
-                [`${selectedBoardPin.pinId}-${selectedBoardPin.boardId}`]: true,
-            }));
-        }
-    };
 
     return (
         <div className="pins-message">
@@ -119,9 +84,6 @@ function LandingPage() {
                                                 buttonText="Save"
                                                 modalComponent={
                                                     <AddBoardPin
-                                                        onSelectBoard={
-                                                            handleSelectedBoard
-                                                        }
                                                     />
                                                 }
                                                 className="landing-save-button"
