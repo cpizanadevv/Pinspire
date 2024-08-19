@@ -2,12 +2,12 @@ import * as pinActions from "../../redux/pins";
 import { useEffect, useState } from "react";
 import "./AddBoardPin.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
+// import { useModal } from "../../context/Modal";
 import * as boardActions from "../../redux/board";
 
-const AddBoardPin = ({ pinId, onSelectBoard }) => {
+const AddBoardPin = ({ pinId }) => {
     const dispatch = useDispatch();
-    const { closeModal } = useModal();
+    // const { closeModal } = useModal();
 
     const currentUserId = useSelector((state) => state.session.user?.id);
     const boards = useSelector((state) => state.boardState);
