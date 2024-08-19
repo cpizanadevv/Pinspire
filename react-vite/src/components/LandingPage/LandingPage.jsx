@@ -81,9 +81,9 @@ function LandingPage() {
   };
 
   const displayPins = useMemo(() => Object.values(pins), [pins]);
-  console.log("Loading:", loading);
-  console.log("Page:", page);
-  console.log("Has More:", hasMore);
+  // console.log("Loading:", loading);
+  // console.log("Page:", page);
+  // console.log("Has More:", hasMore);
 
   return (
     <div className="pins-message">

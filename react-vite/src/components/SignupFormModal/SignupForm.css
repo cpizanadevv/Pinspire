@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     width: 25em;
+    margin-top: 1em;
 }
 
 /* div #modal-content {
@@ -18,13 +19,40 @@
 }
 
 .sign-up-form input {
+    border: 0.15em solid black;
     width: 20em;
-    height: 2.2em;
+    height: 2em;
     border-radius: 2em;
-    margin-bottom: .5em;
-    padding: .2em .5em;
+    margin-bottom: 0.5em;
+    padding: 0.2em 0.5em;
 }
 
 .signup-button {
     margin-top: 1em;
+}
+
+
+.signup-modal input[type=text]:focus,
+.signup-modal input[type=password]:focus{
+  border: .18em solid #ff0079;
+  outline: none;
+}
+
+
+.signup-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+h5 {
+  margin-left: .5em;
+}
+
+p {
+    font-size: .7em;
+    margin-bottom: 5em;
+    font-weight: 600;
 }
