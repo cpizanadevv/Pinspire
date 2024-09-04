@@ -16,19 +16,26 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    margin-top: 5px;
 }
 
 .sign-up-form input {
-    border: 0.15em solid black;
+    /* border: 0.15em solid black;
     width: 20em;
     height: 2em;
     border-radius: 2em;
     margin-bottom: 0.5em;
-    padding: 0.2em 0.5em;
+    padding: 0.2em 0.5em; */
+    border: 1px solid #D3D3D3;
+    border-radius: 15px;
+    padding: 15px 10px;
+    width: 300px;
 }
 
 .signup-button {
-    margin-top: 1em;
+    margin-top: 2em;
+    width: 300px;
+    padding-top: 40px;
 }
 
 
@@ -55,4 +62,16 @@
     font-size: .7em;
     margin-bottom: 5em;
     font-weight: 600;
+}
+
+.to-login {
+  margin-top: 1em;
+  cursor: pointer;
+}
+
+.sign-up-form span {
+  background-color: #CDCDCD;
+  height: 1px;
+  width: 70%;
+  margin-top: 20px;
 }

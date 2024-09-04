@@ -95,7 +95,8 @@
 .view-pin-page .pin-container .right .info .link-line {
     padding: 5px;
     font-size: 14px;
-    color: #7b7b7b;
+    /* color: #7b7b7b; */
+    color: black;
 }
 
 .view-pin-page .pin-container .right .info .link-line:hover {
@@ -191,7 +192,7 @@
 }
 
 .right .comment-container .comments .header {
-    border-bottom: 1px solid #E9E9E9;
+    border-bottom: 1px solid black;
 }
 
 .right .comment-container .comments .header span {
@@ -211,7 +212,8 @@
 }
 
 .right .comments-section p {
-    color: #c6c6c6;
+    /* color: #c6c6c6; */
+    color: white;
 }
 
 /* ----- INDIVIDUAL COMMENTS ----- */
@@ -252,7 +254,7 @@
 .comments-section .individual-comment .options .buttons button {
     all: unset;
     font-size: 12px;
-    color: #c6c6c6;
+    color: white;
     transition: 0.2s ease;
 }
 
@@ -270,7 +272,7 @@
 .individual-comment form button {
     all: unset;
     font-size: 14px;
-    color: #c6c6c6;
+    color: white;
     transition: 0.2s ease;
 }
 
@@ -286,6 +288,7 @@
     border: 1px solid #c6c6c6;
     border-radius: 20px;
     width: 200px;
+    background-color: white;
 }
 
 
@@ -316,6 +319,7 @@
     border-radius: 40px;
 
     width: 300px;
+    background-color: white;
 }
 
 .right .comment-container .input-box button {
@@ -418,4 +422,26 @@
 .delete-modal-buttons button:last-child {
     background-color: #ccc;
     color: black;
+}
+
+@media (max-width: 950px) {
+    .view-pin-page {
+        padding: 0 20px;
+    }
+
+    .view-pin-page .pin-container {
+        flex-direction: column;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .view-pin-page .pin-container .left {
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+    }
+
+    .view-pin-page .pin-container .right {
+        width: 100%;
+        border-radius: 0 0 30px 30px;
+    }
 }

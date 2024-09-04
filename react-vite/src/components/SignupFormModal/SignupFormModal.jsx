@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
 import "./SignupForm.css";
+import LoginFormModal from "../LoginFormModal";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { closeModal } = useModal();
+  const { closeModal, setModalContent } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +43,10 @@ function SignupFormModal() {
     }
   };
 
-
+  const handleClick = () => {
+    closeModal()
+    setModalContent(<LoginFormModal/>);
+  }
 
   return (
     <div className="signup-modal">
@@ -54,7 +58,7 @@ function SignupFormModal() {
       <form onSubmit={handleSubmit} className="sign-up-form">
         <label>
           <h5>First Name</h5>
-          
+
           <input
             type="text"
             name="first_name"
@@ -67,9 +71,9 @@ function SignupFormModal() {
 
         <label>
           <h5>Last Name</h5>
-          
+
           <input
-            type="text" 
+            type="text"
             name="last_name"
             value={lastName}
             placeholder="Last Name"
@@ -80,7 +84,7 @@ function SignupFormModal() {
         {errors.last_name && <p className="errors">{errors.last_name}</p>}
         <label>
           <h5>Email</h5>
-          
+
           <input
             type="text"
             value={email}
@@ -92,7 +96,7 @@ function SignupFormModal() {
         {errors.email && <p className="errors">{errors.email}</p>}
         <label>
           <h5>Username</h5>
-          
+
           <input
             type="text"
             value={username}
@@ -104,7 +108,7 @@ function SignupFormModal() {
         {errors.username && <p className="errors">{errors.username}</p>}
         <label>
           <h5>Password</h5>
-          
+
           <input
             type="password"
             value={password}
@@ -116,7 +120,7 @@ function SignupFormModal() {
         {errors.password && <p className="errors">{errors.password}</p>}
         <label>
           <h5>Confirm Password</h5>
-          
+
           <input
             type="password"
             placeholder="Confirm Password"
@@ -127,6 +131,10 @@ function SignupFormModal() {
         </label>
         {errors.confirmPassword && <p className="errors">{errors.confirmPassword}</p>}
         <button type="submit" className="signup-button">Sign Up</button>
+        <span></span>
+        <div className="to-login">
+          <a onClick={handleClick}>Already a user? Log In</a>
+        </div>
       </form>
     </div>
   );

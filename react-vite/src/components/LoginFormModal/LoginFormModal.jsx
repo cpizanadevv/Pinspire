@@ -46,7 +46,7 @@ function LoginFormModal() {
         }
       })
   };
-  
+
   const handleClick = () => {
     closeModal()
     setModalContent(<SignupFormModal/>);
@@ -60,7 +60,7 @@ function LoginFormModal() {
       <form onSubmit={handleSubmit} className="login-form">
         <label>
           <h5>Email</h5>
-          
+
           <input
             type="text"
             placeholder="Email"
@@ -81,11 +81,12 @@ function LoginFormModal() {
           />
           {errors.password && <p className="errors">{errors.password}</p>}
         </label>
-        
+
         <div className="login-buttons">
           <button type="submit">Log In</button>
-          <button onClick={handleDemo}>Demo User</button>
+          <button onClick={handleDemo}>Continue as Demo User</button>
         </div>
+        <span></span>
         <div className="to-signup">
           <a onClick={handleClick}>Not a user yet? Sign up</a>
         </div>

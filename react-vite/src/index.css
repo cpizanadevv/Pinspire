@@ -8,7 +8,7 @@
 }
 
 body {
-    background-image: url('../public/pinspire_bg.png');
+    background-image: url('../pinspire_bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

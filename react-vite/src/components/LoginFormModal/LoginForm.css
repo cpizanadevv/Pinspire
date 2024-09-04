@@ -12,7 +12,9 @@
   justify-content: space-between;
   align-items: center;
   margin: 1em;
-  padding: 2em;
+  /* padding: 2em; */
+  /* padding-top: 10px; */
+  /* margin-top: 10px; */
   width: 20em;
   height: 20em;
   border-radius: 40px;
@@ -26,21 +28,30 @@ div #modal-content .signup-modal {
 .login-form label {
   display: flex;
   flex-direction: column;
+  margin-top: 5px;
 }
 
 .login-form input {
-  border: 0.15em solid black;
+  /* border: 0.15em solid black;
   width: 20em;
   height: 2em;
   border-radius: 2em;
   margin-bottom: 0.5em;
-  padding: 0.2em 0.5em;
+  padding: 0.2em 0.5em; */
+  border: 1px solid #D3D3D3;
+  border-radius: 15px;
+  padding: 15px 10px;
+  width: 300px;
 }
 
 .login-buttons {
   display: flex;
-  margin-top: 1em;
-  gap: 2em;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  padding-top: 20px;
+  /* margin-top: 1em;
+  gap: 2em; */
 }
 
 .login-buttons button,
@@ -49,10 +60,18 @@ div #modal-content .signup-modal {
   color: white;
   border-radius: 40px;
   border: none;
-  padding: 1em 1.5em;
+  /* padding: 1em 1.5em; */
+  padding: 15px 20px;
   cursor: pointer;
   font-size: 0.8em;
   font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.login-buttons button:hover,
+.signup-button:hover {
+  background-color:#d90166;;
+  color: white;
 }
 
 .errors {
@@ -73,4 +92,12 @@ h5 {
 
 .to-signup {
   margin-top: 1em;
+  cursor: pointer;
+}
+
+.login-form span {
+  background-color: #CDCDCD;
+  height: 1px;
+  width: 80%;
+  margin-top: 20px;
 }

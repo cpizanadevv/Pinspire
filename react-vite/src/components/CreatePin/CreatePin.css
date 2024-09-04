@@ -78,17 +78,18 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 60px;
-    border-bottom: 1px solid #CDCDCD;
+    border-bottom: 1px solid white;
     border-top: 1px solid #CDCDCD;
     margin-bottom: 30px;
     align-items: center;
+    padding-top: 30px;
 }
 
 .create-pin-container .header .publish-button-header {
     all: unset;
     padding: 15px 18px;
     color: white;
-    background-color: #E60123;
+    background-color: #FF0079;
     border-radius: 40px;
     display: flex;
     justify-content: center;
@@ -97,7 +98,8 @@
 }
 
 .create-pin-container .header .publish-button-header:hover {
-    background-color: #c30421;
+    background-color: white;
+    color: #FF0079
 }
 
 .create-pin-container .left-column .choose-file {
@@ -137,6 +139,7 @@
 .create-pin-container .right-column .title h5 {
     display: flex;
     gap: 5px;
+    color: black;
 }
 
 .create-pin-container .right-column .link h5 p,
@@ -182,4 +185,30 @@
     background-color: white;
     /* color: #e2e2e2; */
     border: 1px solid #eeeeee;
+}
+
+.description h5 {
+    color: black;
+}
+
+@media (max-width: 950px) {
+    .create-pin-container form {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .create-pin-container .left-column,
+    .create-pin-container .right-column {
+        width: 100%;
+    }
+
+    .create-pin-container .left-column {
+        justify-content: center;
+    }
+
+    .create-pin-container .right-column {
+        align-items: center;
+        padding-bottom: 50px;
+    }
 }
