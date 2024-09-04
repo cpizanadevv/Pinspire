@@ -7,3 +7,12 @@
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
+body {
+    background-image: url('../public/pinspire_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
