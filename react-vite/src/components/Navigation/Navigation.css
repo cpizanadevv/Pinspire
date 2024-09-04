@@ -260,19 +260,35 @@ a {
 @media (max-width: 950px) {
   .profile-dropdown {
     min-width: 20%;
-    /* Dynamic width */
     max-width: 80vw;
-    /* Prevent overflow */
     right: 10%;
-    /* Adjust position */
     word-wrap: break-word;
-    /* Ensure content wraps */
     overflow-wrap: break-word;
-    /* Ensure content wraps */
   }
 
   .pf-email {
     white-space: normal;
-    /* Allow text to wrap */
+  }
+}
+
+@media (max-width: 650px) {
+  .auth-buttons {
+    gap: 12px;
+  }
+
+  .sign-up,
+  .login {
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .sign-up {
+    border-radius: 15px;
+  }
+
+  .login {
+    border-radius: 15px;
   }
 }

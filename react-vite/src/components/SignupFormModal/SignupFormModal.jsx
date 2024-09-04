@@ -133,7 +133,7 @@ function SignupFormModal() {
         <button type="submit" className="signup-button">Sign Up</button>
         <span></span>
         <div className="to-login">
-          <a onClick={handleClick}>Already a user? Log In</a>
+          <a onClick={handleClick}>Already a user? Log in</a>
         </div>
       </form>
     </div>
