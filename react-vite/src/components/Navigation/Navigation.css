@@ -22,6 +22,7 @@
   color: white;
   font-weight: 500;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .sign-up:hover {
@@ -41,6 +42,7 @@
   color: black;
   font-weight: 500;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .login:hover {
@@ -123,6 +125,7 @@ a {
   padding: 14px 15px 14px 40px;
   position: relative;
   box-sizing: border-box;
+  transition: 0.3s ease;
 
   /* for adding the magnifying glass! */
   background-image: url(https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/magnifying-glass-18.png);
@@ -139,7 +142,7 @@ a {
 
 .profile-menu .profile-button {
   all: unset;
-  border: 1px solid #D3D3D3;
+  /* border: 1px solid #D3D3D3; */
   border-radius: 40px;
   padding: 10px 13px 10px 13px;
 
@@ -191,12 +194,17 @@ a {
   height: 150px;
 
   z-index: 1000;
-  width: 10%;
+  /* width: 10%; */
+  min-width: 150px;
+    /* Minimum width */
+  max-width: 90vw;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.164);
   border-radius: 15px;
   /* cursor: pointer; */
   align-items: start;
   /* margin-top: 10px; */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .dropdown-content {
@@ -239,6 +247,7 @@ a {
   cursor: pointer;
   font-size: 12px;
   font-weight: 500;
+  transition: 0.3s ease;
   /* width: 100%; */
 
 }
@@ -246,4 +255,24 @@ a {
 .profile-menu .logout-button:hover {
   background-color: pink;
   color: #FF0079;
+}
+
+@media (max-width: 950px) {
+  .profile-dropdown {
+    min-width: 20%;
+    /* Dynamic width */
+    max-width: 80vw;
+    /* Prevent overflow */
+    right: 10%;
+    /* Adjust position */
+    word-wrap: break-word;
+    /* Ensure content wraps */
+    overflow-wrap: break-word;
+    /* Ensure content wraps */
+  }
+
+  .pf-email {
+    white-space: normal;
+    /* Allow text to wrap */
+  }
 }
