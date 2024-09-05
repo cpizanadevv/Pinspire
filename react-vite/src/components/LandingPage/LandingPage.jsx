@@ -6,7 +6,7 @@ import "./LandingPage.css";
 import * as boardActions from "../../redux/board";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
-// import Loader from "../Loader/Loader";
+import Loader from "../Loader/Loader"; // Import the Loader component
 
 const stopBounce = (func, wait) => {
   let timeout;
@@ -18,13 +18,10 @@ const stopBounce = (func, wait) => {
 
 function LandingPage() {
   const dispatch = useDispatch();
-  // const currentUserId = useSelector((state) => state.session.user?.id);
   const { pins, page, pageSize, hasMore, loading } = useSelector(
     (state) => state.pinState || {}
   );
-
   const user = useSelector((store) => store.session.user);
-  // const boards = useSelector((state) => state.boardState || []);
 
   useEffect(() => {
     dispatch(pinActions.resetPins());
@@ -55,9 +52,11 @@ function LandingPage() {
 
   const displayPins = useMemo(() => Object.values(pins), [pins]);
 
+  if (loading) return <Loader/>
+  
   return (
     <div className="pins-message">
-      {/* {loading && <Loader />} */}
+      {/* Show the Loader when loading */}
       <div className="created-grid-container">
         {!loading && displayPins.length > 0 && (
           <div className="landing">

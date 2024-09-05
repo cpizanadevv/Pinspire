@@ -8,7 +8,7 @@ import PutBoard from "../Board/EditBoard";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddButton from "./AddButton";
 import "./ProfileSaved.css"
-
+import Loader from "../Loader/Loader";
 
 const ProfileSaved = () => {
     const user = useSelector((state) => state.session.user);
@@ -33,7 +33,7 @@ const ProfileSaved = () => {
     }, [dispatch]);
 
     if (!boards.length) {
-        return <div className="loading-message">Loading board data...</div>;
+        return <div className="loading-message">No Boards Yet</div>;
     }
 
     return (
@@ -42,6 +42,7 @@ const ProfileSaved = () => {
                 <AddButton />
             </div>
             <div className="profile-board-grid">
+                {!userBoards && <Loader/>}
                 {userBoards.map((board) => (
                     <NavLink key={board.id} to={`/boards/${board.id}`}>
                         <div className="profile-board-container">

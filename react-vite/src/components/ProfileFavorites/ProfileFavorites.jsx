@@ -6,6 +6,7 @@ import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
 import { getAllFavorites } from "../../redux/favorites"
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
+import Loader from "../Loader/Loader";
 
 const ProfileFavorites = () => {
     const user = useSelector((state) => state.session.user);
@@ -66,6 +67,7 @@ const ProfileFavorites = () => {
 
     return (
         <div className="created-grid">
+            {!favorites && <Loader/>}
             {favorites.map((favorite) => (
                 <NavLink key={favorite.id} to={`/pin/${favorite.pin_id}`}>
                     <div className="profile-pin-container">
