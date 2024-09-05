@@ -1,131 +1,634 @@
-# Flask React Project
+# Pinspire
 
-This is the starter for the Flask React project.
+Pinspire is a partial clone of the popular website Pinterest, created as part of a collaborative group project. Pinterest is known for its intuitive platform, designed for discovering and sharing creative ideas through visual content. Our team was inspired by Pinterest's clean and user-friendly interface, which makes exploring content engaging and seamless. We aimed to replicate the fluid layout, infinite scrolling, and core features like saving pins and organizing them into boards, all while ensuring the design remained visually appealing.
 
-## Getting started
+## Live Link
 
-1. Clone this repository (only this branch).
+https://pinspire.onrender.com/
 
-2. Install dependencies.
+## Tech Stack
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+#### Frameworks | Libraries | API
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Redux](https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![Pexels API](https://img.shields.io/badge/Pexels-05A081?style=for-the-badge&logo=pexels&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon&logoColor=white)
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+#### Database
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+#### Hosting
 
-   ```bash
-   pipenv shell
-   ```
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
 
-   ```bash
-   flask db upgrade
-   ```
+## Index
 
-   ```bash
-   flask seed all
-   ```
+[Featurelist](https://github.com/cpizanadevv/Pinspire/wiki/Feature-List) |
+[Schema](https://github.com/cpizanadevv/Pinspire/wiki/Schema) |
+[User Stories](https://github.com/cpizanadevv/Pinspire/wiki/User-Stories)
 
-   ```bash
-   flask run
-   ```
+### Landing Page
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+image
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+### User's Boards Page
 
-## Deployment through Render.com
+image
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+### Board Page
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+image
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+### User's Favorites Page
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+image
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+## Endpoints
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+### Auth
 
-Start by giving your application a name.
+**`GET /`**  
+ Authenticates the current user.
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+**Successful Response:**
 
-Select "Free" as your Instance Type.
+```json
+{
+  "id": 1,
+  "username": "user",
+  "email": "user@example.com"
+}
+```
 
-### Add environment variables
+**Error Response:**  
+ HTTP Status Code 401
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+```json
+{
+  "errors": {
+    "message": "Unauthorized"
+  }
+}
+```
 
-Add the following keys and values in the Render GUI form:
+**`POST /login`**  
+Logs a user in. Requires email and password. Returns user details on successful login.
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+**Successful Response:**
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+```json
+{
+  "id": 1,
+  "username": "user",
+  "email": "user@example.com"
+}
+```
 
-Add the following keys and values:
+**Error Response:**  
+ HTTP Status Code 401
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+```json
+{
+  "errors": {
+    "first_name": ["This field is required."],
+    "last_name": ["This field is required."],
+    "email": ["This field is required."],
+    "password": ["This field is required."]
+  }
+}
+```
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
+**`POST /signup`**
+Creates a new user and logs them in. Requires username, first name, last name, email, and password. Returns user details on successful signup.
 
-### Deploy
+**Successful Response:**
+```json
+{
+  "id": 1,
+  "username": "user",
+  "email": "user@example.com"
+}
+```
 
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
+**`GET /unauthorized`**
+Returns an unauthorized error JSON when authentication fails.
+```json
 
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
+```
 
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
+**`GET /logout`**
+Logs the user out. Returns a success message.
+```json
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+```
+
+### Boards
+**`GET /`**
+Retrieves all boards.
+
+**Successful Response:**
+```json
+[
+  {
+    "id": 1,
+    "name": "Board Name",
+    "private": true,
+    "pins": [
+      {
+        "id": 1,
+        "img_url": "http://example.com/image.jpg"
+      }
+    ]
+  }
+]
+```
+
+Error Response:
+HTTP Status Code 404
+
+```json
+{
+  "message": "no boards found"
+}
+```
+
+
+**`GET /<int:board_id>`**
+Retrieves a specific board by its ID.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "name": "Board Name",
+  "private": true,
+  "pins": [
+    {
+      "id": 1,
+      "img_url": "http://example.com/image.jpg"
+    }
+  ]
+}
+```
+
+
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "no board found"
+}
+
+```
+
+**`POST /create`**
+
+Creates a new board. Requires board name and privacy status.
+
+**Successful Response:**
+
+
+```json
+{
+  "id": 1,
+  "name": "New Board",
+  "private": false
+}
+```
+
+
+**Error Response:**
+
+HTTP Status Code 400
+
+```json
+{
+  "errors": {
+    "name": ["This field is required."]
+  }
+}
+
+```
+**`PUT /<int:board_id>`**
+
+Updates a specific board by its ID.
+
+**Successful Response:**
+
+```json
+{
+  "message": "board changes successful",
+  "board": {
+    "id": 1,
+    "name": "Updated Board",
+    "private": false
+  }
+}
+
+```
+
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "no board found"
+}
+
+```
+
+**`DELETE /<int:board_id>`**
+Deletes a specific board by its ID.
+
+**Successful Response:**
+
+```json
+{
+  "message": "Successfully deleted board 1",
+  "boardId": 1
+}
+
+```
+
+**Error Response:**
+HTTP Status Code 404
+
+```json
+{
+  "error": "board does not exist"
+}
+
+```
+**`GET /<int:board_id>/pins`**
+
+Retrieves all pins associated with a specific board.
+
+**Successful Response:**
+
+```json
+{
+  "Pins": [
+    {
+      "id": 1,
+      "img_url": "http://example.com/image.jpg"
+    }
+  ]
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "no board found"
+}
+
+```
+**`GET /<int:board_id>/pins/<int:pin_id>`**
+
+Retrieves a specific pin associated with a board.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "img_url": "http://example.com/image.jpg"
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 404
+
+
+```json
+{
+  "error": "pin not found"
+}
+
+```
+**`POST /<int:board_id>/pins/<int:pin_id>/create`**
+
+Adds a pin to a specific board.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "img_url": "http://example.com/image.jpg"
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 400
+
+```json
+{
+  "message": "Pin already associated with this board"
+}
+
+```
+**`DELETE /<int:board_id>/pins/<int:pin_id>/delete`**
+
+Removes a pin from a specific board.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "img_url": "http://example.com/image.jpg"
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 400
+
+```json
+{
+  "message": "Pin not associated with this board"
+}
+
+```
+
+### Favorites
+
+**`GET /user/<int:user_id>`**
+
+Retrieves all favorite pins for a specific user.
+
+**Successful Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "pin_id": 1,
+    "user_id": 1
+  }
+]
+
+```
+**Error Response:**
+
+HTTP Status Code 403
+
+```json
+{
+  "error": "Unauthorized access"
+}
+
+```
+**`POST /<int:pin_id>/create`**
+
+Adds a pin to the current user's favorites.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "pin_id": 1,
+  "user_id": 1
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 400
+
+```json
+{
+  "errors": "Pin already favorited"
+}
+
+```
+**`GET /all`**
+
+Retrieves all favorite pins for the current user.
+
+**Successful Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "pin_id": 1,
+    "user_id": 1
+  }
+]
+
+```
+**`DELETE /<int:pin_id>/delete`**
+
+Removes a pin from the current user's favorites.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "pin_id": 1,
+  "user_id": 1
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "Favorite not found"
+}
+
+```
+### Comments
+
+**`GET /<int:pin_id>/comments`**
+
+Retrieves all comments for a specific pin.
+
+**Successful Response:**
+
+```json
+{
+  "comments": [
+    {
+      "id": 1,
+      "comment": "Great pin!",
+      "user_id": 1
+    }
+  ]
+}
+
+```
+
+**`POST /<int:pin_id>/new-comment`**
+
+Creates a new comment on a specific pin. Requires comment text.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "comment": "Great pin!",
+  "user_id": 1
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 400
+
+```json
+{
+  "errors": {
+    "comment": ["This field is required."]
+  }
+}
+
+```
+
+**`PUT /<int:pin_id>/<int:comment_id>/edit`**
+
+Updates a specific comment on a pin.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "comment": "Updated comment",
+  "user_id": 1
+}
+
+```
+
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "comment not found"
+}
+
+```
+**`DELETE /<int:pin_id>/<int:comment_id>`**
+
+Deletes a specific comment from a pin.
+
+**Successful Response:**
+
+```json
+{
+  "message": "Successfully deleted comment"
+}
+
+```
+
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "comment not found"
+}
+
+```
+### Image Upload
+
+**`POST /create`**
+
+Uploads an image for a new pin. Requires an image file.
+
+**Successful Response:**
+
+```json
+{
+  "img_url": "http://example.com/image.jpg"
+}
+
+```
+
+**Error Response:**
+
+HTTP Status Code 400
+
+```json
+{
+  "errors": "Invalid image file"
+}
+
+```
+### Users
+
+**`GET /`**
+
+Retrieves a list of all users.
+
+**Successful Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "username": "user",
+    "email": "user@example.com"
+  }
+]
+
+```
+**`GET /<int:id>`**
+
+Retrieves details for a specific user by their ID.
+
+**Successful Response:**
+
+```json
+{
+  "id": 1,
+  "username": "user",
+  "email": "user@example.com"
+}
+
+```
+**Error Response:**
+
+HTTP Status Code 404
+
+```json
+{
+  "error": "user not found"
+}
+
+```
+
+## Devs
+
+[Carol Pizana](https://www.linkedin.com/in/cpizanadevv/)
+
+[Penelope Yang](https://www.linkedin.com/in/penelope-yang/)
+
+[Nicole Magallanes](https://www.linkedin.com/in/nicolemagallanes/)
+
+[Nhat Ngo](https://www.linkedin.com/in/nhat-ngo-590823149/)
