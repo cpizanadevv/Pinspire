@@ -7,7 +7,7 @@ import { getAllFavorites } from "../../redux/favorites";
 import PutBoard from "../Board/EditBoard";
 import CreateBoard from "../Board/CreateBoard";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-
+import Loader from "../Loader/Loader";
 
 const ProfileSaved = () => {
     const user = useSelector((state) => state.session.user);
@@ -53,6 +53,7 @@ const ProfileSaved = () => {
                 />
             </div>
             <div className="profile-board-grid">
+                {userBoards && <Loader/>}
                 {userBoards.map((board) => (
                     <NavLink key={board.id} to={`/boards/${board.id}`}>
                         <div className="profile-board-container">
