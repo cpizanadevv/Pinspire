@@ -29,7 +29,7 @@ const ProfileCreated = () => {
     }, [dispatch]);
 
     if (!userPins.length) {
-        return <div className="loading-message">Loading pin data...</div>;
+        return <div className="loading-message">You haven't made any pins yet</div>;
     }
 
     return (

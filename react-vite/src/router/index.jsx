@@ -14,7 +14,7 @@ import NewProfile from '../components/NewProfile/NewProfile';
 import ProfileFavorites from '../components/ProfileFavorites/ProfileFavorites';
 import ProfileCreated from '../components/ProfileCreated/ProfileCreated'
 import ProfileSaved from '../components/ProfileSaved/ProfileSaved'
-
+import Loader from '../components/Loader/Loader';
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -74,6 +74,10 @@ export const router = createBrowserRouter([
         path: "/pins/:keyword",
         element: <SearchPins />
       },
+      {
+        path: '/loader',
+        element: <Loader/>
+      }
     ],
   },
 ]);

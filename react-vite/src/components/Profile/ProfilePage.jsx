@@ -8,6 +8,7 @@ import { getAllFavorites } from "../../redux/favorites"
 import EditPin from "../EditPin/EditPin";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
 import "./ProfilePage.css"
+import Loader from "../Loader/Loader";
 
 const Profile = () => {
     const user = useSelector((state) => state.session.user);
@@ -157,6 +158,7 @@ const Profile = () => {
 
                 {activeTab === "saved" && (
                     <div className="profile-board-grid">
+                        {!userBoards && <Loader/>}
                         {userBoards.map((board) => (
                             <NavLink key={board.id} to={`/boards/${board.id}`}>
                                 <div className="profile-board-container">
@@ -180,6 +182,7 @@ const Profile = () => {
 
                 {activeTab === "favorites" && (
                     <div className="created-grid">
+                    {!favorites && <Loader/>}
                     {favorites.map((favorite) => (
                         <NavLink key={favorite.id} to={`/pin/${favorite.pin_id}`}>
                             <div className="profile-pin-container">

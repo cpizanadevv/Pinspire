@@ -8,6 +8,8 @@ import DeleteModal from "./RemovePinModal";
 import PutBoard from "./EditBoard";
 import DeleteBoard from "./DeleteBoard";
 import { NavLink } from "react-router-dom";
+import Loader from "../Loader/Loader";
+
 const OneBoard = () => {
     const { boardId } = useParams();
     const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const OneBoard = () => {
 
     const boardPins = board?.pins || [];
 
-    if (!board || !board.name) return <h1>Loading...</h1>;
+    if (!board || !board.name) return <Loader/>
 
     return (
         <div id="one-board-container">
