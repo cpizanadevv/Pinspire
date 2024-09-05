@@ -80,6 +80,17 @@ export const getAllPins = () => async (dispatch) => {
     }
 };
 
+export const getPinsByUser = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/pins/user/${userId}`)
+    if (response.ok) {
+        const { Pins } = await response.json();
+        dispatch(getPins(Pins))
+    } else {
+        const error = await response.json()
+        return error
+    }
+};
+
 export const getAllPinsWPagination = (page = 1, pageSize = 15) => async (dispatch) => {
     const response = await fetch(`/api/pins/pagination?page=${page}&page_size=${pageSize}`)
     if (response.ok) {

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import { getAllPins } from "../../redux/pins";
+import { getPinsByUser } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
 import EditPin from "../EditPin/EditPin";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
@@ -10,8 +10,8 @@ import AddBoardPin from "../AddBoardPin/AddBoardPin";
 const ProfileCreated = () => {
     const user = useSelector((state) => state.session.user);
     const pinsObj = useSelector((state) => state.pinState.pins);
-    const pins = Object.values(pinsObj);
-    const userPins = pins.filter((pin) => pin.user_id === user.id);
+    const userPins = Object.values(pinsObj);
+
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -24,11 +24,11 @@ const ProfileCreated = () => {
     }, [user, userId, navigate]);
 
     useEffect(() => {
-        dispatch(getAllPins());
+        dispatch(getPinsByUser(userId));
         dispatch(fetchAllBoards());
     }, [dispatch]);
 
-    if (!pins.length) {
+    if (!userPins.length) {
         return <div className="loading-message">Loading pin data...</div>;
     }
 
