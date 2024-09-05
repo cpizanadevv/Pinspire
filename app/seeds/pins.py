@@ -122,11 +122,13 @@ def seed_pins():
     all_imgs = []
 
     for category in categories:
-        all_imgs.extend(fetch_images_from_pexels(category, 20))
+        # all_imgs.extend(fetch_images_from_pexels(category, 20))
+        all_imgs.extend(fetch_images_from_pexels(category, 10))
 
     # Looping through the array to create pins
     for img in all_imgs:
-        user_id = random.randint(1, 20)
+        # user_id = random.randint(1, 20)
+        user_id = random.randint(1, 10)
         img_url = img['src']['large']
         title = img['alt']
         description = f"Photo by {img['photographer']}"

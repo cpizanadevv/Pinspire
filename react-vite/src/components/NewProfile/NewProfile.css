@@ -1,5 +1,5 @@
 #profile-page-container {
-    margin: 90px 10px
+    margin: 120px 10px;
 }
 
 .loading-message {
@@ -31,12 +31,21 @@
     justify-content: center;
     width: 120px;
     height: 120px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
+    background-color: white;
     border-radius: 50%;
     color: black;
     font-size: 48px;
     font-weight: 550;
     margin: 5px
+}
+.profile-username-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-username-container > img{
+    height: 20px;
 }
 
 .profile-page-name {
@@ -149,21 +158,6 @@
     border: none;
 }
 
-/* .save-button {
-    background-color: red;
-    color: white;
-    margin: 10px;
-    padding: 15px 16px;
-    font-size: medium;
-    border-radius: 25px;
-    border: 0px;
-    cursor: pointer;
-}
-
-.save-button.saved {
-    background-color: black
-} */
-
 .profile-image-overlay .profile-edit-button {
     background-color: white;
     color: black;
@@ -247,12 +241,6 @@
 
 /* styling for SAVED BOARDS display END */
 
-/* .profile-board-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; image covers the entire container
-} */
-
 .profile-board-edit-button {
     position: absolute;
     right: 10px;
@@ -288,19 +276,9 @@
 
 .profile-middle-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
-    margin: 20px;
-}
-
-.profile-middle-container>button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.fa-solid {
-    font-size: 26px;
+    margin: 10px 20px;
 }
 
 /* styling saved page END */

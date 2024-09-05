@@ -29,10 +29,9 @@ const NewProfile = () => {
                     <h1 className="profile-page-name">
                         {user.first_name} {user.last_name}
                     </h1>
-                    <p className="profile-page-username">{user.username}</p>
-                    <div className="profile-buttons">
-                        <button>Share</button>
-                        <button>Edit profile</button>
+                    <div className="profile-username-container">
+                        <img src="../../../pinspire_small.png"/>
+                        <p className="profile-page-username">{user.username}</p>
                     </div>
                 </div>
                 <div className="profile-links">
