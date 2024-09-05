@@ -22,6 +22,18 @@ def get_pins():
 
     return jsonify({ "Pins": pins_list})
 
+@pin_routes.route("/user/<int:user_id>", methods=["GET"])
+def get_pins_by_user(user_id):
+    pins = Pin.query.filter_by(user_id=user_id).all()
+    pins_list = []
+
+    for pin in pins:
+        pin_data = pin.to_dict()
+        pin_data['boards'] = [board.to_dict() for board in pin.boards]
+        pins_list.append(pin_data)
+
+    return jsonify({ "Pins": pins_list})
+
 
 @pin_routes.route("/pagination", methods=["GET"])
 def get_pins_pagination():
