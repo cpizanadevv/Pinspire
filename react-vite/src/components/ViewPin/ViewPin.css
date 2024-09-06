@@ -27,6 +27,7 @@
 .view-pin-page .pin-container .left,
 .view-pin-page .pin-container .right {
     flex: 1;
+    background-color: white;
 }
 
 /* ----- LEFT COLUMN ----- */
@@ -95,8 +96,8 @@
 .view-pin-page .pin-container .right .info .link-line {
     padding: 5px;
     font-size: 14px;
-    /* color: #7b7b7b; */
-    color: black;
+    color: #7b7b7b;
+    /* color: black; */
 }
 
 .view-pin-page .pin-container .right .info .link-line:hover {
@@ -192,7 +193,7 @@
 }
 
 .right .comment-container .comments .header {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #c6c6c6;
 }
 
 .right .comment-container .comments .header span {
@@ -212,8 +213,8 @@
 }
 
 .right .comments-section p {
-    /* color: #c6c6c6; */
-    color: white;
+    color: #c6c6c6;
+    /* color: white; */
 }
 
 /* ----- INDIVIDUAL COMMENTS ----- */
@@ -254,7 +255,8 @@
 .comments-section .individual-comment .options .buttons button {
     all: unset;
     font-size: 12px;
-    color: white;
+    /* color: white; */
+    color: #c6c6c6;
     transition: 0.2s ease;
 }
 
@@ -272,7 +274,8 @@
 .individual-comment form button {
     all: unset;
     font-size: 14px;
-    color: white;
+    /* color: white; */
+    color: #c6c6c6;
     transition: 0.2s ease;
 }
 

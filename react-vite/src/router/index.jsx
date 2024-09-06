@@ -15,6 +15,8 @@ import ProfileFavorites from '../components/ProfileFavorites/ProfileFavorites';
 import ProfileCreated from '../components/ProfileCreated/ProfileCreated'
 import ProfileSaved from '../components/ProfileSaved/ProfileSaved'
 import Loader from '../components/Loader/Loader';
+import AboutPage from '../components/AboutPage/AboutPage'
+
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -77,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path: '/loader',
         element: <Loader/>
+      },
+      {
+        path: '/about-page',
+        element: <AboutPage />
       }
     ],
   },
