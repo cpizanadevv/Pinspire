@@ -29,7 +29,7 @@ const ViewPin = () => {
     useEffect(() => {
         dispatch(getPin(pinId));
         checkIfFavorite();
-    }, [dispatch, pinId, checkIfFavorite]);
+    }, [dispatch, pinId]);
 
     const checkIfFavorite = async () => {
         const favorites = await dispatch(getUserFavorites(currentUser.id));
