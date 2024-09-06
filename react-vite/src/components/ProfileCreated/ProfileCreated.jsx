@@ -10,7 +10,7 @@ import Loader from "../Loader/Loader";
 
 const ProfileCreated = () => {
     const user = useSelector((state) => state.session.user);
-    const pinsObj = useSelector((state) => state.pinState.pins);
+    const pinsObj = useSelector((state) => state.pinState.userPins);
     const userPins = Object.values(pinsObj);
 
 

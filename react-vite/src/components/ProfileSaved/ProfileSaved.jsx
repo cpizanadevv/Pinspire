@@ -33,7 +33,7 @@ const ProfileSaved = () => {
     }, [dispatch]);
 
     if (!boards.length) {
-        return <div className="loading-message">No Boards Yet</div>;
+        return <div className="loading-message">Loading boards data...</div>;
     }
 
     return (

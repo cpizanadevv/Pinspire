@@ -28,13 +28,13 @@ function AddButton() {
   }, [showMenu]);
 
   return (
-    <>
+    <div className="profile-saved-dropdown-container">
         <button onClick={toggleMenu} className="profile-saved-button">
             <FaPlus style={{fontSize:'22px'}}/>
         </button>
         {showMenu && (
-            <div className="profile-saved-menu" ref={ulRef}>
-                <div className="profile-saved-dropdown">
+            // <div className="profile-saved-menu" ref={ulRef}>
+                <div className="profile-saved-dropdown" ref={ulRef}>
                     <p>Create</p>
                     <div className="profile-saved-dropdown-options">
                         <NavLink to={'/create'}>Pin</NavLink>
@@ -45,9 +45,9 @@ function AddButton() {
                         />
                     </div>
                 </div>
-            </div>
+            // </div>
         )}
-    </>
+    </div>
   );
 }
 

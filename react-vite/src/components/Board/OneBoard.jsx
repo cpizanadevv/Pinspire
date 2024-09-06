@@ -68,9 +68,9 @@ const OneBoard = () => {
                             </div>
                         ))
                     ) : (
-                        <div>
+                        <div className="created-grid-home-link">
                             <NavLink to="/">
-                                No boards yet. Go to Home to browse for Pins!
+                                Visit Home to browse for pins!
                             </NavLink>
                         </div>
                     )}
