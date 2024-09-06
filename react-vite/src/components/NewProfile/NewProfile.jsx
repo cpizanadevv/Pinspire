@@ -25,7 +25,7 @@ const NewProfile = () => {
         <div id="profile-page-container">
             <div id="profile-top-container">
                 <div id="profile-user-container">
-                    <span id="profile-picture">{user.first_name[0]}</span>
+                    <span id="profile-picture">{user.first_name[0].toUpperCase()}</span>
                     <h1 className="profile-page-name">
                         {user.first_name} {user.last_name}
                     </h1>

@@ -1,3 +1,8 @@
+.profile-saved-container {
+    position: relative;
+    display: inline-block;
+}
+
 .profile-saved-button {
     display: flex;
     justify-content: end;
@@ -14,7 +19,6 @@
     flex-direction: column;
     position: absolute;
     align-items: center;
-    bottom: 380px;
     right: 20px;
     height: 100px;
     z-index: 1000;
