@@ -33,9 +33,15 @@ function Navigation() {
           <SearchComponent />
         </li>
 
+
         <li>
           <ProfileButton />
         </li>
+
+        <NavLink className='about-icon' to="/about-page" title="About Us!">
+          <i className="fa-solid fa-link"></i>
+        </NavLink>
+
       </ul>
     </>
   );

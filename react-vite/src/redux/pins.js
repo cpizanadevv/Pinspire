@@ -1,5 +1,6 @@
 const LOAD_PIN = "pins/loadPin"
 const GET_PINS = "pins/getPins"
+const GET_USER_PINS = "pins/getUserPins"
 const CREATE_PIN = "pins/createPin"
 const UPDATE_PIN = "pins/updatePin"
 const REMOVE_PIN = "pins/removePin"
@@ -17,6 +18,11 @@ const loadPin = (pin) => ({
 
 const getPins = (pins) => ({
     type:  GET_PINS,
+    pins
+});
+
+const getUserPins = (pins) => ({
+    type:  GET_USER_PINS,
     pins
 });
 
@@ -84,7 +90,7 @@ export const getPinsByUser = (userId) => async (dispatch) => {
     const response = await fetch(`/api/pins/user/${userId}`)
     if (response.ok) {
         const { Pins } = await response.json();
-        dispatch(getPins(Pins))
+        dispatch(getUserPins(Pins))
     } else {
         const error = await response.json()
         return error
@@ -170,7 +176,7 @@ export const addPin = (newPin) => async (dispatch) => {
     }
 };
 
-const initialState = { pin: {}, pins: {},
+const initialState = { pin: {}, pins: {}, userPins: {},
 page: 1,
 pageSize: 15,
 hasMore: true,
@@ -186,6 +192,12 @@ function pinsReducer(state = initialState, action) {
         case GET_PINS: {
             newState = { ...state, pins: {} };
             action.pins.forEach( pin => { newState.pins[pin.id] = pin })
+            // console.log('GET_PINS action:', newState.pins);
+            return newState
+        }
+        case GET_USER_PINS: {
+            newState = { ...state, userPins: {} };
+            action.pins.forEach( pin => { newState.userPins[pin.id] = pin })
             // console.log('GET_PINS action:', newState.pins);
             return newState
         }

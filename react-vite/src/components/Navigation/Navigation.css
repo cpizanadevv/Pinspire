@@ -68,6 +68,7 @@
   top: 0;
   padding: 15px 20px;
   z-index: 100;
+  gap: 8px;
   /* need to add margin-top: 40px? to every page to implement fixed header */
 }
 
@@ -255,6 +256,10 @@ a {
 .profile-menu .logout-button:hover {
   background-color: pink;
   color: #FF0079;
+}
+
+.about-icon {
+  cursor: pointer;
 }
 
 @media (max-width: 950px) {

@@ -5,8 +5,9 @@ import { getAllPins } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
 import { getAllFavorites } from "../../redux/favorites";
 import PutBoard from "../Board/EditBoard";
-import CreateBoard from "../Board/CreateBoard";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import AddButton from "./AddButton";
+import "./ProfileSaved.css"
 import Loader from "../Loader/Loader";
 
 const ProfileSaved = () => {
@@ -32,25 +33,13 @@ const ProfileSaved = () => {
     }, [dispatch]);
 
     if (!boards.length) {
-        return <div className="loading-message">No Boards Yet</div>;
+        return <div className="loading-message">Loading boards data...</div>;
     }
 
     return (
         <>
             <div className="profile-middle-container">
-                <button>
-                    <i className="fa-solid fa-sort"></i>
-                </button>
-                <OpenModalButton
-                    buttonText={
-                        <div className="create-board-button-content">
-                            <i className="fa-solid fa-plus"></i>
-                            <h2>Create Board</h2>
-                        </div>
-                    }
-                    modalComponent={<CreateBoard />}
-                    className="create-board-button"
-                />
+                <AddButton />
             </div>
             <div className="profile-board-grid">
                 {!userBoards && <Loader/>}

@@ -10,7 +10,7 @@ import CreatedLoader from "./CreatedLoader";
 
 const ProfileCreated = () => {
     const user = useSelector((state) => state.session.user);
-    const pinsObj = useSelector((state) => state.pinState.pins);
+    const pinsObj = useSelector((state) => state.pinState.userPins);
     const userPins = Object.values(pinsObj);
 
     const navigate = useNavigate();
@@ -34,7 +34,6 @@ const ProfileCreated = () => {
                 <CreatedLoader />
             </div>
         );
-    }
 
     return (
         <div className="created-grid">
