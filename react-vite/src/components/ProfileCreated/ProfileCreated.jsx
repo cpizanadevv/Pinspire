@@ -6,13 +6,12 @@ import { getPinsByUser } from "../../redux/pins";
 import { fetchAllBoards } from "../../redux/board";
 import EditPin from "../EditPin/EditPin";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
-import Loader from "../Loader/Loader";
+import CreatedLoader from "./CreatedLoader";
 
 const ProfileCreated = () => {
     const user = useSelector((state) => state.session.user);
     const pinsObj = useSelector((state) => state.pinState.userPins);
     const userPins = Object.values(pinsObj);
-
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -29,13 +28,15 @@ const ProfileCreated = () => {
         dispatch(fetchAllBoards());
     }, [dispatch]);
 
-    if (!userPins.length) {
-        return <div className="loading-message">You haven&apos;t made any pins yet</div>;
-    }
+    if (!userPins || !userPins.length) {
+        return (
+            <div className="created-loader-container">
+                <CreatedLoader />
+            </div>
+        );
 
     return (
         <div className="created-grid">
-            {!userPins && <Loader/>}
             {userPins.map((pin) => (
                 <NavLink key={pin.id} to={`/pin/${pin.id}`}>
                     <div key={pin.id} className="profile-pin-container">

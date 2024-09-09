@@ -23,7 +23,10 @@ const OneBoard = () => {
 
     const boardPins = board?.pins || [];
 
-    if (!board || !board.name || !boardPins) return <Loader/>
+    if (!board || !board.name || !boardPins) return;
+    <div className="loader-container">
+        <Loader />
+    </div>;
 
     return (
         <div id="one-board-container">
@@ -49,7 +52,6 @@ const OneBoard = () => {
             </div>
             <div className="pins-container">
                 <div className="created-grid">
-
                     {boardPins.length > 0 ? (
                         boardPins.map((pin) => (
                             <div key={pin.id} className="profile-pin-container">
