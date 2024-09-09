@@ -1,28 +1,38 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getPin } from '../../redux/pins';
-import { createComment, updateComment, deleteComment } from '../../redux/comment';
-import { createNewFavorite, deleteFavorite, getUserFavorites } from '../../redux/favorites';
-import Notification from '../Notification/Notification';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getPin } from "../../redux/pins";
+import {
+    createComment,
+    updateComment,
+    deleteComment,
+} from "../../redux/comment";
+import {
+    createNewFavorite,
+    deleteFavorite,
+    getUserFavorites,
+} from "../../redux/favorites";
+import Notification from "../Notification/Notification";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import EditPin from '../EditPin/EditPin';
+import EditPin from "../EditPin/EditPin";
 import AddBoardPin from "../AddBoardPin/AddBoardPin";
-import './ViewPin.css';
+import "./ViewPin.css";
+import Loader from "../Loader/Loader";
 
 const ViewPin = () => {
     const { pinId } = useParams();
     const dispatch = useDispatch();
     const pin = useSelector((state) => state.pinState.pin || {});
+    const comments = useSelector((state) => pin.comments || {}); // Fetch comments from pin object
     const currentUser = useSelector((state) => state.session.user);
-    const [newComment, setNewComment] = useState('');
+    const [newComment, setNewComment] = useState("");
     const [editingCommentId, setEditingCommentId] = useState(null);
-    const [editedComment, setEditedComment] = useState('');
+    const [editedComment, setEditedComment] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
-    const [notificationMessage, setNotificationMessage] = useState('');
+    const [notificationMessage, setNotificationMessage] = useState("");
     const [showNotification, setShowNotification] = useState(false);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
@@ -33,7 +43,10 @@ const ViewPin = () => {
 
     const checkIfFavorite = async () => {
         const favorites = await dispatch(getUserFavorites(currentUser.id));
-        if (favorites && favorites.some(fav => fav.pin_id === parseInt(pinId))) {
+        if (
+            favorites &&
+            favorites.some((fav) => fav.pin_id === parseInt(pinId))
+        ) {
             setIsFavorite(true);
         }
     };
@@ -48,10 +61,10 @@ const ViewPin = () => {
 
         if (isFavorite) {
             await dispatch(deleteFavorite(pinId));
-            showNotificationMessage('Pin removed from favorites!');
+            showNotificationMessage("Pin removed from favorites!");
         } else {
             await dispatch(createNewFavorite(pinId));
-            showNotificationMessage('Pin added to favorites!');
+            showNotificationMessage("Pin added to favorites!");
         }
 
         setIsFavorite(!isFavorite);
@@ -65,7 +78,7 @@ const ViewPin = () => {
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        if (newComment.trim() === '') return;
+        if (newComment.trim() === "") return;
 
         const commentData = {
             comment: newComment,
@@ -74,7 +87,7 @@ const ViewPin = () => {
 
         const result = await dispatch(createComment(commentData));
         if (result && !result.errors) {
-            setNewComment('');
+            setNewComment("");
             await dispatch(getPin(pinId));
         } else {
             console.error("Failed to submit comment:", result);
@@ -88,7 +101,7 @@ const ViewPin = () => {
 
     const handleEditSubmit = async (e, commentId) => {
         e.preventDefault();
-        if (editedComment.trim() === '') return;
+        if (editedComment.trim() === "") return;
 
         const updatedCommentData = {
             id: commentId,
@@ -125,13 +138,13 @@ const ViewPin = () => {
 
     const renderDescription = () => {
         if (!pin.description) {
-            return '';
+            return "";
         }
 
         if (isDescriptionExpanded || pin.description.length <= 60) {
             return pin.description;
         }
-        return pin.description.slice(0, 50) + ' ...';
+        return pin.description.slice(0, 50) + " ...";
     };
 
     const getAuthorName = () => {
@@ -140,15 +153,17 @@ const ViewPin = () => {
         }
         if (pin.description && pin.description.startsWith("Photo by")) {
             const author = pin.description.split("by")[1].trim();
-            return author || 'Unknown';
+            return author || "Unknown";
         }
-        return 'Unknown';
+        return "Unknown";
     };
 
-    const comments = pin.comments || {};
-
-    if (!pin) {
-        return <div>Loading pin data...</div>;
+    if (!pin || pin.id !== +pinId) {
+        return (
+            <div className="loader-container">
+                <Loader />
+            </div>
+        );
     }
 
     const renderComments = () => {
@@ -157,35 +172,64 @@ const ViewPin = () => {
         }
 
         return Object.values(comments)
-            .filter(comment => comment && comment.id)
-            .map(comment => {
+            .filter((comment) => comment && comment.id)
+            .map((comment) => {
                 if (!comment) return null;
 
                 return (
-                    <div className='individual-comment' key={comment.id}>
+                    <div className="individual-comment" key={comment.id}>
                         {editingCommentId === comment.id ? (
-                            <form onSubmit={(e) => handleEditSubmit(e, comment.id)}>
+                            <form
+                                onSubmit={(e) =>
+                                    handleEditSubmit(e, comment.id)
+                                }
+                            >
                                 <input
                                     value={editedComment}
-                                    onChange={(e) => setEditedComment(e.target.value)}
+                                    onChange={(e) =>
+                                        setEditedComment(e.target.value)
+                                    }
                                     autoFocus
                                 />
-                                {editedComment.trim() !== '' && (
+                                {editedComment.trim() !== "" && (
                                     <button type="submit">Save</button>
                                 )}
-                                <button type="button" onClick={() => setEditingCommentId(null)}>Cancel</button>
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingCommentId(null)}
+                                >
+                                    Cancel
+                                </button>
                             </form>
                         ) : (
                             <>
                                 <div className="comment">
-                                    <h4 className='username'>{comment.username}</h4>
+                                    <h4 className="username">
+                                        {comment.username}
+                                    </h4>
                                     <span>{comment.comment}</span>
                                 </div>
                                 {comment.user_id === currentUser?.id && (
-                                    <div className='options'>
-                                        <div className='buttons'>
-                                            <button className="edit-button" onClick={() => handleEditClick(comment)}>Edit</button>
-                                            <button className="delete-button" onClick={() => handleDeleteClick(comment.id)}>Delete</button>
+                                    <div className="options">
+                                        <div className="buttons">
+                                            <button
+                                                className="edit-button"
+                                                onClick={() =>
+                                                    handleEditClick(comment)
+                                                }
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="delete-button"
+                                                onClick={() =>
+                                                    handleDeleteClick(
+                                                        comment.id
+                                                    )
+                                                }
+                                            >
+                                                Delete
+                                            </button>
                                         </div>
                                     </div>
                                 )}
@@ -197,10 +241,13 @@ const ViewPin = () => {
     };
 
     return (
-        <div className='view-pin-page'>
-            <Notification message={notificationMessage} show={showNotification} />
-            <div className='pin-container'>
-                <div className='left'>
+        <div className="view-pin-page">
+            <Notification
+                message={notificationMessage}
+                show={showNotification}
+            />
+            <div className="pin-container">
+                <div className="left">
                     <OpenModalButton
                         buttonText="Save"
                         modalComponent={<AddBoardPin />}
@@ -209,13 +256,20 @@ const ViewPin = () => {
                     />
                     <img src={pin.img_url} alt={pin.title} />
                 </div>
-                <div className='right'>
-                    <div className='favorite-edit'>
+                <div className="right">
+                    <div className="favorite-edit">
                         {currentUser && (
                             <button
-                                className={`favorite ${isFavorite ? 'favorited' : ''} ${isClicked ? 'clicked' : ''}`}
-                                onClick={toggleFavorite}>
-                                <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-star`}></i>
+                                className={`favorite ${
+                                    isFavorite ? "favorited" : ""
+                                } ${isClicked ? "clicked" : ""}`}
+                                onClick={toggleFavorite}
+                            >
+                                <i
+                                    className={`fa-${
+                                        isFavorite ? "solid" : "regular"
+                                    } fa-star`}
+                                ></i>
                             </button>
                         )}
                         {/* {currentUser?.id === pin.user_id && (
@@ -226,58 +280,98 @@ const ViewPin = () => {
                         )} */}
                         {pin.id && currentUser?.id === pin.user_id && (
                             <OpenModalButton
-                                buttonText={<><i className="fa-solid fa-pen-to-square"></i><span>Edit</span></>}
+                                buttonText={
+                                    <>
+                                        <i className="fa-solid fa-pen-to-square"></i>
+                                        <span>Edit</span>
+                                    </>
+                                }
                                 modalComponent={<EditPin />}
                                 className="edit-pin"
                                 pinId={pin.id}
                             />
                         )}
                     </div>
-                    <div className='info'>
+                    <div className="info">
                         <h2>{pin.title}</h2>
-                        <p className='author'>{getAuthorName()}</p>
+                        <p className="author">{getAuthorName()}</p>
                         <p
-                            className='description-line'
-                            onClick={pin.description && pin.description.length > 60 ? toggleDescription : undefined}
-                            style={{ cursor: pin.description && pin.description.length > 60 ? 'pointer' : 'default' }}
+                            className="description-line"
+                            onClick={
+                                pin.description && pin.description.length > 60
+                                    ? toggleDescription
+                                    : undefined
+                            }
+                            style={{
+                                cursor:
+                                    pin.description &&
+                                    pin.description.length > 60
+                                        ? "pointer"
+                                        : "default",
+                            }}
                         >
                             {renderDescription()}
                         </p>
-                        {pin.link && <a className='link-line' href={pin.link} target="_blank" rel="noopener noreferrer">Visit Link</a>}
+                        {pin.link && (
+                            <a
+                                className="link-line"
+                                href={pin.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Visit Link
+                            </a>
+                        )}
                     </div>
-                    <div className='comment-container'>
-                        <div className='comments'>
-                            <div className='header'>
+                    <div className="comment-container">
+                        <div className="comments">
+                            <div className="header">
                                 <span>
                                     {Object.keys(comments).length > 0
-                                        ? `${Object.keys(comments).length} ${Object.keys(comments).length === 1 ? 'comment' : 'comments'}`
-                                        : 'Comments'}
+                                        ? `${Object.keys(comments).length} ${
+                                              Object.keys(comments).length === 1
+                                                  ? "comment"
+                                                  : "comments"
+                                          }`
+                                        : "Comments"}
                                 </span>
                             </div>
-                            <div className='comments-section'>
+                            <div className="comments-section">
                                 {renderComments()}
                             </div>
                         </div>
-                        <div className='input-box'>
+                        <div className="input-box">
                             <div className="tooltip-container">
                                 <form onSubmit={handleCommentSubmit}>
                                     <input
                                         value={newComment}
-                                        onChange={(e) => setNewComment(e.target.value)}
-                                        placeholder='Add a comment'
+                                        onChange={(e) =>
+                                            setNewComment(e.target.value)
+                                        }
+                                        placeholder="Add a comment"
                                         disabled={!currentUser}
-                                        style={{ color: !currentUser ? 'lightgray' : 'inherit' }}
+                                        style={{
+                                            color: !currentUser
+                                                ? "lightgray"
+                                                : "inherit",
+                                        }}
                                     />
                                     <button
                                         type="submit"
-                                        className={newComment.trim() === '' ? 'inactive' : 'active'}
+                                        className={
+                                            newComment.trim() === ""
+                                                ? "inactive"
+                                                : "active"
+                                        }
                                         disabled={!currentUser}
                                     >
                                         <i className="fa-solid fa-paper-plane"></i>
                                     </button>
                                 </form>
                                 {!currentUser && (
-                                    <span className="tooltip-text">Sign in to comment!</span>
+                                    <span className="tooltip-text">
+                                        Sign in to comment!
+                                    </span>
                                 )}
                             </div>
                         </div>
@@ -290,14 +384,18 @@ const ViewPin = () => {
                         <h2>Confirm Deletion</h2>
                         <p>Are you sure you want to delete this comment?</p>
                         <div className="delete-modal-buttons">
-                            <button onClick={handleDeleteConfirm}>Delete</button>
-                            <button onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                            <button onClick={handleDeleteConfirm}>
+                                Delete
+                            </button>
+                            <button onClick={() => setShowDeleteModal(false)}>
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
             )}
         </div>
-    )
+    );
 };
 
 export default ViewPin;

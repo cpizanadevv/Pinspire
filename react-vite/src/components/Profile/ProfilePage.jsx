@@ -70,6 +70,14 @@ const Profile = () => {
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
+    
+    if (!userBoards.length) {
+        return (
+            <div className="created-loader-container">
+                <CreatedLoader />
+            </div>
+        );
+    }
 
     return (
         <div id="profile-page-container">
@@ -158,7 +166,6 @@ const Profile = () => {
 
                 {activeTab === "saved" && (
                     <div className="profile-board-grid">
-                        {!userBoards && <Loader/>}
                         {userBoards.map((board) => (
                             <NavLink key={board.id} to={`/boards/${board.id}`}>
                                 <div className="profile-board-container">

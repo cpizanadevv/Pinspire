@@ -30,9 +30,7 @@
 }
 
 /* ----- LEFT COLUMN ----- */
-.view-pin-page .pin-container .left {
-    /* max-width: 100%; */
-}
+
 
 .view-pin-page .pin-container .landing-save-button {
     position: absolute;
@@ -444,4 +442,18 @@
         width: 100%;
         border-radius: 0 0 30px 30px;
     }
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0); /* Optional: a translucent background */
+    z-index: 1000; /* Make sure it's on top of other content */
+    margin-top: -350px;
 }
